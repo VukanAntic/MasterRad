@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.11.24)  24 NOV 2024 15:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.11.24)  24 NOV 2024 18:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -246,7 +246,7 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count175
 \l__pdf_internal_box=\box45
 )
-No file master_rad_prijava.aux.
+(./master_rad_prijava.aux)
 \openout1 = `master_rad_prijava.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
@@ -265,72 +265,28 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
 LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
+
+Underfull \hbox (badness 2600) in paragraph at lines 32--33
+[]\T2A/cmr/bx/it/10 ,,Развоj апликациjе за добиjа»е уметничке слике на дневном 
+нивоу употребом
+ []
+
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 36.
+(Font)              <7> on input line 33.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 36.
+(Font)              <5> on input line 33.
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
+! LaTeX Error: There's no line here to end.
 
- []
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.50 }
+      
+? 
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 74--74
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 80--112
+Underfull \hbox (badness 10000) in paragraph at lines 56--88
 
  []
 
@@ -339,21 +295,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 80--112
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 (./master_rad_prijava.aux) ) 
 Here is how much of TeX's memory you used:
- 1201 strings out of 482657
- 18061 string characters out of 5957837
+ 1203 strings out of 482657
+ 18107 string characters out of 5957837
  238276 words of memory out of 5000000
  16295 multiletter control sequences out of 15000+600000
  535717 words of font info for 28 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 25i,5n,25p,236b,204s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 25i,5n,25p,1232b,204s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/vukan/.texlive2019/texmf-var/fonts/pk/ljfou
 r/lh/lh-t2a/lati1000.600pk> </home/vukan/.texlive2019/texmf-var/fonts/pk/ljfour
 /lh/lh-t2a/labi1000.600pk> </home/vukan/.texlive2019/texmf-var/fonts/pk/ljfour/
 lh/lh-t2a/labx1000.600pk> </home/vukan/.texlive2019/texmf-var/fonts/pk/ljfour/l
 h/lh-t2a/larm1000.600pk>
-Output written on master_rad_prijava.pdf (1 page, 38073 bytes).
+Output written on master_rad_prijava.pdf (1 page, 55945 bytes).
 PDF statistics:
- 146 PDF objects out of 1000 (max. 8388607)
+ 202 PDF objects out of 1000 (max. 8388607)
  20 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
