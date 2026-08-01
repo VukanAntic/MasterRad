@@ -1,0 +1,55 @@
+\begin{thebibliography}{1}
+
+\bibitem{fielding2000}
+Roy~Thomas Fielding.
+\newblock {\em {Architectural Styles and the Design of Network-based Software
+  Architectures}}.
+\newblock PhD thesis, University of California, Irvine, 2000.
+\newblock on-line at:
+  \url{https://ics.uci.edu/~fielding/pubs/dissertation/top.htm}.
+
+\bibitem{grpc-docs}
+{gRPC Authors}.
+\newblock {gRPC Documentation: Core Concepts, Architecture and Lifecycle}.
+\newblock \url{https://grpc.io/docs/what-is-grpc/core-concepts/}, 2024.
+\newblock Pristupljeno: 1. avgusta 2026.
+
+\bibitem{graphql-spec}
+{GraphQL Foundation}.
+\newblock {GraphQL Specification}.
+\newblock \url{https://spec.graphql.org/}, 2021.
+\newblock Pristupljeno: 1. avgusta 2026.
+
+\bibitem{newman2021}
+Sam Newman.
+\newblock {\em {Building Microservices: Designing Fine-Grained Systems}}.
+\newblock O'Reilly Media, 2 edition, 2021.
+
+\bibitem{palermo2008}
+Jeffrey Palermo.
+\newblock {The Onion Architecture: Part 1}.
+\newblock
+  \url{https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/},
+  2008.
+\newblock Pristupljeno: 1. avgusta 2026.
+
+\bibitem{martin2017}
+Robert~C. Martin.
+\newblock {\em {Clean Architecture: A Craftsman's Guide to Software Structure
+  and Design}}.
+\newblock Prentice Hall, 2017.
+
+\bibitem{fowler-mvc}
+Martin Fowler.
+\newblock {Model View Controller}.
+\newblock \url{https://martinfowler.com/eaaCatalog/modelViewController.html},
+  2002.
+\newblock Pristupljeno: 1. avgusta 2026.
+
+\bibitem{artic-api}
+{The Art Institute of Chicago}.
+\newblock {Art Institute of Chicago API}.
+\newblock \url{https://api.artic.edu/docs/}, 2025.
+\newblock Pristupljeno: 15. marta 2025.
+
+\end{thebibliography}

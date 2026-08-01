@@ -1,0 +1,49 @@
+% Samostalna slika: tok prikupljanja i obrade podataka
+% Prevesti sa:  pdflatex slika-prikupljanje.tex
+% Ubaciti u rad sa: \includegraphics[width=\textwidth]{slika-prikupljanje}
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\tikzset{
+  kutija/.style={draw=black,line width=0.5pt,align=center,
+                 minimum height=11mm,minimum width=10.5cm,inner sep=4pt},
+  str/.style={-{Latex[length=2.4mm,width=2mm]},line width=0.5pt,black},
+}
+
+\begin{document}
+\begin{tikzpicture}[node distance=6mm]
+
+  \node[kutija] (dump)
+       {\textbf{Arhiva Instituta}\, --- \,\small JSON zapis po eksponatu};
+
+  \node[kutija,below=of dump] (citaj)
+       {\texttt{parse\_json\_folder}\, --- \,\small obilazak arhive i mešanje redosleda};
+
+  \node[kutija,below=of citaj] (parsiraj)
+       {\texttt{parse\_single\_artwork}\, --- \,\small izdvajanje polja};
+
+  \node[kutija,below=of parsiraj] (filter)
+       {\textbf{Filtriranje}\, --- \,\small tip eksponata i obavezna polja};
+
+  \node[kutija,below=of filter] (provera)
+       {\texttt{check\_if\_path\_is\_invalid}\, --- \,\small HTTP provera slike};
+
+  \node[kutija,below=of provera] (upis)
+       {\texttt{add\_to\_database}\, --- \,\small upis kroz SQLAlchemy model};
+
+  \node[kutija,below=of upis] (db)
+       {\textbf{PostgreSQL}};
+
+  \draw[str] (dump) -- (citaj);
+  \draw[str] (citaj) -- (parsiraj);
+  \draw[str] (parsiraj) -- (filter);
+  \draw[str] (filter) -- (provera);
+  \draw[str] (provera) -- (upis);
+  \draw[str] (upis) -- (db);
+
+\end{tikzpicture}
+\end{document}

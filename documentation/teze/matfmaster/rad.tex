@@ -1,0 +1,519 @@
+
+\documentclass[12pt,oneside]{memoir}
+
+\usepackage[latinica]{matfmaster} 
+% Podrazumevano pismo je ćirilica.
+%   Ako koristite pdflatex, a ne xetex, sav latinički tekst na srpskom jeziku
+%   treba biti okružen sa \lat{...} ili \begin{latinica}...\end{latinica}.
+%
+% Opicija [latinica]:
+%   ako želite da pišete latiniciom, dodajte opciju "latinica" tj.
+%   prethodni paket uključite pomoću: \usepackage[latinica]{matfmaster}.
+%   Ako koristite pdflatex, a ne xetex, sav ćirilički tekst treba biti
+%   okružen sa \cir{...} ili \begin{cirilica}...\end{cirilica}.
+%
+% Opcija [biblatex]:
+%   ako želite da koristite reference na više jezika i umesto paketa
+%   bibtex da koristite BibLaTeX/Biber, dodajte opciju "biblatex" tj.
+%   prethodni paket uključite pomoću: \usepackage[biblatex]{matfmaster}
+%
+% Opcija [b5paper]:
+%   ako želite da napravite verziju teze u manjem (b5) formatu, navedite
+%   opciju "b5paper", tj. prethodni paket uključite pomoću: 
+%   \usepackage[b5paper]{matfmaster}. Tada ima smisla razmisliti o promeni
+%   veličine slova (izmenom opcije 12pt na 11pt u \documentclass{memoir}).
+%
+% Naravno, opcije je moguće kombinovati.
+% Npr. \usepackage[b5paper,biblatex]{matfmaster}
+% Pomoćni paket koji generiše nasumičan tekst u kojem se javljaju sva slova
+% azbuke (nema potrebe koristiti ovo u pravim disertacijama)
+\usepackage{pangrami}
+% Paket koji obezbeđuje ispravni prikaz ćiriličkih italik slova kada
+% se koristi pdflatex. Zakomentarisati ako na sistemu koji koristite ovaj
+% paket nije dostupan ili ako ne radi ispravno.
+\usepackage{cmsrb}
+\usepackage{xspace}
+
+% Ostali paketi koji se koriste u dokumentu
+\usepackage{listings} % listing programskog koda
+
+% Datoteka sa literaturom u BibTex tj. BibLaTeX/Biber formatu
+\bib{literatura}
+
+% Ime kandidata na srpskom jeziku (u odabranom pismu)
+\autor{Vukan Antić}
+% Naslov teze na srpskom jeziku (u odabranom pismu)
+\naslov{Uporedjivanje protokola za komunikaciju GraphQL, GRPC i Rest, razvojom mobilne aplikacije upotrebom tehnologija Spring Boot i React Native}
+% Godina u kojoj je teza predana komisiji
+\godina{2026}
+% Ime i afilijacija mentora (u odabranom pismu)
+\mentor{dr Vladimir \textsc{Filipović}, redovan profesor\\ Univerzitet u Beogradu, Matematički fakultet}
+% Ime i afilijacija prvog člana komisije (u odabranom pismu)
+\komisijaA{dr Aleksandar \textsc{Kartelj}, vandredni profesor\\ Univerzitet u Beogradu, Matematički fakultet}
+% Ime i afilijacija drugog člana komisije (u odabranom pismu)
+\komisijaB{dr Staša \textsc{Vujičić Stanković}, docent\\ Univerzitet u Beogradu, Matematički fakultet}
+% Ime i afilijacija trećeg člana komisije (opciono)
+% \komisijaC{}
+% Ime i afilijacija četvrtog člana komisije (opciono)
+% \komisijaD{}
+% Datum odbrane (obrisati ili iskomentarisati narednu liniju ako datum odbrane nije poznat)
+%\datumodbrane{15. јануар 2016.} 
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\renewcommand{\lstlistingname}{Primer koda}
+\providecommand*{\lstlistingautorefname}{Primer koda}
+
+% hyperref nema srpske nazive za \autoref -> inace pise "Figure 2.1"
+\AtBeginDocument{%
+  \renewcommand*{\figureautorefname}{Slika}%
+  \renewcommand*{\tableautorefname}{Tabela}%
+  \renewcommand*{\chapterautorefname}{Glava}%
+  \renewcommand*{\sectionautorefname}{Odeljak}%
+  \renewcommand*{\subsectionautorefname}{Odeljak}%
+  \renewcommand*{\equationautorefname}{Jednačina}%
+  \renewcommand*{\footnoteautorefname}{Fusnota}%
+}
+\definecolor{kodkomentar}{rgb}{0.35,0.45,0.35}
+\definecolor{kodkljucna}{rgb}{0.10,0.10,0.60}
+\definecolor{kodstring}{rgb}{0.55,0.15,0.15}
+\definecolor{kodpozadina}{rgb}{0.975,0.975,0.975}
+\definecolor{kodokvir}{rgb}{0.80,0.80,0.80}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{kodkljucna}\bfseries,
+  commentstyle=\color{kodkomentar}\itshape,
+  stringstyle=\color{kodstring},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=8pt,
+  backgroundcolor=\color{kodpozadina},
+  frame=single,
+  rulecolor=\color{kodokvir},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b,
+  extendedchars=false,
+  xleftmargin=15pt,
+  framexleftmargin=15pt,
+  aboveskip=1.1em,
+  belowskip=1.1em,
+}
+
+% Apstrakt na srpskom jeziku (u odabranom pismu)
+\apstr{%
+TODO popuni kasnije
+}
+
+% Ključne reči na srpskom jeziku (u odabranom pismu)
+\kljucnereci{TODO popuni kasnije}
+
+% matfmaster u \literatura zakucava stil "plain" (abecedno). Menjamo na
+% "unsrt", koji redja izvore po redosledu prvog pojavljivanja u tekstu.
+\makeatletter
+\renewcommand{\literatura}{%
+  \bibliography{\matfmaster@bib}{}%
+  \bibliographystyle{unsrt}%
+}
+\makeatother
+
+% memoir podrazumevano numerise samo do \section, pa bi \subsection
+% ostao bez broja i bez broja u sadrzaju. Ovim se dozvoljava nivo 2.1.1
+\maxsecnumdepth{subsection}
+\setsecnumdepth{subsection}
+\maxtocdepth{subsection}
+\settocdepth{subsection}
+
+\begin{document}
+% ==============================================================================
+% Uvodni deo teze
+\frontmatter
+% ==============================================================================
+% Naslovna strana
+\naslovna
+% Strana sa podacima o mentoru i članovima komisije
+\komisija
+% Strana sa posvetom (u odabranom pismu)
+\posveta{Овај рад посвећујем свом оцу, мајци, брату, пријатељима и колегама на подршци у току израде овог рада. др. Владимиру Филиповићу се захваљујем на стрпљењу као и саветима у току изграда овог рада. Посебну захвалност дугујем партнеру Душици, на свој љубави пруженој у току студија.}
+% Strana sa podacima o disertaciji na srpskom jeziku
+\apstrakt
+% Sadržaj teze
+\tableofcontents*
+
+% ==============================================================================
+% Glavni deo teze
+\mainmatter
+% ====================== ========================================================
+
+% ------------------------------------------------------------------------------
+\chapter{Uvod}
+\label{ch:uvod}
+% ------------------------------------------------------------------------------
+Sa rastućom upotrebom mobilnih aplikacija, komunikacija izmedju klijenta i servera se u većini slučajeva svede 
+na Rest \cite{fielding2000} protokol komunikacije iz navike, iako postoje i drugi protokoli poput GRPC \cite{grpc-docs} i GraphQL \cite{graphql-spec}, koji 
+su performantniji, 
+fleksibilniji, kao i skalabilniji. Zato je u toku izrade naredne aplikacije bila upotreba sva 3 
+protokola, da bi se moglo videti
+ kada je koji protokol najbolje koristiti.
+
+
+ Sam projekat predstavlja aplikaciju otvorenog koda\footnote{\url{https://github.com/VukanAntic/ArtOfTheDay}}
+, koja svakodnevno daje
+ korisniku umetničku sliku, sa detaljnim opisom, i daje mu mogućnost
+  da sačuva omiljenu, radi dalje preporučivanje novog sadržaja. 
+  Pored toga, postoje i funkcionalnosti čuvanja omiljenih slika 
+  u memoriji sopstvenog telefona, kao i da deli slike sa drugim 
+  korisnicima. Takođe, pri izlasku nove slike, korisnik dobija obaveštenje 
+  o novom sadržaju koji je dodat za njega.
+
+
+ Izrada projekta čine sledeći delovi: 
+ \begin{itemize}
+\item Prikupljivanje podataka - U glavi \ref{ch:podaci} predstavljen je detaljan opis odakle je aplikacija dobila podatke za prikaz u okrivu same aplikacije.
+\item Izrada servera zasnovanog na mikroservisnoj arhitekturi \cite{newman2021} - U glavi \ref{ch:server} predstavljena implementacija servera, koja je zasnovana na mikroservison arhitekturi, dok je svaki od mikroservisa pratio (eng. \textit{Onion}) arhitekturu \cite{palermo2008, martin2017}, koja je pomogla da se lako dodaje podrška za sve protokole komunikacije. 
+\item Izrada klijenta zasnovanog na MVC arhitekturi \cite{fowler-mvc} - U glavi \ref{ch:klijent} prikazano je kako je implementiran klijentski deo koda, koja prati MVC arhitekturu, kao i dodatne funkcionalnosti koje klijent podržava, kao što je viđet (eng. \textit{widget}).
+\item Dodavanje GPRC i GraphQL - Glava \ref{ch:protokoli} predstavlja prikaz svih gore navedenih protokola komunikacije, kao i poređenja.
+\end{itemize}
+
+  
+\chapter{Prikupljivanje podataka}
+\label{ch:podaci}
+
+Aplikacija razvijena u okviru ovog rada, {\textit{INSPIRA daily}\xspace}, prikazuje korisniku novu umetničku sliku svakog dana
+uzimajući u obzir preference korisnika. Potrebe projekta su bile da ima veliku količinu umetničkih slika, detaljan opis
+za svaku, žanr kojoj slika prikada, kao i informacija ko je bio slikar iste. Iz tih razloga, za izvor 
+podataka bio je izabran Institut za umetnost u Čikagu (eng. \textit{The Art Institute of Chicago}) 
+\cite{artic-api}. Institut
+nudi javni programski interfejs, ali i potpuni prepis zbirke (eng. \textit{data dump}) - arhiva svih slika, 
+sačuvanih u JSON obliku. Odabran je pristup preko arhive, iz razloga što bi dohvatanje podataka preko
+interfejsa zahtevalo veliki vremenski period, kao i stavljanje velikog pritiska na server instituta. 
+
+
+Slike se ne čuvaju lokalno, iz razloga jer ih institut izlaže preko protokola IIIF 
+(eng. \textit{International Image Interoperability Framework}) koji omogućava da se željena slika, kao 
+i njega širina zatraži preko adrese (\textit{url}). Adresa slike se može sastaviti iz identifikatora 
+slike (eng. \textit{image id}) , što pokazuje 
+\autoref{lst:iiif}.
+
+
+
+\lstset{
+  language=Python,
+  label={lst:iiif},
+  caption={Sastavljanje adrese slike iz identifikatora}
+}
+\begin{lstlisting}
+path = f'https://www.artic.edu/iiif/2/{data["image_id"]}
+       /full/843,/0/default.jpg'
+\end{lstlisting}
+
+Na ovaj način, za dohvatanje i prikazivanje slika bilo je samo potrebno izvući indentifikator svake željenje slike,
+i dobija se adresa iste. Vrednost 843 podrazumeva najčešću korišćenu veličinu slike, koja je verovatno keširana
+na strani intstitutovog servera. Bilo je moguće zameniti tu vrednost sa manjom vrednošću, da sve slike
+imaju istu širinu i visinu. 
+
+
+
+\section{Obrada podataka}
+Automatska obrada podataka, bila je realizovana uz pomoć skripte napisane u programskom jeziku \textit{Python}
+po imenu \textit{ImageDatabaseGenerator.py}. \autoref{fig:prikupljanje} prikazuje kako je to urađeno.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{slika-prikupljanje}
+  \caption{Tok obrade podataka}
+  \label{fig:prikupljanje}
+\end{figure}
+
+
+
+
+\subsection{Filtriranje}
+Arhiva instituta ne sadrži samo umetničke slike, već i skulpture, fotografije, tekstil kao i veliku količinu 
+drugih tipova objekata. Iz tog razloga, bilo je potrebno filtrirati podatke, tako da se pronađu samo 
+umetničke slike, što se može videti \autoref{lst:filtriranje}.
+
+
+\lstset{
+  language=Python,
+  label={lst:filtriranje},
+  caption={Filtriranje umetničkih slika}
+}
+\begin{lstlisting}
+def parse_single_artwork(data):
+    id = data["id"]
+    title = data["title"]
+    description = data["description"]
+    date_display = data["date_display"]
+    style_id = data["style_id"]
+    style_title = data["style_title"]
+    artist_id = data["artist_id"]
+    artist_title = data["artist_title"]
+    artwork_type_id = data["artwork_type_id"]
+    # id = 1 represents artworks
+    artworked_wanted_indicies = [1]
+    path = f'https://www.artic.edu/iiif/2/{data["image_id"]}/full/843,/0/default.jpg'
+    if title is None or description is None or date_display is None \
+    or style_title is None or artwork_type_id not in artworked_wanted_indicies or \
+    check_if_path_is_invalid(path) :
+        return None
+    return {
+            "id" : id, 
+            "title" : title,
+            "description" : description, 
+            "date_display" : date_display,
+            "path" : path, 
+            "style_title" : style_title, 
+            "style_id" : style_id, 
+            "artist_title" : artist_title,
+            "artist_id" : artist_id
+            }
+\end{lstlisting}
+
+Pored provere da li je u pitanju umetnička slika, bilo je potrebno dodati i druge provere da li postoji 
+naziv slike, opis, i datum njene kreacije. 
+
+\subsection{Provera ispravnosti slike}
+
+Naredni korak posle filtriranja podrazumeva provera da li slika koju imaju u arhivi instituta ispravna, tj. 
+da li pristup adresi te slike vraća grešku, što pokazuje primer koda \ref{lst:dostupnost}.
+\newline
+
+\lstset{
+  language=Python,
+  label={lst:dostupnost},
+  caption={Provera dostupnosti}
+}
+\begin{lstlisting}
+def check_if_path_is_invalid(path) :
+    response = requests.get(path)
+    print(path)
+    print(response.status_code)
+
+    if response.status_code == 429:
+        print("Too many requests in a short period of time, need to cool off...")
+        time.sleep(60)
+        response = requests.get(path)
+    if response.status_code == 200:
+        return False
+
+    print("Found an error code!")
+    return True
+\end{lstlisting}
+
+
+Bitno je napomenuti, programski interfejs koji je dostupan od instituta vraća grešku \textbf{429}, ako je 
+previše zahteva stiglo od iste \textit{IP adrese} u kratkom vremenskom periodu, zato u toku izvršavanje 
+skripte, zaustavi se program na 60 sekundi, da bi moglo dalje da se pristupi serveru instituta. 
+
+
+\subsection{Relacioni model} 
+
+Izdvojeni podaci upisuju se u bazu (eng. \textit{PostgresSQL}) preko biblioteke (eng. \textit{SQLAlchermy}).
+Potrebni podaci se čuvaju u tri različite tabele - Umetnička slika (eng. \textit{Artwork}), Žanr (eng. \textit{Genre})
+kao i Umetnik (eng. \textit{Artist}). Kod \ref{lst:model} koji generiše takav model možemo videti:
+
+\lstset{
+  language=Python,
+  label={lst:model},
+  caption={Relacioni model}
+}
+\begin{lstlisting}
+artwork_genre_association = Table(
+    'artwork_genre', Base.metadata,
+    Column('artwork_id', Integer, ForeignKey('artworks.id')),
+    Column('genre_id', String(20), ForeignKey('genres.id'))
+)
+
+class Artwork(Base):
+    __tablename__ = 'artworks'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    title = Column(String(255), nullable=False)
+    date_display = Column(String(255), nullable=False)
+    description = Column(Text, nullable=False)
+    path_to_artwork = Column(String(255), nullable=False)
+    artist_id = Column(Integer, ForeignKey('artists.id'), nullable=False)
+
+    # Relationships
+    genres = relationship('Genre', secondary=artwork_genre_association, back_populates='artworks')
+    artist = relationship('Artist', back_populates='artworks')
+
+class Artist(Base):
+    __tablename__ = 'artists'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    # Unknown artist!
+    name = Column(String(255), nullable=True)
+
+    artworks = relationship('Artwork', back_populates='artist')
+
+class Genre(Base):
+    __tablename__ = 'genres'
+
+    id = Column(String(20), primary_key=True)
+    name = Column(String(255), nullable=False)
+
+    # Define the relationship to Artwork
+    artworks = relationship('Artwork', secondary=artwork_genre_association, back_populates='genres')
+\end{lstlisting}
+
+Tri bitne stavke o samom modelu koje je značajno izdvojiti.
+\begin{itemize}
+\item \textbf{Identifikatori se preuzimaju od izvora} - Delo i autor zadržavaju celobrojni identifikator koji im je dodelio institut, umesto da dobiju novi. Time je omogućeno da se u budućnosti zbirka dopuni novim slikama i umetnicima, bez potrebe za brigom o duplikatima. Ista odluka primenjena je i na žanrove, identifikator je zadržan od instituta, koji je niska.
+\item \textbf{Veza slika-žanr je više-prema-više} - Zbog prirode skupa podataka, jedna slika može pripadati više različitih žanrova u isto vreme, i isto tako, jednom žanru može odgovarati veči broj slika.
+\item \textbf{Veza slika-umetnik je jedan-prema-više} - Isto kao i za prethodni odnos, zbog prirode podataka, jednu sliku je mogao da naslika jedan umetnik, dok je jedan umetnik mogao da naslika više različitih slika.
+\end{itemize}
+
+\subsection{Upisivanje u bazu}
+
+Nakon što se uspešno kreira model, prelazi se na naredni korak, upisivanje podataka koji su uzeti iz arhive 
+u novo kreiranu bazu. U dole navedenom kodu \ref{lst:upisivanje} možemo videti da, nakon što su entiteti kreirani 
+i dodati u liste, u toku jedne izmene (eng. \textit{commit}), podaci su dodati u bazu podataka. 
+
+
+\lstset{
+  language=Python,
+  label={lst:upisivanje},
+  caption={Isecak koda koji upisuje podatke u bazu podataka}
+}
+\begin{lstlisting}
+        if artist_id not in artist_ids:  
+            artists_data.append(artist_data)
+        if artwork["style_id"] not in genre_ids:
+            genres_data.append(genre_data)
+
+        new_artist_data = list(filter(lambda elem : elem.id == artist_id, artists_data))
+        new_genre_data = list(filter(lambda elem : elem.id == artwork["style_id"], genres_data))
+        print(new_artist_data)
+        artwork_data.artist = new_artist_data[0]
+        artwork_data.genres.append(new_genre_data[0])
+
+        artwork_ids.add(artwork["id"])
+        artist_ids.add(artist_id)
+        genre_ids.add(artwork["style_id"])
+
+
+    session.add_all(artists_data)
+    session.add_all(genres_data)
+    session.add_all(artworks_data)
+    session.commit()
+
+\end{lstlisting}
+
+\chapter{Server}
+\label{ch:server}
+\chapter{Klijent}
+\label{ch:klijent}
+\chapter{Protokoli komunikacije}
+\label{ch:protokoli}
+
+
+
+% \chapter{Pasus}
+% \section{Примери коришћења класичних \LaTeX{} елемената}
+% % primeri citiranja
+% Ово је реченица у којој се јавља цитат \cite{PetrovicMikic2015}.
+% Још један цитат \cite{GuSh:243}.
+% % primeri navodnika
+% Испробавамо наводнике: "Рекао је да му се јавимо сутра".
+% % primer referisanja na tabelu (koja se javlja kasnije)
+% У табели \ref{tbl:rezultati} која следи приказани су резултати експеримента.
+% % primer kraćeg latiničkog teksta
+% {\lat Ovo je primer rečenice ispisane latiničkim pismom u okviru ćiriličkog dokumenta.}
+% У овој реченици се налази једна {\lat reč} написана латиницом.
+% % primer korišćenja fusnota
+% Иза ове реченице следи фуснота.\footnote{Ово је фуснота.}
+% % primer url-a
+% Сајт математичког факултета је \url{http://www.matf.bg.ac.rs}.
+
+% % primer dužeg latiničkog teksta
+% \begin{latinica}
+%   Ovo je malo duži blok teksta ispisan latiničkim pismom u okviru
+%   ćiriličkog dokumenta. Fijuče vetar u šiblju, ledi pasaže i kuće iza
+%   njih i gunđa u odžacima.
+% \end{latinica}
+
+% % primer korišćenja tabele
+% \begin{table}
+% \centering
+% \caption{Резултати}
+% \label{tbl:rezultati}
+% \begin{tabular}{c>{\centering}p{2cm}c}
+% \toprule
+% 1 & 2 & 3\\\midrule
+% 4 & 5 & 6\\\cmidrule(rl){1-2}
+% 7 & 8 & 8\\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+% % primer korišćenja slike
+% \begin{figure}[!ht]
+%   \centering
+%   \includegraphics[width=0.5\textwidth]{graph.png}
+%   \caption{Графикон}
+%   \label{fig:grafikon}
+% \end{figure}
+
+% % primer jednostavnije matematičke formule
+% Ево и један пример математичке формуле: $e^{i\pi} + 1 = 0$. 
+% % primer referisanja na sliku
+% На слици \ref{fig:grafikon} приказан је један графикон.
+
+% % primer kompleksnije matematičke formule
+% $$
+% \int_a^b f(x)\ \mathrm{d}x \ =_{def}\ \lim_{\max{\Delta x_k \rightarrow 0}} \sum_{k=1}^n f(x_k^*)\Delta x_k
+% $$
+
+% % primer referisanja na poglavlja i strane poglavlja
+% Више детаља биће дато у глави \ref{chp:razrada} на страни \pageref{chp:razrada}.
+
+% % primer listinga koda
+
+% У тезу можемо убацити и програмски кôд.
+
+% \begin{verbatim}
+% Ovo je doslovni tekst.
+% \end{verbatim}
+
+% \lstset{
+%   language=C,
+%   basicstyle=\ttfamily,
+%   keywordstyle=\color{blue}
+% }
+% \begin{lstlisting}
+% #include <stdio.h>
+
+% int main() {
+%    printf("Hello, world!\n");
+%    return 0;
+% }
+% \end{lstlisting}
+
+
+% Овај C програм се може превести помоћу преводиоца GCC \cite{gcc}.
+
+% % primer liste
+% Можемо правити и набрајања:
+% \begin{enumerate}
+% \item Анализа 1
+% \item Линеарна алгебра
+% \item Аналитичка геометрија
+% \item Основи програмирања
+% \end{enumerate}
+
+
+% ------------------------------------------------------------------------------
+% Literatura
+% ------------------------------------------------------------------------------
+\literatura
+% ==============================================================================
+% Završni deo teze i prilozi
+\backmatter
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+
+\end{document} 
