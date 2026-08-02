@@ -1,0 +1,48 @@
+% Samostalna slika: tri adaptera, jedan servis
+% Prevesti sa:  pdflatex slika-tok.tex
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\tikzset{
+  kutija/.style={draw=black,line width=0.5pt,align=center,inner sep=4pt},
+  adapter/.style={kutija,minimum width=4.1cm,minimum height=1.1cm},
+  siroka/.style={kutija,minimum width=5.2cm,minimum height=1.1cm},
+  str/.style={-{Latex[length=2.2mm,width=1.8mm]},line width=0.5pt,black},
+  oznaka/.style={font=\small\itshape,align=left},
+}
+
+\begin{document}
+\begin{tikzpicture}
+
+  % ---------- ADAPTERI ----------
+  \node[adapter,anchor=north] (rest) at (-4.5,0)
+       {\textbf{ImageController}\\[2pt]\small REST};
+  \node[adapter,anchor=north] (gql)  at (0,0)
+       {\textbf{ImageGraphqlController}\\[2pt]\small GraphQL};
+  \node[adapter,anchor=north] (grpc) at (4.5,0)
+       {\textbf{ImageGrpcController}\\[2pt]\small gRPC};
+
+  % ---------- SERVIS ----------
+  \node[siroka,anchor=north] (servis) at (0,-2.5)
+       {\textbf{ArtworkService}\\[2pt]\small\ttfamily getAllArtworks()};
+
+  % ---------- REPOZITORIJUM ----------
+  \node[siroka,anchor=north] (repo) at (0,-4.5)
+       {\textbf{ArtworkRepository}\\[2pt]\small\ttfamily findAll()};
+
+  % ---------- BAZA ----------
+  \node[siroka,anchor=north,minimum height=0.85cm] (db) at (0,-6.4) {PostgreSQL};
+
+  % ---------- STRELICE ----------
+  \draw[str] (rest.south) -- ++(0,-0.55) -| (servis.north west);
+  \draw[str] (gql.south)  -- (servis.north);
+  \draw[str] (grpc.south) -- ++(0,-0.55) -| (servis.north east);
+  \draw[str] (servis.south) -- (repo.north);
+  \draw[str] (repo.south)   -- (db.north);
+
+\end{tikzpicture}
+\end{document}

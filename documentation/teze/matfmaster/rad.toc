@@ -7,7 +7,14 @@
 \contentsline {subsection}{\numberline {2.1.2}Provera ispravnosti slike}{6}{subsection.2.1.2}%
 \contentsline {subsection}{\numberline {2.1.3}Relacioni model}{6}{subsection.2.1.3}%
 \contentsline {subsection}{\numberline {2.1.4}Upisivanje u bazu}{8}{subsection.2.1.4}%
-\contentsline {chapter}{\chapternumberline {3}Server}{10}{chapter.3}%
-\contentsline {chapter}{\chapternumberline {4}Klijent}{11}{chapter.4}%
-\contentsline {chapter}{\chapternumberline {5}Protokoli komunikacije}{12}{chapter.5}%
-\contentsline {chapter}{Bibliografija}{13}{chapter*.2}%
+\contentsline {chapter}{\chapternumberline {3}Serverska strana}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Spring Boot}{10}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Podela mikroservisa}{10}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Onion arhitektura unutar servisa}{12}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Jezgro : entiteti i objekti za prenos}{14}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Srednji sloj : poslovna logika}{15}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Spoljašnji sloj : adapteri protokola}{17}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Asihrona komunikacija}{18}{section.3.4}%
+\contentsline {chapter}{\chapternumberline {4}Klijent}{20}{chapter.4}%
+\contentsline {chapter}{\chapternumberline {5}Protokoli komunikacije}{21}{chapter.5}%
+\contentsline {chapter}{Bibliografija}{22}{chapter*.2}%

@@ -1,0 +1,43 @@
+% Samostalna slika: opšti pregled sistema (za uvod)
+% Prevesti sa:  pdflatex slika-uvod.tex
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
+
+\tikzset{
+  kutija/.style={draw=black,line width=0.5pt,align=center,inner sep=4pt},
+  servis/.style={kutija,minimum width=2.9cm,minimum height=1.1cm,font=\small},
+  str/.style={{Latex[length=2.2mm,width=1.8mm]}-{Latex[length=2.2mm,width=1.8mm]},
+              line width=0.6pt,black},
+  strj/.style={-{Latex[length=2.2mm,width=1.8mm]},line width=0.5pt,black},
+}
+
+\begin{document}
+\begin{tikzpicture}
+
+  % ---------- KLIJENT ----------
+  \node[kutija,minimum width=6.0cm,minimum height=1.3cm,anchor=north] (klijent) at (0,0)
+       {\textbf{Mobilni klijent}\\[2pt]\small React Native + Expo};
+
+  % ---------- KOMUNIKACIJA ----------
+  \draw[str] (0,-1.35) -- (0,-3.05);
+  \node[anchor=west,align=left,font=\small] at (0.35,-2.2)
+       {REST \ \textbar{} \ GraphQL \ \textbar{} \ gRPC};
+
+  % ---------- SERVER ----------
+  \node[servis,anchor=north] (s1) at (-4.65,-3.75) {IdentityService};
+  \node[servis,anchor=north] (s2) at (-1.55,-3.75) {ImageService};
+  \node[servis,anchor=north] (s3) at ( 1.55,-3.75) {UserPreference\\Service};
+  \node[servis,anchor=north] (s4) at ( 4.65,-3.75) {NextImage\\Service};
+
+  \begin{scope}[on background layer]
+    \node[draw=black,line width=0.6pt,inner sep=9pt,fit=(s1)(s4)] (server) {};
+  \end{scope}
+  \node[anchor=south west,font=\small\bfseries] at ([yshift=1.5mm]server.north west)
+       {Server --- mikroservisi};
+
+\end{tikzpicture}
+\end{document}

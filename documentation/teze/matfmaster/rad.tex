@@ -402,13 +402,296 @@ i dodati u liste, u toku jedne izmene (eng. \textit{commit}), podaci su dodati u
 
 \end{lstlisting}
 
-\chapter{Server}
+\chapter{Serverska strana}
+Serverska strana realizovana je u tehnologiji (eng. \textit{Spring Boot}) kao skup od četiri međusobno 
+nezavisna mikroservisa. Svaki od mikroservisa u sebi je implementiran preko (eng. \textit{Onion}) arhitekture.
+Mikroservisi su međusobno povezani preko brokera poruka (eng. \textit{broker software})
+po imenu (eng. \textit{RabbitMQ}). U narednoj glavi biće prikazano kako su organizovani svi mikroservisi, 
+kako izgleda svaki pojedinačan mikroservis, kako komuniciraju i kako arhitektura olakšava dodavanje 
+više protokola komunikacije da budu implementirani unutar istog mikroservisa, sa minimalnom količinom dodatnog koda.
+
+\section{Spring Boot}
+
+Čitav server razvijen je u programskom jeziku Java, uz radni okvir (eng. \textit{framework}) \textit{Spring Boot} \cite{spring-boot}.
+Spring Boot je nadogradnja nad radnim okvirom \textit{Spring}, uz motivaciju da ubrza razvoj, smanji konfiguraciju i 
+ubrza puštanja u produkciju (eng. \textit{deployment}). Pored toga, Spring Boot podržava svaki od protokola komunikacije 
+koje ovaj rad opisuje, i iz tih svih razloga, server je izrađen u njemu. 
+
+\section{Podela mikroservisa}
+
+Mikroservisni su međusobno nezavisne celine, koje su najčešće podeljenje po nekoj biznis logici. 
+Svaki od mikroservisa unutar sebe prati neku dogovorenu strukturu, ima sopstvenu bazu podataka, i kao posledicu,
+to omogućava da svaki od mikroservisa može da se pusti u produkciju sa njegovim najnovijim izmenana, 
+bez pravljenja novog izdanja za ostale mikroservise. Iz tih razloga, odlučeno je da serverska strana bude podeljenja 
+na mikroservise. Organizaciju čitavog servera možemo videti na slici \ref{fig:server}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{slika-server}
+  \caption{Arhitektura serverske strane}
+  \label{fig:server}
+\end{figure}
+
+Kao što se vidi, serverska strana je podeljenja na 4 mikroservisa:
+\begin{itemize}
+\item \textbf{Mikroservis za slike (eng. \textit{ImageService})} - Mikroservis odgovoran za sav sadržaj vezan sa slike. On koristi podatke koji su iz Glave 2, i daje programski interfejs vezan za slike, umetnike i žanrove. Podaci se čuvaju u relacionoj bazi podataka \emph{PostgresSQL}, jer su svi podaci međusobno povezani.
+\item \textbf{Mikroservis za autentifikaciju (eng. \textit{IdentityService})} - Mikroservis koji se bavi čitavim procesom autentifikacije korisnika. Unutar sebe sadrži programski interfejs za prijavu, odjavu, registraciju, kao i čuvanje vitalnih informacija o korisniku, kao što su korisničko ime, šifra i email adresa. Pri uspešnoj prijavi, servis izdaje par žetona: \emph{pristupni žeton} kratkog trajanja, kojim se potpisuje svaki naredni zahtev, i \emph{žeton za osvežavanje} dužeg trajanja, kojim se pribavlja nov pristupni žeton bez ponovnog unosa lozinke. I ovaj mikroservis isto koristi relacionu bazu podataka. Podaci o korisniku imaju unapred definisanu strukturu, a nad korisničkim imenom i adresom postoji ograničenje da moraju da budu unikatni.
+\item \textbf{Mikroservis za preference (eng. \textit{UserPreferencesService})} - Mikroservis koji je odgovoran za čuvanje svih preferenci korisnika. Čuva informacije koje su omiljenje slike korisnika, kao i žanrovi i umetnici. Za razliku od prethodna dva mikroservisa, on koristi nerelacionu bazu podataka \emph{MongoDB}. Pošto se sve preference korisnika se čuvaju na nivou listi, kao što su sve omiljene slike korisnika, odabran je ovaj oblik baze podataka. 
+\item \textbf{Mikroservis za narednu sliku (eng. \textit{NextImageService})} - Mikroservis koji generiše novu sliku za korisnika svaki dan. Uz pomoć informacija o korisniku iz mikroservisa za preference, on algoritmom odluči koju će novu sliku dodeliti korisniku taj dan. On čuva informaciju koje je preferentno vreme za davanje nove slike korisniku, i preko trajne veze sa korisnikom (eng. \textit{Websocket}), stiže najnovija slika. Pošto i on čuva listu slika, kao i vreme kada korisnik želi novu sliku, odabrana je nerelacionu bazu podataka \emph{MongoDB}.
+\end{itemize}
+
+
+Svaki servis koristi alat (eng. \textit{Maven}) koji služi za izgradnju, nad razvojnim kompletom Java 21. 
+
+\section{Onion arhitektura unutar servisa}
+
+Kod unutar svakog od mikroservisa je ogranizovan prema (eng. \textit{Onion}) arhitekturi. Osnovni koncept te arhitekture 
+je da \textbf{zavisnosti pokazuju samo ka unutra}. Svaki spoljašnji sloj zna, i može da koristi unutrašnje slojeve,
+dok unutrašnji slojevi nemaju način da dohvate unutrašnjim slojevima.   
+
+Na slici \ref{fig:onion} se može videti kako izgleda arhitektura svakog mikroservisa. Svaki od slojeva gledaju ka unutra, i upravo
+iz tih razloga je dodavanje više protokola komunikacije bila olakšana. Zbog nje, Svaki novi dodati protokol komunikacije
+će koristiti slojeve unutra, i tako će REST, GPRC, i GraphQL iako imaju različite načine za predstavljanje programskog interfejsa,
+imati identičnu logiku koja se odigrava.
+
+U jezgru se nalaze domenski model, objekti za prenos podataka i interfejsi
+repozitorijuma --- dakle sve ono što opisuje \emph{šta} aplikacija radi, a ne
+kako to izvodi. Oko njega stoji sloj poslovne logike, dok se u spoljašnjem sloju
+nalaze adapteri: kontroleri za svaki od protokola, pristup bazi i konfiguracija.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{slika-onion}
+  \caption{Onion organizacija paketa unutar mikroservisa}
+  \label{fig:onion}
+\end{figure}
+ 
+
+\subsection{Jezgro : entiteti i objekti za prenos}
+
+Unutar jezgra se nalaze dve različite vrste klasa. \textbf{Entiteti} predstavljaju objekte u bazi, i imaju sve informacije iz njih 
+dok \textbf{objekti za prenos podataka} su objekti čija je svrha komunikacija sa spoljašnjim svetom. Objekti za prenos podataka 
+najčešće imaju manju količinu podataka, jer često nema potrebe slati sve informacije iz entiteta direktno klijentu. 
+U kodovskom primeru \ref{lst:entitet} prikazan je entitet za sliku (eng. \textit{Artwork}).
+
+
+
+
+\lstset{
+  language=Java,
+  label={lst:entitet},
+  caption={Primer entiteta za sliku}
+}
+\begin{lstlisting}
+@Entity
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Artwork {
+
+    @Id
+    private Long id;
+    private String title;
+    @Column(length = 10000)
+    private String description;
+    @Column(name = "path_to_artwork")
+    private String imageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    @Setter
+    private Artist artist;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "artwork_genre",
+            joinColumns = @JoinColumn(name = "artwork_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private Set<Genre> genres;
+}
+\end{lstlisting}
+
+Za pristup relacionoj bazi korišćen je \textit{Hibernate}
+\cite{hibernate, bauer2015}, alat za objektno-relaciono preslikavanje
+(engl. \textit{Object-Relational Mapping}, ORM). Njegova odgovornost je da premosti
+razliku između dva načina predstavljanja podataka: objektnog, u kome su podaci
+povezani referencama, i relacionog, u kome su razbijeni po tabelama i povezani
+stranim ključevima. 
+
+Kao posledica korišćenja \textit{Spring Boot} radnog okvira kao i \textit{Hibernate} alata za objektno-relaciono preslikavanje,
+ korišćene su anotacije koje olakšavaju korišćenje entiteta. 
+Anotacija \texttt{@Entity} označava da se klasa preslikava u tabelu relacione
+baze, čime je Hibernate prepoznaje kao entitet i preuzima brigu o njenom
+čuvanju i učitavanju. Anotacija \texttt{@Id} označava polje koje predstavlja
+primarni ključ te tabele, po kome se svaki red jednoznačno razlikuje od
+ostalih. 
+
+
+\subsection{Srednji sloj : poslovna logika}
+Srednji sloj sadrži servise u kojima se nalazi sva poslovna logika aplikacije. On komunicira sa jezgrom, i korišćenjem 
+entiteta iz jezgra kreira objekte za prenos, koji kasniji slojevi mogu da koriste. 
+U primer \ref{lst:servisSredjenjegSloja} može se videti logika 
+servisa. Njegova biznis logika zahteva da dohvata entitete, i transformiše ih u objekte za prenos. 
+Zbog prirode projekta, ovaj servis ne zahteva kompleksniju logiku, dok na primer, servis koji se bavi izborom sledeće 
+slike, čiji isečak vidimo u \ref{lst:izborNoveSlike}, mora da radi kompleksnije algoritme. 
+\lstset{
+  language=Java,
+  label={lst:servisSredjenjegSloja},
+  caption={Primer servisa za sledeću sliku sa potrebnom biznis logikom}
+}
+\begin{lstlisting}
+@Service
+@AllArgsConstructor
+public class ArtworkService {
+
+    private final ArtworkRepository artworkRepository;
+    private final ModelMapper modelMapper;
+
+    public List<ArtworkDTO> getAllArtworks() {
+        return artworkRepository.findAll()
+                .stream().map(artwork -> modelMapper.map(artwork, ArtworkDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<IdentityArtworkDTO> getAllArtworks(String genreId) {
+        return artworkRepository.findByGenres_Id(genreId)
+                .stream().map(artwork -> modelMapper.map(artwork, IdentityArtworkDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<ArtworkDTO> getAllArtworksFromIds(List<Long> artworkIds) {
+        return artworkRepository.findAllById(artworkIds)
+                .stream()
+                .map(artwork -> modelMapper.map(artwork, ArtworkDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public Optional<Long> getRandomArtworkIdExcluding(Set<Long> excludeIds) {
+        if (excludeIds == null || excludeIds.isEmpty()) {
+            return artworkRepository.findRandomId();
+        }
+        return artworkRepository.findRandomIdExcluding(excludeIds);
+    }
+
+    public List<ArtworkDTO> getRandomArtworks(int count) {
+        return getAllArtworksFromIds(artworkRepository.findRandomIds(count));
+    }
+}
+\end{lstlisting}
+\lstset{
+  language=Java,
+  label={lst:izborNoveSlike},
+  caption={Isečak logike izbora nove slike}
+}
+\begin{lstlisting}
+public long selectNextArtworkId(String username, Set<Long> seenArtworkIds) {
+        var preferences = userPreferenceServiceClient.getUserPreferences(username);
+        boolean hasGenres = !preferences.getLikedGenreIds().isEmpty();
+        boolean hasArtists = !preferences.getLikedArtistIds().isEmpty();
+
+        if ((!hasGenres && !hasArtists) || random.nextDouble() < probabilityConfig.getRandomImageProbability()) {
+            return getRandomUnseen(seenArtworkIds, preferences);
+        }
+
+        boolean tryGenreFirst = hasGenres && (!hasArtists || random.nextDouble() < probabilityConfig.getGenreVsArtistProbability());
+
+        Optional<Long> result = tryGenreFirst
+                ? tryFromGenre(preferences, seenArtworkIds)
+                : tryFromArtist(preferences, seenArtworkIds);
+
+        return result.orElseGet(() -> getRandomUnseen(seenArtworkIds, preferences));
+    }
+\end{lstlisting}
+
+Ovaj sloj nema kontekst oko protokola komunikacije koji se koristi, i upravo iz tog razloga, moguće je pozivati 
+servis, i dohvatanje istih podataka, bez obzira na izbor protokola. 
+
+\subsection{Spoljašnji sloj : adapteri protokola}
+Spoljašnji sloj podrazumevaju klase koje rade dikrektnu komunikaciju sa srednjim slojem. One komuniciraju sa servisom, 
+dohvataju podatke na koje je servis već primenio biznis logiku, i samo prosledjuju klijentu. U aplikaciji, primer 
+takve klase podrazumevaju kontroleri (eng. \textit{controller}). On definiše koji protokol komunikacije podržava.
+U primeru \ref{lst:controller} može se videti kontroller koji je zadužen za REST.  
+
+
+\lstset{
+  language=Java,
+  label={lst:controller},
+  caption={Isečak logike kontrolera za slike koji podržava REST}
+}
+\begin{lstlisting}
+public class ImageController {
+
+
+    private final ArtworkService artworkService;
+    private final ArtistService artistService;
+    private final GenreService genreService;
+
+
+    @GetMapping("/get-all-artworks")
+    public List<ArtworkDTO> getAllArtworks() {
+        return artworkService.getAllArtworks();
+    }
+
+    @GetMapping("/get-artworks-from-genre")
+    public List<IdentityArtworkDTO> getAllArtworksFromGenre(@RequestParam String genreId) {
+        return artworkService.getAllArtworks(genreId);
+    }
+}
+\end{lstlisting}
+Kontroler definiše REST putanju koju podržava, i kada klijent pokuša da pristupi njoj, izvršava se određeni metod. 
+Ovo je primer jednog protokola komunikacije koji je podržan, ali u Glavi 5, biće prikazana podrška i za ostale. 
+
+\section{Asihrona komunikacija}
+Do sada sva komuniciraja koja je bila spomenuta je bila \emph{sinhrone prirode} : pozivalac šalje zahtev i čeka odgovor, 
+i tek kada mu stigne odgovor on nastavi dalje sa izvršavanjem, ali ako bismo hteli komunikaciju izmedju više mikroservisa, 
+a da jedan mikroservis ne zna na koga sve utiče, potrebna nam je \emph{asihrona komunikacija}. Pošiljalac ne šalje 
+poruku primaocu, već je šalje posredniku, i odmah nastavlja dalje sa svojim poslom. Posrednik čuva poruku, sve dok 
+primalac nije spreman da je preuzme, i da reaguje na tu poruku. Pošiljalac nema informaciju o tome ko sluša i reaguje 
+na poruke, pa je ovakav način komunikacije prikladan za obaveštenje o događajima na koje verovatno bi neki drugi 
+mikroservis reagovao.
+
+Kao brokera poruka (eng. \textit{broker software}) koristi se \emph{RabbitMQ} \cite{rabbitmq}, red poruka koji 
+implementira standard \textbf{AMQP} (engl. \textit{Advanced Message Queuing Protocol})
+\cite{amqp}, protokol za razmenu poruka između mikroservisa. Pošto standard definiše tačan broj bajtova koji putuju 
+mrežom, to omogućava da mikroservisi koji komuniciraju na ovaj način ne moraju da budu implementirani na istom programskom 
+jeziku, i posrednik može da se zameni, bez uticaja na kod. 
+
+Primer \ref{lst:rabbit} pokazuje isečke iz koda gde se šalje poruka, i gde se reaguje na istu. Mikroservis koji je zadužen 
+za autentifikaciju u momentu kada se korisnik registruje šalje poruku  (eng. \textit{event}) po imenu \emph{UserCreatedEvent}.
+Mikroservis zadužen za preference reaguje na taj događaj, i kreira entitet za tog korisnika. 
+
+\begin{lstlisting}[language=Java,
+  caption={Objava i prijem događaja o završenom registrovanju korisnika},
+  label={lst:rabbit}]
+public class UserCreatedEvent {
+    private String username;
+    private String timeZoneId;
+}
+
+// IdentityService -- objavljuje i nastavlja dalje
+rabbitTemplate.convertAndSend(userEventsExchange, userCreatedRoutingKey, userCreatedEvent);
+
+// UserPreferenceService -- reaguje kada mu odgovara
+ @RabbitListener(queues = "${spring.rabbitmq.user_created_queue}" )
+  public void receiveUserCreatedEvent(UserCreatedEvent userCreatedEvent) {
+      userPreferenceRepository.persist(userCreatedEvent.getUsername());
+  }
+\end{lstlisting}
+
+Bitno je napomenuti da na isti događaj može više slušalaca da reaguje. Kao što mikroservis za preference reaguje na
+poruku da je registrovan korisnik, mikroservis za izbor sledeće slike isto sluša na tu poruku, i reaguje da kreira 
+entitet za tog korisnika. 
+
+
 \label{ch:server}
 \chapter{Klijent}
 \label{ch:klijent}
 \chapter{Protokoli komunikacije}
 \label{ch:protokoli}
-
 
 
 % \chapter{Pasus}
