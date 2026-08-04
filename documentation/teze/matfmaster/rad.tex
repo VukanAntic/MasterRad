@@ -37,6 +37,19 @@
 % Ostali paketi koji se koriste u dokumentu
 \usepackage{listings} % listing programskog koda
 
+\lstdefinelanguage{JavaScript}{
+  morekeywords={async,await,break,case,catch,class,const,constructor,continue,
+    default,delete,do,else,export,extends,false,finally,for,from,function,get,
+    if,import,in,instanceof,let,new,null,of,return,set,static,super,switch,this,
+    throw,true,try,typeof,undefined,var,void,while,yield},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`,
+}
+
 % Datoteka sa literaturom u BibTex tj. BibLaTeX/Biber formatu
 \bib{literatura}
 
@@ -688,7 +701,185 @@ entitet za tog korisnika.
 
 
 \label{ch:server}
-\chapter{Klijent}
+\chapter{Klijentska aplikacija}
+Klijent je realizovan u tehnologiji (eng. \textit{React Native}) uz radni okriv (eng. \textit{Expo}). Svaka od komponenti klijenta 
+je implementirana po model-prikaz-kontroler (eng. \textit{Model-View-Controller}) arhitekturi. U narednoj glavi biće prikazano kako su izgrađene komponente kao i 
+dizajn obrazac (eng. \textit{design pattern}) kad je u pitanju komunikacija sa serverom preko 
+različitih protokola komunikacije.
+
+\section{React Native}
+
+Čitav klijent razvijen je u programskom jeziku TypeScript, uz radni okvir
+(eng. \textit{framework}) \textit{React Native} \cite{reactnative}. React Native
+je nadogradnja nad bibliotekom \textit{React}, uz motivaciju da se iz istog
+koda isporuče i Android i iOS aplikacije, pri čemu se interfejs ne iscrtava
+u pregledaču, nego koristi izvorne komponente tih platformi. Pored toga,
+uz njega je korišćen i \textit{Expo} \cite{expo}, koji izmenu u kodu čini
+vidljivom u aplikaciji za nekoliko sekundi - što je bilo značajno jer je
+komunikacioni sloj tokom merenja menjan više puta - i iz tih svih razloga,
+klijent je izrađen u njemu.
+
+\section{Model-Prikaz-Kontroler arhitektura}
+
+Prikaz-Kontroler arhitektura \textit{Model-View-Controller}) predstavlja standard za pravljenje komponenti u klijentskim aplikacija.
+Osnovne komponente arhitekture su:
+\begin{itemize}
+\item \textbf{Prikaz (eng. \textit{View})}
+\item \textbf{Model (eng. \textit{Model})} 
+\item \textbf{Kontroler (eng. \textit{Controller})} 
+\end{itemize}
+
+Na slici \ref{fig:mvc} vidi se upravo opisana arhitektura. 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{slika-mvc}
+  \caption{Dijagram arhitekture MVC}
+  \label{fig:mvc}
+\end{figure}
+
+\subsection{Prikaz}
+Prikaz je zadužen za sve komponente koje se izcrtavaju na ekranu telefona.
+On poseduje svoje lične podatke (u projektu pod nazivom \textit{View Data}) koje mu se dodeljuju,
+i uz pomoć istih, stara se oko prikaza konkretnog dela aplikacije. U trenutku dodele novog modela od strane kontrolera 
+prikazu, citav prikaz se opet iscrtava. Želja za ovim pristupom jeste da je sve prikazano na ekranu uvek ispravo stanje 
+koje je server poslao.
+
+\subsection{Model}
+U aplikaciji prikazni model (\textit{ViewData}) predstavljaju podatke koje kontroler dodeljuje svom prikazu.
+Oni se razlikuju od entiteta koji su poslati od strane servera. Ideja jeste za model ima samo informacije 
+koje su potrebne prikazu da vrši svoju dužnost. Model nema informaciju o samom prikazu kao ni kontroleru. On 
+je samo klasa koja predstavljaju prenos podataka.
+
+\subsection{Kontroler}
+Kontrolerova funkcija je da se bavi biznis logikom vezanu za prikaz. Ona sadrži referencu na svoj prikaz,
+i sa njom, dodeljuje model koji mu treba za iscrtavanje ekrana. Kontroler je taj koji ima reference 
+na repozitorijume, o kojima ćemo više videti u glavi \ref{ssec:repozitorijum}, iz kojih čita entitete poslate od servera.
+U kodovskom primeru \ref{lst:kontroler} možemo videti isečak kontrolera za početni ekran. On dohvata informacije 
+o slikama koje se pokazuju korisniku na glavnom ekranu, vrši obradu tih podataka, i dodeljuje je svom prikazu. Metod 
+\textit{setViewData} je taj koji dodeljuje model prikazu.
+
+\begin{lstlisting}[language=JavaScript,
+  caption={Isečak koda iz kontrolera koji se bavi postavljanjem početnog ekrana},
+  label={lst:kontroler}]
+ private async load(): Promise<void> {
+        if (this.loading) return;
+        this.loading = true;
+        try {
+            const artworks = await this.buildArtworks();
+            this.setViewData(new HomeScreenViewData(artworks, true));
+        } catch (e) {
+            console.error('[HomeScreen] loadArtworks failed:', e);
+            this.setViewData(new HomeScreenViewData(this.getSnapshot().artworks, true));
+        } finally {
+            this.loading = false;
+        }
+    }
+
+    private async buildArtworks(): Promise<FeaturedArtworkViewData[]> {
+        const history = await this.historyRepository.get() ?? [];
+        if (history.length === 0) return [];
+
+        const allArtworks = await this.artworkRepository.get();
+        const preferences = await this.preferencesRepository.get();
+        const likedIds = new Set(preferences?.likedArtworkIds ?? []);
+
+        return [...history]
+            .sort((a, b) => a.seenAt.getTime() - b.seenAt.getTime())
+            .map(seenImage => {
+                const artwork = allArtworks?.getById(seenImage.artworkId);
+                return artwork ? new FeaturedArtworkViewData(artwork, seenImage, likedIds.has(artwork.id)) : null;
+            })
+            .filter((item): item is FeaturedArtworkViewData => item !== null);
+    }
+
+\end{lstlisting}
+
+
+\section{Namera}
+Prikaz nema informaciju o postojanju kontrolera, jedini način da prikaz komunicira sa spoljasnjim
+svetom jeste preko namera (eng. \textit{Intent}). Namera podrazumeva neku akciju koja se dogodila na nivou prikaza,
+ i treba ta informacija da se propagira dalje. U primeru \ref{lst:intent} možemo videti ceo životni ciklus namere. 
+ U tom primeru, klasa \textit{ArtworkPreferenceIntent} predstavlja nameru da se korisniku dopada ili ne dopada slika. 
+ Ta namera se šalje od prikaza, i stiže do kontrolera, koji dalje šalje zahtev serveru.
+\begin{lstlisting}[language=JavaScript,
+  caption={Namera da korisnik promeni preferencu prema slici},
+  label={lst:intent}]
+export type ArtworkPreferenceIntent =
+    | {type: 'LIKE'; artworkId: number}
+    | {type: 'UNLIKE'; artworkId: number}
+    | {type: 'DISLIKE'; artworkId: number}
+    | {type: 'UNDISLIKE'; artworkId: number};
+
+// prikaz salje nameru
+const onPreferenceIntent = useCallback(
+    (intent: ArtworkPreferenceIntent) => send(intent),
+    [send],
+);
+
+// reakcija kontrolera na nameru
+onMessage(intent: ArtworkPreferenceIntent): void {
+        this.handlePreference(intent)
+            .catch(e => console.error('[HomeScreen] preference intent failed:', e));
+}
+\end{lstlisting}
+
+\section{Repozitorijum}
+Repozitorijum u klijentskom kontekstu podrazumeva čuvanje trenutno stanje aplikacije u memoriji. Unutar repozitorijuma 
+čuvaju se entiteti (eng. \textit{Domain Data}) koji su kreirani iz informacija poslatih sa servera. Kod \ref{lst:domainData}
+prikazuje kreiranje entiteta za slike, koji će, pri proizvoljnom odgovoru od servera, biti sačuvan upravo u repozitorijum.
+\begin{lstlisting}[language=JavaScript,
+  caption={Entitet za sliku kao i njegovo kreiranje iz GRPC odgovora},
+  label={lst:domainData}]
+export class ArtworkData {
+    constructor(
+        readonly id: number,
+        readonly title: string,
+        readonly description: string,
+        readonly imageUrl: string,
+        readonly artist: ArtistData,
+        readonly genres: GenreData[],
+    ) {}
+}
+
+// kreiranje entiteta iz GRPC odgovora
+function toArtwork(a: Artwork): ArtworkData {
+    return new ArtworkData(
+        Number(a.id),
+        a.title,
+        a.description,
+        a.imageUrl,
+        new ArtistData(Number(a.artist?.id ?? 0), a.artist?.name ?? ''),
+        a.genres.map(g => new GenreData(g.id, g.name)),
+    );
+}
+\end{lstlisting}
+
+Osnova repozitorijuma predstavlja interfejs, koji u sebi ima 3 jednostavne namene, da čuva entitet, da upiše  
+nov sadržaj u sebe kao i da neko može da se pretplati na promenu njenog sadržaja. Upravo taj interfejs se vidi u 
+primeru  \ref{lst:repo}.
+
+\begin{lstlisting}[language=JavaScript,
+  caption={Interfejs repozitorijuma},
+  label={lst:repo}]
+export interface IRepository<T> {
+    get(): Promise<T | null>;
+    update(data: T): Promise<void>;
+    subscribe(listener: () => void): () => void;
+}
+\end{lstlisting}
+
+Sva tri metoda su asihrone prirode, iako za jednostavno čuvanje u memoriji to nije potrebno. Razlog je jer u određenim situacijama,
+potrebno je takođe čuvanje informacija između različitih korisničkih sesija, a čuvanje u skladište uređaja je asihrona akcija.
+Kada se interfejs koristi u kodu, ne zna se koji je tačno tip repozitorijuma, što olakšava pisanje novog koda. 
+
+TODO koje sve tipove repoa postoje
+TODO widget
+TODO command handler
+
+
+\label{ssec:repozitorijum}
+
+
 \label{ch:klijent}
 \chapter{Protokoli komunikacije}
 \label{ch:protokoli}

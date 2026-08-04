@@ -75,4 +75,16 @@ Christian Bauer, Gavin King, and Gary Gregory.
 \newblock \url{https://www.amqp.org/specification/0-9-1/amqp-org-download}, 2008.
 \newblock Pristupljeno: 2. avgusta 2026.
 
+\bibitem{reactnative}
+{Meta Platforms}.
+\newblock {React Native Documentation}.
+\newblock \url{https://reactnative.dev/docs/getting-started}, 2025.
+\newblock Pristupljeno: 2. avgusta 2026.
+
+\bibitem{expo}
+{Expo}.
+\newblock {Expo Documentation}.
+\newblock \url{https://docs.expo.dev/}, 2025.
+\newblock Pristupljeno: 2. avgusta 2026.
+
 \end{thebibliography}

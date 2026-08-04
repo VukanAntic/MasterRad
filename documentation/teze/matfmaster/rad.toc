@@ -15,6 +15,13 @@
 \contentsline {subsection}{\numberline {3.3.2}Srednji sloj : poslovna logika}{15}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Spoljašnji sloj : adapteri protokola}{17}{subsection.3.3.3}%
 \contentsline {section}{\numberline {3.4}Asihrona komunikacija}{18}{section.3.4}%
-\contentsline {chapter}{\chapternumberline {4}Klijent}{20}{chapter.4}%
-\contentsline {chapter}{\chapternumberline {5}Protokoli komunikacije}{21}{chapter.5}%
-\contentsline {chapter}{Bibliografija}{22}{chapter*.2}%
+\contentsline {chapter}{\chapternumberline {4}Klijentska aplikacija}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}React Native}{20}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Model-Prikaz-Kontroler arhitektura}{20}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Prikaz}{21}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Model}{21}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Kontroler}{21}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Namera}{23}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Repozitorijum}{24}{section.4.4}%
+\contentsline {chapter}{\chapternumberline {5}Protokoli komunikacije}{26}{chapter.5}%
+\contentsline {chapter}{Bibliografija}{27}{chapter*.2}%

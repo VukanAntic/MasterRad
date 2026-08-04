@@ -1,0 +1,29 @@
+% Samostalna slika: obrazac model-prikaz-kontroler u klijentskoj aplikaciji
+% Prevesti sa:  pdflatex slika-mvc.tex
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\tikzset{
+  k/.style={draw=black,line width=0.5pt,align=center,inner sep=5pt,
+            minimum width=4.6cm,minimum height=1.4cm},
+  s/.style={-{Latex[length=2.2mm,width=1.8mm]},line width=0.5pt,black},
+  sd/.style={-{Latex[length=2.2mm,width=1.8mm]},line width=0.5pt,black,dashed},
+}
+
+\begin{document}
+\begin{tikzpicture}[every node/.style={font=\small}]
+
+  \node[k,anchor=north] (data) at (-3.3,0)    {\textbf{ViewData}};
+  \node[k,anchor=north] (ctrl) at (3.3,0)     {\textbf{Controller}};
+  \node[k,anchor=north] (view) at (-3.3,-3.0) {\textbf{View}};
+
+  \draw[s]  (ctrl.west) -- (data.east);
+  \draw[s]  (data.south) -- (view.north);
+  \draw[sd] (view.east) -| (ctrl.south);
+
+\end{tikzpicture}
+\end{document}

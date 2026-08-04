@@ -277,6 +277,9 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/cmsrb/t1cmsrbrb.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbrb-base.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbri.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/cmsrb/t1cmsrbri.vf
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbri-base.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbrr.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbrr.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbrr.tfm
@@ -288,14 +291,11 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/cmsrb/ts1cmsrbr.fd
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/cmsrb/ts1cmsrbr.fd
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/cmsrb/ts1cmsrbr.fd
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/ts1cmsrbrr.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbri.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/cmsrb/t1cmsrbrr.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbrr-base.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/cmsrb/ts1cmsrbrr.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/ts1cmsrbrr-base.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cmsrb/cmsrbts1.enc
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/cmsrb/t1cmsrbri.vf
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbri-base.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/cmsrb/t1cmsrbrr.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbrr-base.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/cmsrb/t1cmsrbtr.vf
@@ -340,6 +340,12 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/cmsrb/t1cmsrbtr.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cmsrb/t1cmsrbtr-base.tfm
+INPUT ./slika-mvc.tex
+INPUT ./slika-mvc.tex
+INPUT ./slika-mvc.pdf
+INPUT ./slika-mvc.pdf
+INPUT ./slika-mvc.pdf
+INPUT ./slika-mvc.pdf
 INPUT ./rad.bbl
 INPUT ./rad.bbl
 INPUT rad.bbl
@@ -355,6 +361,7 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrx.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbti.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbtr.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb
