@@ -702,16 +702,16 @@ entitet za tog korisnika.
 
 \label{ch:server}
 \chapter{Klijentska aplikacija}
-Klijent je realizovan u tehnologiji (eng. \textit{React Native}) uz radni okriv (eng. \textit{Expo}). Svaka od komponenti klijenta 
-je implementirana po model-prikaz-kontroler (eng. \textit{Model-View-Controller}) arhitekturi. U narednoj glavi biće prikazano kako su izgrađene komponente kao i 
+Klijent je realizovan u tehnologiji (eng. \textit{React Native}) \cite{reactnative} uz radni okvir (eng. \textit{Expo}) \cite{expo}. Svaka od komponenti klijenta 
+je implementirana po model-prikaz-kontroler (eng. \textit{Model-View-Controller}) arhitekturi \cite{fowler-mvc}. U narednoj glavi biće prikazano kako su izgrađene komponente kao i 
 dizajn obrazac (eng. \textit{design pattern}) kad je u pitanju komunikacija sa serverom preko 
 različitih protokola komunikacije.
 
 \section{React Native}
 
-Čitav klijent razvijen je u programskom jeziku TypeScript, uz radni okvir
+Čitav klijent razvijen je u programskom jeziku TypeScript \cite{typescript}, uz radni okvir
 (eng. \textit{framework}) \textit{React Native} \cite{reactnative}. React Native
-je nadogradnja nad bibliotekom \textit{React}, uz motivaciju da se iz istog
+je nadogradnja nad bibliotekom \textit{React} \cite{react}, uz motivaciju da se iz istog
 koda isporuče i Android i iOS aplikacije, pri čemu se interfejs ne iscrtava
 u pregledaču, nego koristi izvorne komponente tih platformi. Pored toga,
 uz njega je korišćen i \textit{Expo} \cite{expo}, koji izmenu u kodu čini
@@ -721,7 +721,7 @@ klijent je izrađen u njemu.
 
 \section{Model-Prikaz-Kontroler arhitektura}
 
-Prikaz-Kontroler arhitektura \textit{Model-View-Controller}) predstavlja standard za pravljenje komponenti u klijentskim aplikacija.
+Model-prikaz-kontroler arhitektura (eng. \textit{Model-View-Controller}) \cite{fowler-mvc, fowler2002} predstavlja ustaljen obrazac za organizaciju komponenti u klijentskim aplikacijama.
 Osnovne komponente arhitekture su:
 \begin{itemize}
 \item \textbf{Prikaz (eng. \textit{View})}
@@ -824,7 +824,7 @@ onMessage(intent: ArtworkPreferenceIntent): void {
 \end{lstlisting}
 
 \section{Repozitorijum}
-Repozitorijum u klijentskom kontekstu podrazumeva čuvanje trenutno stanje aplikacije u memoriji. Unutar repozitorijuma 
+Repozitorijum \cite{fowler2002} u klijentskom kontekstu podrazumeva čuvanja trenutnog stanja aplikacije u memoriji. Unutar repozitorijuma 
 čuvaju se entiteti (eng. \textit{Domain Data}) koji su kreirani iz informacija poslatih sa servera. Kod \ref{lst:domainData}
 prikazuje kreiranje entiteta za slike, koji će, pri proizvoljnom odgovoru od servera, biti sačuvan upravo u repozitorijum.
 \begin{lstlisting}[language=JavaScript,
@@ -872,9 +872,149 @@ Sva tri metoda su asihrone prirode, iako za jednostavno čuvanje u memoriji to n
 potrebno je takođe čuvanje informacija između različitih korisničkih sesija, a čuvanje u skladište uređaja je asihrona akcija.
 Kada se interfejs koristi u kodu, ne zna se koji je tačno tip repozitorijuma, što olakšava pisanje novog koda. 
 
-TODO koje sve tipove repoa postoje
-TODO widget
-TODO command handler
+Postoje tri različita tipa repozitorijuma:
+\begin{itemize}
+\item \textbf{U memoriji repozitorijum (eng. \textit{InMemoryRepository})} - Repozitorijum koji čuva podatke u memoriji
+i koristi se za sve što važi samo tokom jedne sesije, poput liste slika ili
+istorije viđenih slika.
+\item \textbf{Sigurni repozitorijum (eng. \textit{SecureRepository})} - On čuva žetone u zaštićenom
+skladištu uređaja, gde ostaju i u novoj sesiji korisnika.
+\item \textbf{Keširani repozitorijum (eng. \textit{CachedRepository})} - Repozitorijum koji ne čuva ništa sam,
+ već obavija drugi repozitorijum i
+pamti pročitanu vrednost u memoriji.
+\end{itemize}
+
+
+\section{Rukovaoci komandama}
+Između klijenta i servera postoji sloj koji ih spaja, rukovaoci komandama (eng. \textit{Command Handlers}) \cite{gof1994}. 
+Svaki od njih obavlja tačno jednu dužnost, da dohvati podatke sa servera i da ih upiše u repozitorijum, gde ih 
+kasnije kontroler čita. Kontroler ne poziva server direktno, već koristi rukovodilac da izvršavi komandu. 
+
+Razlog za taj sloj je što se ista radnja često poziva sa više mesta. Dohvatanje
+liste slika potrebno je i pri prvom pokretanju, i pri otvaranju korisničkog
+profila, i posle izmene preferenci. Bez zasebnog rukovaoca, taj isti niz koraka bio bi
+identičan unutar svakog kontrolera.
+
+\begin{lstlisting}[language=JavaScript,
+  caption={Rukovalac komandom za dohvatanje žanrova},
+  label={lst:handler}]
+export class GetAllGenresCommandHandler extends CommandHandler {
+    constructor(
+        private readonly client: IImageClient,
+        private readonly repository: IRepository<GenreData[]>,
+    ) {
+        super();
+    }
+
+    async handle(): Promise<void> {
+        await this.timed('GetAllGenres', async () => {
+            const genres = await this.client.getAllGenres();
+            await this.repository.update(genres);
+        });
+    }
+}
+\end{lstlisting}
+
+U primeru \ref{lst:handler} može se videti kako izgleda primer takvog koda. Njegova dužnost je dohvatanje 
+informacija od servera vezano za sve žanrove koje server podržava. On ne implementira ni jedan konrektan protokol komunikacije, 
+već dobija referencu ka interfejsu, koji definiše sve moguće pozive ka serveru. 
+Jedan od takvih interfejsa vidimo u primeru \ref{lst:handlerClient}.
+
+
+\begin{lstlisting}[language=JavaScript,
+  caption={Interfejs svih poziva ka mikroservisu za slike},
+  label={lst:handlerClient}]
+export interface IImageClient {
+    getAllArtworks(): Promise<ArtworkData[]>;
+    getArtworksFromIds(command: GetArtworksFromIdsCommand): Promise<ArtworkData[]>;
+    getArtworksFromGenre(command: GetArtworksFromGenreCommand): Promise<IdentityArtworkData[]>;
+    getArtworksFromArtist(command: GetArtworksFromArtistCommand): Promise<IdentityArtworkData[]>;
+    getAllGenres(): Promise<GenreData[]>;
+    getAllArtists(): Promise<ArtistData[]>;
+    getAllGenresFromIds(command: GetAllGenresFromIdsCommand): Promise<GenreData[]>;
+    getAllArtistsFromIds(command: GetAllArtistsFromIdsCommand): Promise<ArtistData[]>;
+    getRandomArtworkId(command: GetRandomArtworkIdCommand): Promise<number>;
+    getRandomArtworks(command: GetRandomArtworksCommand): Promise<ArtworkData[]>;
+}
+\end{lstlisting}
+
+Tako, svaki od podržanih protokola komunikacije definiše interfejs po svom načinu komunikacije. Ovo olakšava 
+pozive ka serveru sa strane kontrolera. Ne mora kontroler da bira koji će protokol komunikacije da koristi, već 
+\textit{Command Handler}.
+
+\section{Pomoćni prikaz na početnom ekranu}
+
+Na iOS platformi aplikacija nudi i pomoćni prikaz (eng. \textit{widget}) \cite{widgetkit} na
+početnom ekranu uređaja, koji prikazuje sliku za tekući dan zajedno sa nazivom i
+imenom umetnika. Korisnik je tako obavešten o stizanju nove slike.
+
+Glavna prepreka je što pomoćni prikaz \textit{nije deo aplikacije}, već je zaseban
+proces, napisan u jeziku Swift \cite{swift}, koji se pokreće nezavisno i ne može pozvati
+nijednu funkciju iz JavaScript koda. Jedini način da mu se prosledi sadržaj je
+deljeni prostor koji obe strane vide, takozvana grupa aplikacija
+(engl. \textit{App Group}).
+
+Rukovalac komandom pronađe poslednje viđeno delo, preuzme sliku i preda je izvornom modulu
+napisanom u Swift-u. Taj modul smanji sliku, sačuva je u deljeni prostor i
+upiše naziv slike, umetnika i ime datoteke. Na kraju traži od
+sistema da osveži pomoćni prikaz.
+
+\begin{lstlisting}[language=JavaScript,
+  caption={Objava dela ka pomoćnom prikazu},
+  label={lst:widget}]
+await this.timed('PublishLatestToWidget', async () => {
+    const history = await this.historyRepository.get() ?? [];
+    if (history.length === 0) return;
+
+    const sorted = [...history].sort((a, b) => a.seenAt.getTime() - b.seenAt.getTime());
+    const latest = sorted[sorted.length - 1];
+
+    const artwork = (await this.artworkRepository.get())?.getById(latest.artworkId);
+    if (!artwork) return;
+
+    await this.publisher.publish({
+        imageUrl: artwork.imageUrl,
+        title: artwork.title,
+        artistName: artwork.artist.name,
+        imageDateISO: latest.seenAt.toISOString(),
+    });
+});
+\end{lstlisting}
+
+
+
+Sam pomoćni prikaz ima dva stanja. Kada su podaci sveži, najnovija slika je prikazana, zajedno sa autorom 
+i imenom iste. Kada nisu,
+prelazi na prikaz koji obaveštava korisnika da postoji novi sadržaj za njega. Odluku
+donosi jedno poređenje datuma:
+
+\begin{lstlisting}[language=Java,
+  caption={Provera svežine podataka u pomoćnom prikazu},
+  label={lst:widget-swift}]
+let storedDate = imageDateISO.flatMap(Self.parseISO)
+let isToday = storedDate.map { Calendar.current.isDate($0, inSameDayAs: date) } ?? false
+\end{lstlisting}
+
+Provera u kodu \ref{lst:widget-swift} postoji da bi korisnik bio svestan da postoji nova slika spremna za njega. 
+Ako takva provera ne bi postojala, korisnik bi, sve dok ne uđe u aplikaciju opet, video sliku koja je stara par dana. 
+Ta stanja moguće je videti \autoref{fig:widget}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.42\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{widget-prazan.png}
+    \\[2mm]\small (a) nema nove slike
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.42\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{widget-pun.png}
+    \\[2mm]\small (b) slika za danas je spremna
+  \end{minipage}
+  \caption{Dva stanja pomoćnog prikaza na početnom ekranu}
+  \label{fig:widget}
+\end{figure}
 
 
 \label{ssec:repozitorijum}
