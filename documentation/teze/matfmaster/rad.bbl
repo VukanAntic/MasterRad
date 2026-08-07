@@ -2,11 +2,9 @@
 
 \bibitem{fielding2000}
 Roy~Thomas Fielding.
-\newblock {\em {Architectural Styles and the Design of Network-based Software
-  Architectures}}.
+\newblock {\em {Architectural Styles and the Design of Network-based Software Architectures}}.
 \newblock PhD thesis, University of California, Irvine, 2000.
-\newblock on-line at:
-  \url{https://ics.uci.edu/~fielding/pubs/dissertation/top.htm}.
+\newblock on-line at: \url{https://ics.uci.edu/~fielding/pubs/dissertation/top.htm}.
 
 \bibitem{grpc-docs}
 {gRPC Authors}.
@@ -28,22 +26,18 @@ Sam Newman.
 \bibitem{palermo2008}
 Jeffrey Palermo.
 \newblock {The Onion Architecture: Part 1}.
-\newblock
-  \url{https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/},
-  2008.
+\newblock \url{https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/}, 2008.
 \newblock Pristupljeno: 1. avgusta 2026.
 
 \bibitem{martin2017}
 Robert~C. Martin.
-\newblock {\em {Clean Architecture: A Craftsman's Guide to Software Structure
-  and Design}}.
+\newblock {\em {Clean Architecture: A Craftsman's Guide to Software Structure and Design}}.
 \newblock Prentice Hall, 2017.
 
 \bibitem{fowler-mvc}
 Martin Fowler.
 \newblock {Model View Controller}.
-\newblock \url{https://martinfowler.com/eaaCatalog/modelViewController.html},
-  2002.
+\newblock \url{https://martinfowler.com/eaaCatalog/modelViewController.html}, 2002.
 \newblock Pristupljeno: 1. avgusta 2026.
 
 \bibitem{artic-api}
@@ -77,10 +71,8 @@ Christian Bauer, Gavin King, and Gary Gregory.
 
 \bibitem{amqp}
 {OASIS}.
-\newblock {AMQP: Advanced Message Queuing Protocol Specification, Version
-  0-9-1}.
-\newblock \url{https://www.amqp.org/specification/0-9-1/amqp-org-download},
-  2008.
+\newblock {AMQP: Advanced Message Queuing Protocol Specification, Version 0-9-1}.
+\newblock \url{https://www.amqp.org/specification/0-9-1/amqp-org-download}, 2008.
 \newblock Pristupljeno: 2. avgusta 2026.
 
 \bibitem{reactnative}
@@ -114,8 +106,7 @@ Martin Fowler.
 
 \bibitem{gof1994}
 Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides.
-\newblock {\em {Design Patterns: Elements of Reusable Object-Oriented
-  Software}}.
+\newblock {\em {Design Patterns: Elements of Reusable Object-Oriented Software}}.
 \newblock Addison-Wesley, 1994.
 
 \bibitem{widgetkit}

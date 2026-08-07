@@ -1022,6 +1022,141 @@ Ta stanja moguće je videti \autoref{fig:widget}.
 
 \label{ch:klijent}
 \chapter{Protokoli komunikacije}
+U prethodnim glava, sva komunikacija klijenta i servera bila je izvdojena u zasebne slojeve, (engl. \textit{Onion})
+arhitektura na serveru gde spoljašnji sloj predstavlja komunikaciju sa klijentom, dok na klijentu interfejsi 
+predstavljaju izlaz ka serveru. U narednoj glavi, biće detaljnije prikazano o svakom protokolu komunikacije, kako 
+su bili implementirani u okviru aplikacije, kao i poređenje njihovih osobina. 
+
+\section{Računanje vremena utrošenog na čekanje}
+
+Za tumačenje rezultata merenja korisno je razložiti vreme koje korisnik čeka na
+sastavne delove. Uz izvesno pojednostavljenje, ono se može izraziti kao
+
+\begin{equation}
+T = n \cdot \mathit{RTT} + \sum_{i=1}^{n}
+\left( t^{\mathit{ser}}_i + t^{\mathit{obr}}_i + \frac{S_i}{B} \right),
+\label{eq:latencija}
+\end{equation}
+
+gde je $n$ broj mrežnih kružnih putovanja, $\mathit{RTT}$ vreme kružnog
+putovanja mreže, $t^{\mathit{ser}}_i$ vreme serijalizacije i deserijalizacije,
+$t^{\mathit{obr}}_i$ vreme obrade na serveru, $S_i$ veličina pojedinačne
+poruke, a $B$ raspoloživa propusnost.
+
+Ova relacija pokazuje gde svaki od protokola može doneti poboljšanje. GraphQL
+deluje na član $n$, smanjujući broj kružnih putovanja time što više logičkih
+upita objedinjuje u jedan zahtev. gRPC deluje na članove $S_i$ i
+$t^{\mathit{ser}}_i$, smanjujući veličinu poruke binarnim kodiranjem i
+ubrzavajući njeno pretvaranje u objekte. Nijedan od njih ne utiče na član
+$t^{\mathit{obr}}_i$, odnosno na vreme obrade na serveru - što će se u analizi
+rezultata pokazati kao značajno.
+
+Vredi naglasiti i da odnos ovih članova zavisi od okruženja. Na mobilnim
+mrežama vrednost $\mathit{RTT}$ tipično iznosi od 30 do 100 milisekundi, pa
+smanjenje broja kružnih putovanja donosi uštedu merenu stotinama milisekundi.
+U lokalnom okruženju, gde je $\mathit{RTT}$ zanemarljiv, ista optimizacija
+gotovo da nema efekta.
+
+\section{REST}
+Termin REST (eng. \textit{Representational State Transfer}) uveo je Roj Filding
+2000. godine u svojoj doktorskoj disertaciji \cite{fielding2000}. Iako je do sada spomenut kao protokol, 
+bitna je napomena da REST nije protokol komunikacije, već \emph{arhitektonski stil}. On predstavlja skup pravila, 
+koja dovode do sistema skalabilan, labavo spregnut i pogodan za keširanje. 
+
+\subsection{Arhitektonska ograničenja}
+
+Filding navodi šest pravila (eng. \textit{Constraints}) REST-a:
+
+\begin{itemize}
+  \item \textbf{Klijent-Server} (eng. \textit{Client-Server}) - razdvajanje odgovornosti između
+  korisničkog interfejsa i skladištenja podataka.
+  \item \textbf{Bezstanjnost} (eng. \textit{Statelessness}) - svaki zahtev sadrži sve podatke potrebne za
+  njegovu obradu, a server ne čuva stanje sesije između zahteva.
+  \item \textbf{Keširanje} (eng. \textit{Cacheability}) - odgovori moraju biti označeni kao keširani ili
+  nekeširani.
+  \item \textbf{Jedinstven interfejs} (eng. \textit{Uniform interface}) - resursi se identifikuju
+  jedinstvenom adresom, a nad njima se vrše standardne operacije.
+  \item \textbf{Slojevit sistem} (eng. \textit{Layered system}) - klijent ne mora znati da li komunicira
+  sa serverom ili preko posrednika.
+  \item \textbf{kod na zahtev} (eng. \textit{Code on demand}) (opciono) - server može klijentu poslati
+  izvršivi kod.
+\end{itemize}
+
+Značajan pojam REST-a jeste \textbf{resurs}. Ona predstavlja svaku celinu koja je od značaja za ceo sistem. 
+U aplikaciji, to potrazumevaju umetničke slike, žanrovi ili autori. Svaki resurs ima svoju adresu, pri čemu se razne 
+operacije mogu vršiti nad njima:
+\begin{itemize}
+  \item \textbf{GET} - dohvatanje.
+  \item \textbf{POST} - kreiranje.
+  \item \textbf{PUT} i \textbf{PATCH} - izmene.
+  \item \textbf{DELETE} - brisanje.
+\end{itemize}
+  
+\subsection{Nedostaci}
+Glavni nedostaci REST-a jeste unapred definisanje odgovora servera. Upravo zbog toga, dolazi do sledećih situacija:
+\begin{itemize}
+  \item Prekomerno dohvatanje (eng. \textit{over-fetching}) - do ovog problema dolazi kada resurs čini više 
+  polja nego što je klijentu potrebno. Iako su klijentu potrebne manje polja nego što resurs čini, on dobija dodatne nepotrebne informacije.
+  \item Nedovoljno dohvatanje (eng. \textit{under-fetching}) - predstavlja problem obrnute prirode. Pošto su 
+  klijentu potrebne informacije o svim slikama, žanrovima, umetnicima, kao i  preference korisnika
+   u isto vreme, nije moguće dobiti veću količinu podataka 
+  iz jednog dohvatanja, već je potrebno uputiti više poziva, jer se nalaze na različitim mikroservisima. Nekada, 
+  ti resursi čak zavise jedan od drugog, pa nije moguće ni paralelizovati te pozive.
+\end{itemize}
+
+
+\subsection{Implementacija}
+
+Na serverskoj strani REST je od tri protokola najjednostavniji za uvođenje:
+dovoljna je anotacija nad metodom, a pretvaranje objekata u JSON obavlja sam
+radni okvir. Primer toga vidimo u isečku koda \ref{lst:rest-server}.
+
+\begin{lstlisting}[language=Java,
+  caption={Isečak REST implementacije za dohvatanje slika na serveru},
+  label={lst:rest-server}]
+@RestController
+@RequestMapping("/api/images")
+public class ImageController {
+
+    private final ArtworkService artworkService;
+    private final GenreService genreService;
+
+    @GetMapping("/get-all-genres")
+    public List<IdentityGenreDTO> getAllGenres() {
+        return genreService.getAllGenres();
+    }
+
+    @GetMapping("/get-artworks-from-ids")
+    public List<ArtworkDTO> getArtworksFromIds(@RequestParam List<Long> artworkIds) {
+        return artworkService.getAllArtworksFromIds(artworkIds);
+    }
+}
+\end{lstlisting}
+
+Odsustvo formalnog opisa istovremeno je i najveća prednost i najveća slabost
+ovog pristupa: nema koda koji je potrebno generisati, ali nema ni mehanizma da definiše oblik poruke koji očekuju klijent i server. 
+Posledica toga vidljiva je i na klijentu, u kodu \ref{lst:rest-klijent}.
+\begin{lstlisting}[language=JavaScript,
+  caption={Isečak REST implementacije za dohvatanje slika na klijentu},
+  label={lst:rest-klijent}]
+export class RestImageClient implements IImageClient {
+
+    async getAllGenres(): Promise<GenreData[]> {
+        const response = await restFetch(
+            `${API_CONFIG.imageService}/api/images/get-all-genres`,
+            {method: 'GET'},
+        );
+        const raw = await response.json();
+        return raw.map((g: any) => new GenreData(g.id, g.name));
+    }
+}
+\end{lstlisting}
+
+
+
+
+
+
 \label{ch:protokoli}
 
 

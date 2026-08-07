@@ -26,4 +26,9 @@
 \contentsline {section}{\numberline {4.5}Rukovaoci komandama}{25}{section.4.5}%
 \contentsline {section}{\numberline {4.6}Pomoćni prikaz na početnom ekranu}{27}{section.4.6}%
 \contentsline {chapter}{\chapternumberline {5}Protokoli komunikacije}{29}{chapter.5}%
-\contentsline {chapter}{Bibliografija}{30}{chapter*.2}%
+\contentsline {section}{\numberline {5.1}Računanje vremena utrošenog na čekanje}{29}{section.5.1}%
+\contentsline {section}{\numberline {5.2}REST}{30}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Arhitektonska ograničenja}{30}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Nedostaci}{31}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Implementacija}{31}{subsection.5.2.3}%
+\contentsline {chapter}{Bibliografija}{33}{chapter*.2}%
