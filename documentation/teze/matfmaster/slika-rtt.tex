@@ -1,0 +1,37 @@
+% Broj kruznih putovanja: tri poziva naspram jednog upita
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage{tikz}\usetikzlibrary{arrows.meta,positioning}
+\tikzset{
+  k/.style={draw=black,line width=0.5pt,align=center,inner sep=4pt,
+            minimum width=3.2cm,minimum height=0.9cm,font=\small},
+  s/.style={-{Latex[length=2mm,width=1.6mm]},line width=0.5pt,black},
+  o/.style={font=\scriptsize},
+}
+\begin{document}
+\begin{tikzpicture}
+
+  % ---------- LEVO: tri poziva ----------
+  \node[k,anchor=north] (kl) at (-4.6,0) {Klijent};
+  \node[k,anchor=north] (sl) at (-4.6,-5.2) {Server};
+  \foreach \i/\dx/\lab in {1/-1.15/{autori}, 2/0/{žanrovi}, 3/1.15/{dela}} {
+    \draw[s] ([xshift=\dx cm-0.18cm]kl.south) -- ([xshift=\dx cm-0.18cm]sl.north);
+    \draw[s] ([xshift=\dx cm+0.18cm]sl.north) -- ([xshift=\dx cm+0.18cm]kl.south);
+    \node[o,rotate=90,anchor=center] at ([xshift=\dx cm,yshift=-2.6cm]kl.south) {\lab};
+  }
+  \node[o,anchor=north,align=center] at (-4.6,-6.35)
+       {\textbf{REST i gRPC}\\tri kružna putovanja};
+
+  % ---------- DESNO: jedan upit ----------
+  \node[k,anchor=north] (kd) at (4.6,0) {Klijent};
+  \node[k,anchor=north] (sd) at (4.6,-5.2) {Server};
+  \draw[s] ([xshift=-0.25cm]kd.south) -- ([xshift=-0.25cm]sd.north);
+  \draw[s] ([xshift=0.25cm]sd.north) -- ([xshift=0.25cm]kd.south);
+  \node[o,rotate=90,anchor=center] at ([yshift=-2.6cm]kd.south) {autori + žanrovi + dela};
+  \node[o,anchor=north,align=center] at (4.6,-6.35)
+       {\textbf{GraphQL}\\jedno kružno putovanje};
+
+  \draw[dashed,gray] (0,0.4) -- (0,-6.9);
+\end{tikzpicture}
+\end{document}

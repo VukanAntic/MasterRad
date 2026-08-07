@@ -2,7 +2,7 @@ PWD /Users/vukanantic/MasterRad/documentation/teze/matfmaster
 INPUT /usr/local/texlive/2025/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/vukanantic/MasterRad/documentation/teze/matfmaster/rad.tex
+INPUT rad.tex
 OUTPUT rad.log
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/memoir/memoir.cls
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/memoir/memoir.cls

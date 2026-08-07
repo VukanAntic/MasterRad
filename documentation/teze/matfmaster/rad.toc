@@ -11,9 +11,9 @@
 \contentsline {section}{\numberline {3.1}Spring Boot}{10}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Podela mikroservisa}{10}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Onion arhitektura unutar servisa}{12}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Jezgro : entiteti i objekti za prenos}{14}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Srednji sloj : poslovna logika}{15}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Spoljašnji sloj : adapteri protokola}{17}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Jezgro: entiteti i objekti za prenos}{14}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Srednji sloj: poslovna logika}{15}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Spoljašnji sloj: adapteri protokola}{17}{subsection.3.3.3}%
 \contentsline {section}{\numberline {3.4}Asihrona komunikacija}{18}{section.3.4}%
 \contentsline {chapter}{\chapternumberline {4}Klijentska aplikacija}{20}{chapter.4}%
 \contentsline {section}{\numberline {4.1}React Native}{20}{section.4.1}%

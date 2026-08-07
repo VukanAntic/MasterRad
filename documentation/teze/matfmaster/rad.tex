@@ -165,10 +165,10 @@ TODO popuni kasnije
 \chapter{Uvod}
 \label{ch:uvod}
 % ------------------------------------------------------------------------------
-Sa rastućom upotrebom mobilnih aplikacija, komunikacija izmedju klijenta i servera se u većini slučajeva svede 
+Sa rastućom upotrebom mobilnih aplikacija, komunikacija između klijenta i servera u većini slučajeva svodi se 
 na Rest \cite{fielding2000} protokol komunikacije iz navike, iako postoje i drugi protokoli poput GRPC \cite{grpc-docs} i GraphQL \cite{graphql-spec}, koji 
 su performantniji, 
-fleksibilniji, kao i skalabilniji. Zato je u toku izrade naredne aplikacije bila upotreba sva 3 
+fleksibilniji, kao i skalabilniji. Zato je u toku izrade naredne aplikacije bila upotreba sva tri 
 protokola, da bi se moglo videti
  kada je koji protokol najbolje koristiti.
 
@@ -183,12 +183,12 @@ protokola, da bi se moglo videti
   o novom sadržaju koji je dodat za njega.
 
 
- Izrada projekta čine sledeći delovi: 
+ Izradu projekta čine sledeći delovi: 
  \begin{itemize}
-\item Prikupljivanje podataka - U glavi \ref{ch:podaci} predstavljen je detaljan opis odakle je aplikacija dobila podatke za prikaz u okrivu same aplikacije.
-\item Izrada servera zasnovanog na mikroservisnoj arhitekturi \cite{newman2021} - U glavi \ref{ch:server} predstavljena implementacija servera, koja je zasnovana na mikroservison arhitekturi, dok je svaki od mikroservisa pratio (eng. \textit{Onion}) arhitekturu \cite{palermo2008, martin2017}, koja je pomogla da se lako dodaje podrška za sve protokole komunikacije. 
-\item Izrada klijenta zasnovanog na MVC arhitekturi \cite{fowler-mvc} - U glavi \ref{ch:klijent} prikazano je kako je implementiran klijentski deo koda, koja prati MVC arhitekturu, kao i dodatne funkcionalnosti koje klijent podržava, kao što je viđet (eng. \textit{widget}).
-\item Dodavanje GPRC i GraphQL - Glava \ref{ch:protokoli} predstavlja prikaz svih gore navedenih protokola komunikacije, kao i poređenja.
+\item Prikupljivanje podataka - U glavi \ref{ch:podaci} predstavljen je detaljan opis odakle je aplikacija dobila podatke za prikaz u okviru same aplikacije.
+\item Izrada servera zasnovanog na mikroservisnoj arhitekturi \cite{newman2021} - U glavi \ref{ch:server} predstavljena implementacija servera, koja je zasnovana na mikroservisnoj arhitekturi, dok je svaki od mikroservisa pratio (eng. \textit{Onion}) arhitekturu \cite{palermo2008, martin2017}, koja je pomogla da se lako dodaje podrška za sve protokole komunikacije. 
+\item Izrada klijenta zasnovanog na MVC arhitekturi \cite{fowler-mvc} - U glavi \ref{ch:klijent} prikazano je kako je implementiran klijentski deo koda, koji prati MVC arhitekturu, kao i dodatne funkcionalnosti koje klijent podržava, kao što je pomoćni prikaz (eng. \textit{widget}).
+\item Dodavanje gRPC i GraphQL - Glava \ref{ch:protokoli} predstavlja prikaz svih gore navedenih protokola komunikacije, kao i poređenja.
 \end{itemize}
 
   
@@ -197,7 +197,7 @@ protokola, da bi se moglo videti
 
 Aplikacija razvijena u okviru ovog rada, {\textit{INSPIRA daily}\xspace}, prikazuje korisniku novu umetničku sliku svakog dana
 uzimajući u obzir preference korisnika. Potrebe projekta su bile da ima veliku količinu umetničkih slika, detaljan opis
-za svaku, žanr kojoj slika prikada, kao i informacija ko je bio slikar iste. Iz tih razloga, za izvor 
+za svaku, žanr kojem slika pripada, kao i informacija ko je bio slikar iste. Iz tih razloga, za izvor 
 podataka bio je izabran Institut za umetnost u Čikagu (eng. \textit{The Art Institute of Chicago}) 
 \cite{artic-api}. Institut
 nudi javni programski interfejs, ali i potpuni prepis zbirke (eng. \textit{data dump}) - arhiva svih slika, 
@@ -207,7 +207,7 @@ interfejsa zahtevalo veliki vremenski period, kao i stavljanje velikog pritiska 
 
 Slike se ne čuvaju lokalno, iz razloga jer ih institut izlaže preko protokola IIIF 
 (eng. \textit{International Image Interoperability Framework}) koji omogućava da se željena slika, kao 
-i njega širina zatraži preko adrese (\textit{url}). Adresa slike se može sastaviti iz identifikatora 
+i njena širina zatraži preko adrese (\textit{url}). Adresa slike se može sastaviti iz identifikatora 
 slike (eng. \textit{image id}) , što pokazuje 
 \autoref{lst:iiif}.
 
@@ -223,15 +223,15 @@ path = f'https://www.artic.edu/iiif/2/{data["image_id"]}
        /full/843,/0/default.jpg'
 \end{lstlisting}
 
-Na ovaj način, za dohvatanje i prikazivanje slika bilo je samo potrebno izvući indentifikator svake željenje slike,
+Na ovaj način, za dohvatanje i prikazivanje slika bilo je samo potrebno izvući identifikator svake željene slike,
 i dobija se adresa iste. Vrednost 843 podrazumeva najčešću korišćenu veličinu slike, koja je verovatno keširana
-na strani intstitutovog servera. Bilo je moguće zameniti tu vrednost sa manjom vrednošću, da sve slike
+na strani institutovog servera. Bilo je moguće zameniti tu vrednost sa manjom vrednošću, da sve slike
 imaju istu širinu i visinu. 
 
 
 
 \section{Obrada podataka}
-Automatska obrada podataka, bila je realizovana uz pomoć skripte napisane u programskom jeziku \textit{Python}
+Automatska obrada podataka bila je realizovana uz pomoć skripte napisane u programskom jeziku \textit{Python}
 po imenu \textit{ImageDatabaseGenerator.py}. \autoref{fig:prikupljanje} prikazuje kako je to urađeno.
 \begin{figure}[htbp]
   \centering
@@ -246,7 +246,7 @@ po imenu \textit{ImageDatabaseGenerator.py}. \autoref{fig:prikupljanje} prikazuj
 \subsection{Filtriranje}
 Arhiva instituta ne sadrži samo umetničke slike, već i skulpture, fotografije, tekstil kao i veliku količinu 
 drugih tipova objekata. Iz tog razloga, bilo je potrebno filtrirati podatke, tako da se pronađu samo 
-umetničke slike, što se može videti \autoref{lst:filtriranje}.
+umetničke slike, što se može videti u \autoref{lst:filtriranje}.
 
 
 \lstset{
@@ -286,11 +286,11 @@ def parse_single_artwork(data):
 \end{lstlisting}
 
 Pored provere da li je u pitanju umetnička slika, bilo je potrebno dodati i druge provere da li postoji 
-naziv slike, opis, i datum njene kreacije. 
+naziv slike, opis, i datum njenog nastanka. 
 
 \subsection{Provera ispravnosti slike}
 
-Naredni korak posle filtriranja podrazumeva provera da li slika koju imaju u arhivi instituta ispravna, tj. 
+Naredni korak posle filtriranja podrazumeva proveru da li slika koju imaju u arhivi instituta ispravna, tj. 
 da li pristup adresi te slike vraća grešku, što pokazuje primer koda \ref{lst:dostupnost}.
 \newline
 
@@ -317,14 +317,14 @@ def check_if_path_is_invalid(path) :
 \end{lstlisting}
 
 
-Bitno je napomenuti, programski interfejs koji je dostupan od instituta vraća grešku \textbf{429}, ako je 
-previše zahteva stiglo od iste \textit{IP adrese} u kratkom vremenskom periodu, zato u toku izvršavanje 
+Bitno je napomenuti da programski interfejs koji je dostupan od instituta vraća grešku \textbf{429}, ako je 
+previše zahteva stiglo od iste \textit{IP adrese} u kratkom vremenskom periodu, zato u toku izvršavanja 
 skripte, zaustavi se program na 60 sekundi, da bi moglo dalje da se pristupi serveru instituta. 
 
 
 \subsection{Relacioni model} 
 
-Izdvojeni podaci upisuju se u bazu (eng. \textit{PostgresSQL}) preko biblioteke (eng. \textit{SQLAlchermy}).
+Izdvojeni podaci upisuju se u bazu (eng. \textit{PostgreSQL}) preko biblioteke (eng. \textit{SQLAlchemy}).
 Potrebni podaci se čuvaju u tri različite tabele - Umetnička slika (eng. \textit{Artwork}), Žanr (eng. \textit{Genre})
 kao i Umetnik (eng. \textit{Artist}). Kod \ref{lst:model} koji generiše takav model možemo videti:
 
@@ -375,7 +375,7 @@ class Genre(Base):
 Tri bitne stavke o samom modelu koje je značajno izdvojiti.
 \begin{itemize}
 \item \textbf{Identifikatori se preuzimaju od izvora} - Delo i autor zadržavaju celobrojni identifikator koji im je dodelio institut, umesto da dobiju novi. Time je omogućeno da se u budućnosti zbirka dopuni novim slikama i umetnicima, bez potrebe za brigom o duplikatima. Ista odluka primenjena je i na žanrove, identifikator je zadržan od instituta, koji je niska.
-\item \textbf{Veza slika-žanr je više-prema-više} - Zbog prirode skupa podataka, jedna slika može pripadati više različitih žanrova u isto vreme, i isto tako, jednom žanru može odgovarati veči broj slika.
+\item \textbf{Veza slika-žanr je više-prema-više} - Zbog prirode skupa podataka, jedna slika može pripadati više različitih žanrova u isto vreme, i isto tako, jednom žanru može odgovarati veći broj slika.
 \item \textbf{Veza slika-umetnik je jedan-prema-više} - Isto kao i za prethodni odnos, zbog prirode podataka, jednu sliku je mogao da naslika jedan umetnik, dok je jedan umetnik mogao da naslika više različitih slika.
 \end{itemize}
 
@@ -432,10 +432,10 @@ koje ovaj rad opisuje, i iz tih svih razloga, server je izrađen u njemu.
 
 \section{Podela mikroservisa}
 
-Mikroservisni su međusobno nezavisne celine, koje su najčešće podeljenje po nekoj biznis logici. 
+Mikroservisi su međusobno nezavisne celine, koje su najčešće podeljene po nekoj poslovnoj logici. 
 Svaki od mikroservisa unutar sebe prati neku dogovorenu strukturu, ima sopstvenu bazu podataka, i kao posledicu,
-to omogućava da svaki od mikroservisa može da se pusti u produkciju sa njegovim najnovijim izmenana, 
-bez pravljenja novog izdanja za ostale mikroservise. Iz tih razloga, odlučeno je da serverska strana bude podeljenja 
+to omogućava da svaki od mikroservisa može da se pusti u produkciju sa njegovim najnovijim izmenama, 
+bez pravljenja novog izdanja za ostale mikroservise. Iz tih razloga, odlučeno je da serverska strana bude podeljena 
 na mikroservise. Organizaciju čitavog servera možemo videti na slici \ref{fig:server}.
 
 \begin{figure}[htbp]
@@ -445,12 +445,12 @@ na mikroservise. Organizaciju čitavog servera možemo videti na slici \ref{fig:
   \label{fig:server}
 \end{figure}
 
-Kao što se vidi, serverska strana je podeljenja na 4 mikroservisa:
+Kao što se vidi, serverska strana je podeljena na četiri mikroservisa:
 \begin{itemize}
-\item \textbf{Mikroservis za slike (eng. \textit{ImageService})} - Mikroservis odgovoran za sav sadržaj vezan sa slike. On koristi podatke koji su iz Glave 2, i daje programski interfejs vezan za slike, umetnike i žanrove. Podaci se čuvaju u relacionoj bazi podataka \emph{PostgresSQL}, jer su svi podaci međusobno povezani.
-\item \textbf{Mikroservis za autentifikaciju (eng. \textit{IdentityService})} - Mikroservis koji se bavi čitavim procesom autentifikacije korisnika. Unutar sebe sadrži programski interfejs za prijavu, odjavu, registraciju, kao i čuvanje vitalnih informacija o korisniku, kao što su korisničko ime, šifra i email adresa. Pri uspešnoj prijavi, servis izdaje par žetona: \emph{pristupni žeton} kratkog trajanja, kojim se potpisuje svaki naredni zahtev, i \emph{žeton za osvežavanje} dužeg trajanja, kojim se pribavlja nov pristupni žeton bez ponovnog unosa lozinke. I ovaj mikroservis isto koristi relacionu bazu podataka. Podaci o korisniku imaju unapred definisanu strukturu, a nad korisničkim imenom i adresom postoji ograničenje da moraju da budu unikatni.
-\item \textbf{Mikroservis za preference (eng. \textit{UserPreferencesService})} - Mikroservis koji je odgovoran za čuvanje svih preferenci korisnika. Čuva informacije koje su omiljenje slike korisnika, kao i žanrovi i umetnici. Za razliku od prethodna dva mikroservisa, on koristi nerelacionu bazu podataka \emph{MongoDB}. Pošto se sve preference korisnika se čuvaju na nivou listi, kao što su sve omiljene slike korisnika, odabran je ovaj oblik baze podataka. 
-\item \textbf{Mikroservis za narednu sliku (eng. \textit{NextImageService})} - Mikroservis koji generiše novu sliku za korisnika svaki dan. Uz pomoć informacija o korisniku iz mikroservisa za preference, on algoritmom odluči koju će novu sliku dodeliti korisniku taj dan. On čuva informaciju koje je preferentno vreme za davanje nove slike korisniku, i preko trajne veze sa korisnikom (eng. \textit{Websocket}), stiže najnovija slika. Pošto i on čuva listu slika, kao i vreme kada korisnik želi novu sliku, odabrana je nerelacionu bazu podataka \emph{MongoDB}.
+\item \textbf{Mikroservis za slike (eng. \textit{ImageService})} - Mikroservis odgovoran za sav sadržaj vezan za slike. On koristi podatke koji su iz Glave 2, i daje programski interfejs vezan za slike, umetnike i žanrove. Podaci se čuvaju u relacionoj bazi podataka \emph{PostgreSQL}, jer su svi podaci međusobno povezani.
+\item \textbf{Mikroservis za autentifikaciju (eng. \textit{IdentityService})} - Mikroservis koji se bavi čitavim procesom autentifikacije korisnika. Unutar sebe sadrži programski interfejs za prijavu, odjavu, registraciju, kao i čuvanje vitalnih informacija o korisniku, kao što su korisničko ime, lozinka i adresa elektronske pošte. Pri uspešnoj prijavi, servis izdaje par žetona: \emph{pristupni žeton} kratkog trajanja, kojim se potpisuje svaki naredni zahtev, i \emph{žeton za osvežavanje} dužeg trajanja, kojim se pribavlja nov pristupni žeton bez ponovnog unosa lozinke. I ovaj mikroservis isto koristi relacionu bazu podataka. Podaci o korisniku imaju unapred definisanu strukturu, a nad korisničkim imenom i adresom postoji ograničenje da moraju da budu unikatni.
+\item \textbf{Mikroservis za preference (eng. \textit{UserPreferencesService})} - Mikroservis koji je odgovoran za čuvanje svih preferenci korisnika. Čuva informacije koje su omiljene slike korisnika, kao i žanrovi i umetnici. Za razliku od prethodna dva mikroservisa, on koristi nerelacionu bazu podataka \emph{MongoDB}. Pošto se sve preference korisnika čuvaju na nivou listi, kao što su sve omiljene slike korisnika, odabran je ovaj oblik baze podataka. 
+\item \textbf{Mikroservis za narednu sliku (eng. \textit{NextImageService})} - Mikroservis koji generiše novu sliku za korisnika svaki dan. Uz pomoć informacija o korisniku iz mikroservisa za preference, on algoritmom odluči koju će novu sliku dodeliti korisniku taj dan. On čuva informaciju koje je preferentno vreme za davanje nove slike korisniku, i preko trajne veze sa korisnikom (eng. \textit{Websocket}), stiže najnovija slika. Pošto i on čuva listu slika, kao i vreme kada korisnik želi novu sliku, odabrana je nerelaciona baza podataka \emph{MongoDB}.
 \end{itemize}
 
 
@@ -458,13 +458,13 @@ Svaki servis koristi alat (eng. \textit{Maven}) koji služi za izgradnju, nad ra
 
 \section{Onion arhitektura unutar servisa}
 
-Kod unutar svakog od mikroservisa je ogranizovan prema (eng. \textit{Onion}) arhitekturi. Osnovni koncept te arhitekture 
+Kod unutar svakog od mikroservisa je organizovan prema (eng. \textit{Onion}) arhitekturi. Osnovni koncept te arhitekture 
 je da \textbf{zavisnosti pokazuju samo ka unutra}. Svaki spoljašnji sloj zna, i može da koristi unutrašnje slojeve,
-dok unutrašnji slojevi nemaju način da dohvate unutrašnjim slojevima.   
+dok unutrašnji slojevi ne mogu pristupiti spoljašnjim slojevima.   
 
-Na slici \ref{fig:onion} se može videti kako izgleda arhitektura svakog mikroservisa. Svaki od slojeva gledaju ka unutra, i upravo
-iz tih razloga je dodavanje više protokola komunikacije bila olakšana. Zbog nje, Svaki novi dodati protokol komunikacije
-će koristiti slojeve unutra, i tako će REST, GPRC, i GraphQL iako imaju različite načine za predstavljanje programskog interfejsa,
+Na slici \ref{fig:onion} se može videti kako izgleda arhitektura svakog mikroservisa. Svaki od slojeva gleda ka unutra, i upravo
+iz tih razloga je dodavanje više protokola komunikacije bilo olakšano. Zbog nje, svaki novi dodati protokol komunikacije
+će koristiti slojeve unutra, i tako će REST, gRPC, i GraphQL iako imaju različite načine za predstavljanje programskog interfejsa,
 imati identičnu logiku koja se odigrava.
 
 U jezgru se nalaze domenski model, objekti za prenos podataka i interfejsi
@@ -480,7 +480,7 @@ nalaze adapteri: kontroleri za svaki od protokola, pristup bazi i konfiguracija.
 \end{figure}
  
 
-\subsection{Jezgro : entiteti i objekti za prenos}
+\subsection{Jezgro: entiteti i objekti za prenos}
 
 Unutar jezgra se nalaze dve različite vrste klasa. \textbf{Entiteti} predstavljaju objekte u bazi, i imaju sve informacije iz njih 
 dok \textbf{objekti za prenos podataka} su objekti čija je svrha komunikacija sa spoljašnjim svetom. Objekti za prenos podataka 
@@ -543,17 +543,17 @@ primarni ključ te tabele, po kome se svaki red jednoznačno razlikuje od
 ostalih. 
 
 
-\subsection{Srednji sloj : poslovna logika}
+\subsection{Srednji sloj: poslovna logika}
 Srednji sloj sadrži servise u kojima se nalazi sva poslovna logika aplikacije. On komunicira sa jezgrom, i korišćenjem 
 entiteta iz jezgra kreira objekte za prenos, koji kasniji slojevi mogu da koriste. 
 U primer \ref{lst:servisSredjenjegSloja} može se videti logika 
-servisa. Njegova biznis logika zahteva da dohvata entitete, i transformiše ih u objekte za prenos. 
+servisa. Njegova poslovna logika zahteva da dohvata entitete, i transformiše ih u objekte za prenos. 
 Zbog prirode projekta, ovaj servis ne zahteva kompleksniju logiku, dok na primer, servis koji se bavi izborom sledeće 
 slike, čiji isečak vidimo u \ref{lst:izborNoveSlike}, mora da radi kompleksnije algoritme. 
 \lstset{
   language=Java,
   label={lst:servisSredjenjegSloja},
-  caption={Primer servisa za sledeću sliku sa potrebnom biznis logikom}
+  caption={Primer servisa za sledeću sliku sa potrebnom poslovnom logikom}
 }
 \begin{lstlisting}
 @Service
@@ -623,11 +623,11 @@ public long selectNextArtworkId(String username, Set<Long> seenArtworkIds) {
 Ovaj sloj nema kontekst oko protokola komunikacije koji se koristi, i upravo iz tog razloga, moguće je pozivati 
 servis, i dohvatanje istih podataka, bez obzira na izbor protokola. 
 
-\subsection{Spoljašnji sloj : adapteri protokola}
-Spoljašnji sloj podrazumevaju klase koje rade dikrektnu komunikaciju sa srednjim slojem. One komuniciraju sa servisom, 
-dohvataju podatke na koje je servis već primenio biznis logiku, i samo prosledjuju klijentu. U aplikaciji, primer 
+\subsection{Spoljašnji sloj: adapteri protokola}
+Spoljašnji sloj podrazumevaju klase koje rade direktnu komunikaciju sa srednjim slojem. One komuniciraju sa servisom, 
+dohvataju podatke na koje je servis već primenio poslovnu logiku, i samo prosleđuju klijentu. U aplikaciji, primer 
 takve klase podrazumevaju kontroleri (eng. \textit{controller}). On definiše koji protokol komunikacije podržava.
-U primeru \ref{lst:controller} može se videti kontroller koji je zadužen za REST.  
+U primeru \ref{lst:controller} može se videti kontroler koji je zadužen za REST.  
 
 
 \lstset{
@@ -659,22 +659,22 @@ Kontroler definiše REST putanju koju podržava, i kada klijent pokuša da prist
 Ovo je primer jednog protokola komunikacije koji je podržan, ali u Glavi 5, biće prikazana podrška i za ostale. 
 
 \section{Asihrona komunikacija}
-Do sada sva komuniciraja koja je bila spomenuta je bila \emph{sinhrone prirode} : pozivalac šalje zahtev i čeka odgovor, 
-i tek kada mu stigne odgovor on nastavi dalje sa izvršavanjem, ali ako bismo hteli komunikaciju izmedju više mikroservisa, 
-a da jedan mikroservis ne zna na koga sve utiče, potrebna nam je \emph{asihrona komunikacija}. Pošiljalac ne šalje 
+Do sada sva komunikacija koja je do sada pomenuta bila je \emph{sinhrone prirode} : pozivalac šalje zahtev i čeka odgovor, 
+i tek kada mu stigne odgovor on nastavi dalje sa izvršavanjem, ali ako bismo hteli komunikaciju između više mikroservisa, 
+a da jedan mikroservis ne zna na koga sve utiče, potrebna nam je \emph{asinhrona komunikacija}. Pošiljalac ne šalje 
 poruku primaocu, već je šalje posredniku, i odmah nastavlja dalje sa svojim poslom. Posrednik čuva poruku, sve dok 
 primalac nije spreman da je preuzme, i da reaguje na tu poruku. Pošiljalac nema informaciju o tome ko sluša i reaguje 
 na poruke, pa je ovakav način komunikacije prikladan za obaveštenje o događajima na koje verovatno bi neki drugi 
 mikroservis reagovao.
 
-Kao brokera poruka (eng. \textit{broker software}) koristi se \emph{RabbitMQ} \cite{rabbitmq}, red poruka koji 
+Kao broker poruka (eng. \textit{broker software}) koristi se \emph{RabbitMQ} \cite{rabbitmq}, red poruka koji 
 implementira standard \textbf{AMQP} (engl. \textit{Advanced Message Queuing Protocol})
-\cite{amqp}, protokol za razmenu poruka između mikroservisa. Pošto standard definiše tačan broj bajtova koji putuju 
+\cite{amqp}, protokol za razmenu poruka između mikroservisa. Pošto standard definiše tačan oblik bajtova koji putuju 
 mrežom, to omogućava da mikroservisi koji komuniciraju na ovaj način ne moraju da budu implementirani na istom programskom 
 jeziku, i posrednik može da se zameni, bez uticaja na kod. 
 
 Primer \ref{lst:rabbit} pokazuje isečke iz koda gde se šalje poruka, i gde se reaguje na istu. Mikroservis koji je zadužen 
-za autentifikaciju u momentu kada se korisnik registruje šalje poruku  (eng. \textit{event}) po imenu \emph{UserCreatedEvent}.
+za autentifikaciju u momentu kada se korisnik registruje šalje događaj (eng. \textit{event}) po imenu \emph{UserCreatedEvent}.
 Mikroservis zadužen za preference reaguje na taj događaj, i kreira entitet za tog korisnika. 
 
 \begin{lstlisting}[language=Java,
@@ -738,20 +738,20 @@ Na slici \ref{fig:mvc} vidi se upravo opisana arhitektura.
 \end{figure}
 
 \subsection{Prikaz}
-Prikaz je zadužen za sve komponente koje se izcrtavaju na ekranu telefona.
+Prikaz je zadužen za sve komponente koje se iscrtavaju na ekranu telefona.
 On poseduje svoje lične podatke (u projektu pod nazivom \textit{View Data}) koje mu se dodeljuju,
 i uz pomoć istih, stara se oko prikaza konkretnog dela aplikacije. U trenutku dodele novog modela od strane kontrolera 
-prikazu, citav prikaz se opet iscrtava. Želja za ovim pristupom jeste da je sve prikazano na ekranu uvek ispravo stanje 
+prikazu, čitav prikaz se opet iscrtava. Želja za ovim pristupom jeste da je sve prikazano na ekranu uvek ispravno stanje 
 koje je server poslao.
 
 \subsection{Model}
 U aplikaciji prikazni model (\textit{ViewData}) predstavljaju podatke koje kontroler dodeljuje svom prikazu.
-Oni se razlikuju od entiteta koji su poslati od strane servera. Ideja jeste za model ima samo informacije 
+Oni se razlikuju od entiteta koji su poslati od strane servera. Ideja je da model ima samo informacije 
 koje su potrebne prikazu da vrši svoju dužnost. Model nema informaciju o samom prikazu kao ni kontroleru. On 
-je samo klasa koja predstavljaju prenos podataka.
+je samo klasa koja predstavlja prenos podataka.
 
 \subsection{Kontroler}
-Kontrolerova funkcija je da se bavi biznis logikom vezanu za prikaz. Ona sadrži referencu na svoj prikaz,
+Kontrolerova funkcija je da se bavi poslovnom logikom vezanom za prikaz. On sadrži referencu na svoj prikaz,
 i sa njom, dodeljuje model koji mu treba za iscrtavanje ekrana. Kontroler je taj koji ima reference 
 na repozitorijume, o kojima ćemo više videti u glavi \ref{ssec:repozitorijum}, iz kojih čita entitete poslate od servera.
 U kodovskom primeru \ref{lst:kontroler} možemo videti isečak kontrolera za početni ekran. On dohvata informacije 
@@ -796,7 +796,7 @@ o slikama koje se pokazuju korisniku na glavnom ekranu, vrši obradu tih podatak
 
 
 \section{Namera}
-Prikaz nema informaciju o postojanju kontrolera, jedini način da prikaz komunicira sa spoljasnjim
+Prikaz nema informaciju o postojanju kontrolera, jedini način da prikaz komunicira sa spoljašnjim
 svetom jeste preko namera (eng. \textit{Intent}). Namera podrazumeva neku akciju koja se dogodila na nivou prikaza,
  i treba ta informacija da se propagira dalje. U primeru \ref{lst:intent} možemo videti ceo životni ciklus namere. 
  U tom primeru, klasa \textit{ArtworkPreferenceIntent} predstavlja nameru da se korisniku dopada ili ne dopada slika. 
@@ -824,7 +824,7 @@ onMessage(intent: ArtworkPreferenceIntent): void {
 \end{lstlisting}
 
 \section{Repozitorijum}
-Repozitorijum \cite{fowler2002} u klijentskom kontekstu podrazumeva čuvanja trenutnog stanja aplikacije u memoriji. Unutar repozitorijuma 
+Repozitorijum \cite{fowler2002} u klijentskom kontekstu podrazumeva čuvanje trenutnog stanja aplikacije u memoriji. Unutar repozitorijuma 
 čuvaju se entiteti (eng. \textit{Domain Data}) koji su kreirani iz informacija poslatih sa servera. Kod \ref{lst:domainData}
 prikazuje kreiranje entiteta za slike, koji će, pri proizvoljnom odgovoru od servera, biti sačuvan upravo u repozitorijum.
 \begin{lstlisting}[language=JavaScript,
@@ -868,8 +868,8 @@ export interface IRepository<T> {
 }
 \end{lstlisting}
 
-Sva tri metoda su asihrone prirode, iako za jednostavno čuvanje u memoriji to nije potrebno. Razlog je jer u određenim situacijama,
-potrebno je takođe čuvanje informacija između različitih korisničkih sesija, a čuvanje u skladište uređaja je asihrona akcija.
+Sve tri metode su asinhrone prirode, iako za jednostavno čuvanje u memoriji to nije potrebno. Razlog je jer u određenim situacijama,
+potrebno je takođe čuvanje informacija između različitih korisničkih sesija, a čuvanje u skladište uređaja je asinhrona akcija.
 Kada se interfejs koristi u kodu, ne zna se koji je tačno tip repozitorijuma, što olakšava pisanje novog koda. 
 
 Postoje tri različita tipa repozitorijuma:
@@ -888,7 +888,7 @@ pamti pročitanu vrednost u memoriji.
 \section{Rukovaoci komandama}
 Između klijenta i servera postoji sloj koji ih spaja, rukovaoci komandama (eng. \textit{Command Handlers}) \cite{gof1994}. 
 Svaki od njih obavlja tačno jednu dužnost, da dohvati podatke sa servera i da ih upiše u repozitorijum, gde ih 
-kasnije kontroler čita. Kontroler ne poziva server direktno, već koristi rukovodilac da izvršavi komandu. 
+kasnije kontroler čita. Kontroler ne poziva server direktno, već koristi rukovodilac da izvrši komandu. 
 
 Razlog za taj sloj je što se ista radnja često poziva sa više mesta. Dohvatanje
 liste slika potrebno je i pri prvom pokretanju, i pri otvaranju korisničkog
@@ -916,7 +916,7 @@ export class GetAllGenresCommandHandler extends CommandHandler {
 \end{lstlisting}
 
 U primeru \ref{lst:handler} može se videti kako izgleda primer takvog koda. Njegova dužnost je dohvatanje 
-informacija od servera vezano za sve žanrove koje server podržava. On ne implementira ni jedan konrektan protokol komunikacije, 
+informacija od servera vezano za sve žanrove koje server podržava. On ne implementira ni jedan konkretan protokol komunikacije, 
 već dobija referencu ka interfejsu, koji definiše sve moguće pozive ka serveru. 
 Jedan od takvih interfejsa vidimo u primeru \ref{lst:handlerClient}.
 

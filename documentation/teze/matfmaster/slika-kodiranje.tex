@@ -1,0 +1,45 @@
+% Kodiranje iste poruke: JSON naspram Protocol Buffers
+\documentclass[border=4pt]{standalone}
+\usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}
+\usepackage[english,serbian]{babel}
+\usepackage{tikz}\usetikzlibrary{arrows.meta,positioning,fit,backgrounds}
+\tikzset{
+  okvir/.style={draw=black,line width=0.5pt,inner sep=6pt,align=left},
+  o/.style={font=\scriptsize,align=center},
+  s/.style={-{Latex[length=1.8mm,width=1.5mm]},line width=0.4pt,black},
+}
+\begin{document}
+\begin{tikzpicture}
+
+  \node[font=\small\itshape,anchor=south] at (0,1.85)
+       {ista poruka: \texttt{Artist \{ id = 1, name = "Monet" \}}};
+
+  % ---------- JSON ----------
+  \node[okvir,anchor=north,minimum width=6.6cm] (json) at (-3.6,1.2)
+       {\ttfamily\footnotesize \{"id":1,"name":"Monet"\}};
+  \node[o,anchor=north,text width=6.4cm] at (-3.6,-0.15)
+       {\textbf{JSON} --- 23 bajta\\[3pt]
+        nazivi polja \texttt{id} i \texttt{name}\\
+        prenose se uz svaku vrednost};
+
+  % ---------- PROTOBUF ----------
+  \node[okvir,anchor=north,minimum width=6.6cm] (pb) at (3.6,1.2)
+       {\ttfamily\footnotesize 08 01 12 05 4D 6F 6E 65 74};
+  \node[o,anchor=north,text width=6.4cm] at (3.6,-0.15)
+       {\textbf{Protocol Buffers} --- 9 bajtova\\[3pt]
+        prenose se samo oznake polja\\
+        \texttt{1} i \texttt{2} iz opisa poruke};
+
+  % ---------- objasnjenje bajtova ----------
+  \node[o,anchor=north,text width=13.6cm] at (0,-1.85)
+       {\texttt{08}\,=\,oznaka 1, ceo broj \quad \texttt{01}\,=\,vrednost \quad
+        \texttt{12}\,=\,oznaka 2, niska \quad \texttt{05}\,=\,dužina \quad
+        \texttt{4D\,6F\,6E\,65\,74}\,=\,,,Monet``};
+
+  \node[o,anchor=north,font=\small\itshape,text width=13cm] at (0,-2.75)
+       {ušteda potiče od izostavljanja naziva polja, pa je najveća
+        kod poruka sa mnogo malih polja, a najmanja kod poruka
+        u kojima preovlađuje dug tekst};
+
+\end{tikzpicture}
+\end{document}
