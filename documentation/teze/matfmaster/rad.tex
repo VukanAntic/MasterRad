@@ -50,6 +50,45 @@
   morestring=[b]`,
 }
 
+\lstdefinelanguage{GraphQLSchema}{
+  morekeywords={type,input,enum,interface,union,scalar,schema,query,mutation,
+    subscription,Query,Mutation,Subscription,String,Int,Float,Boolean,ID,extend},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+}
+
+\lstdefinelanguage{Protobuf}{
+  morekeywords={syntax,package,option,import,service,rpc,returns,message,
+    repeated,optional,reserved,enum,string,int32,int64,bool,double,float,bytes},
+  sensitive=true,
+  morecomment=[l]{//},
+  morestring=[b]",
+}
+
+\lstdefinelanguage{TS}{
+  morekeywords={abstract,as,async,await,break,case,catch,class,const,constructor,
+    continue,declare,default,delete,do,else,enum,export,extends,false,finally,for,
+    from,function,get,if,implements,import,in,instanceof,interface,let,new,null,
+    of,private,protected,public,readonly,return,set,static,super,switch,this,throw,
+    true,try,type,typeof,undefined,var,void,while,yield,number,string,boolean,any,
+    Promise,unknown},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`,
+}
+
+\lstdefinelanguage{Jaml}{
+  morekeywords={true,false,null},
+  sensitive=true,
+  morecomment=[l]{\#},
+  morestring=[b]",
+  morestring=[b]',
+}
+
 % Datoteka sa literaturom u BibTex tj. BibLaTeX/Biber formatu
 \bib{literatura}
 
@@ -118,11 +157,24 @@
 
 % Apstrakt na srpskom jeziku (u odabranom pismu)
 \apstr{%
-TODO popuni kasnije
+Sa porastom broja mobilnih aplikacija, komunikacija između klijenta i servera najčešće se svodi
+na upotrebu arhitektonskog stila REST. Pored njega postoje i jezik GraphQL i radni okvir gRPC,
+koji donose drugačije ustupke po pitanju fleksibilnosti, veličine poruka i strogosti ugovora
+između dve strane. 
+
+U ovom radu razvijena je mikroservisna aplikacija za svakodnevni prikaz umetničkih dela,
+upotrebom tehnologija Spring Boot i React Native. Prikazan je postupak prikupljanja i obrade
+podataka iz javno dostupne arhive Instituta za umetnost u Čikagu, podela serverske strane na
+mikroservise, organizacija svakog servisa po onion arhitekturi, kao i klijentska aplikacija
+zasnovana na obrascu model-prikaz-kontroler. Nad tako izgrađenim sistemom implementirana su sva
+tri protokola, pri čemu su ostali slojevi aplikacije ostali nepromenjeni, čime je omogućeno
+njihovo neposredno poređenje. Za svaki protokol prikazani su osnovna zamisao, implementacija na
+serveru i na klijentu, kao i prednosti i nedostaci uočeni pri radu. Razvijena aplikacija dostupna
+je kao softver otvorenog koda.
 }
 
 % Ključne reči na srpskom jeziku (u odabranom pismu)
-\kljucnereci{TODO popuni kasnije}
+\kljucnereci{protokoli komunikacije, REST, GraphQL, gRPC, onion arhitektura, React Native, Spring Boot}
 
 % matfmaster u \literatura zakucava stil "plain" (abecedno). Menjamo na
 % "unsrt", koji redja izvore po redosledu prvog pojavljivanja u tekstu.
@@ -150,7 +202,7 @@ TODO popuni kasnije
 % Strana sa podacima o mentoru i članovima komisije
 \komisija
 % Strana sa posvetom (u odabranom pismu)
-\posveta{Овај рад посвећујем свом оцу, мајци, брату, пријатељима и колегама на подршци у току израде овог рада. др. Владимиру Филиповићу се захваљујем на стрпљењу као и саветима у току изграда овог рада. Посебну захвалност дугујем партнеру Душици, на свој љубави пруженој у току студија.}
+\posveta{Овај рад посвећујем свом оцу, мајци, брату, пријатељима и колегама на подршци у току израде овог рада. др. Владимиру Филиповићу се захваљујем на стрпљењу као и саветима у току израдe овог рада. Посебну захвалност дугујем партнеру Душици, на свој љубави пруженој у току студија.}
 % Strana sa podacima o disertaciji na srpskom jeziku
 \apstrakt
 % Sadržaj teze
@@ -1153,12 +1205,405 @@ export class RestImageClient implements IImageClient {
 \end{lstlisting}
 
 
+\section{GraphQL}
+
+GraphQL predstavlja jezik upita koji unapred definiše koje sve podatke koje klijent može da zahteva od servera. Kreiran 
+je od strane kompanije Fejsbuk (eng. \textit{Facebook}) 2012. godine za internu upotrebu, ali je postao 
+otvorenog koda 2015. godine da može bilo ko da ga koristi. Osnovna zamisao protokola jeste da klijent opisuje oblik 
+odgovora koji mu treba od servera. Umesto velike količine krajnjih tačaka, server definiše samo jednu putanju, 
+na kojoj se može zahtevati šema (eng. \textit{schema}), koja predstavlja strukturu koju klijent može zatražiti. 
+
+\subsection{Schema}
+
+Schema u GraphQL podrazumeva dogovor šta je moguće klijent da dobije od servera od podataka u datom trenutku. 
+Ako klijentu nisu potrebni svi podaci unutar scheme, već samo podskup njenih atributa, ona može da zatraži upravo njih. 
+Ovime, GraphQL izbegava problem prekomernog dohvatanja. Primer scheme za sliku može se videti u primeru \ref{lst:gql-shema}.
 
 
+\begin{lstlisting}[language=GraphQLSchema,
+  caption={Deo sheme mikroservisa za slike},
+  label={lst:gql-shema}]
+type Artwork {
+    id: Int!
+    title: String!
+    description: String!
+    imageUrl: String!
+    artist: Artist!
+    genres: [Genre!]!
+}
 
+type Artist { id: Int!  name: String! }
+type Genre  { id: ID!   name: String! }
+\end{lstlisting}
+
+Unutar scheme, definisana su sva polja koja server pruža za sliku. Klijent ima mogućnost da dohvati celokupnu schemu, 
+ili samo podskup tih polja. Unutar scheme, definišu se atributi, tj. ime atributa, njegov tip i da li je striktno 
+populisan ili ne (da li atribut ne sme biti jednak eng. \textit{null}, definiše sa uzvičnikom).
+
+\begin{lstlisting}[language=GraphQLSchema,
+  caption={Jedan upit koji zamenjuje tri REST poziva},
+  label={lst:gql-upit}]
+query PocetniEkran($ids: [Int!]!) {
+  artworksFromIds(ids: $ids) {
+    id
+    title
+    imageUrl
+    artist { name }
+  }
+  allGenres { id name }
+  allArtists { id name }
+}
+\end{lstlisting}
+
+\subsection{Upiti, mutacije i pretplate}
+
+GraphQL omogućava tri vrste operacija. 
+
+\begin{itemize}
+  \item Upiti (eng. \textbf{Query}) - operacija dohvatanja i mogu se izvršavati paralelno.
+  \item Mutacije (eng. \textbf{Mutation}) - operacija koja podrazumeva promenu stanja koja će biti izvršena nad podacima.
+  \item Pretplate (eng. \textbf{Subscription}) - dugotrajna komunikacija servera ka klijentu, gde server u bilo kom trenutku može da se obrati klijentu da postoje neki nov sadržaj.
+\end{itemize}
+
+\begin{lstlisting}[language=GraphQLSchema,
+  caption={Primer upita nad slikama},
+  label={lst:gql-query}]
+type Query {
+    allArtworks: [Artwork!]!
+    artworksFromIds(ids: [Int!]!): [Artwork!]!
+    artworksFromGenre(genreId: ID!): [IdentityArtwork!]!
+    artworksFromArtist(artistId: Int!): [IdentityArtwork!]!
+    allGenres: [Genre!]!
+    allArtists: [Artist!]!
+    genresFromIds(ids: [ID!]!): [Genre!]!
+    artistsFromIds(ids: [Int!]!): [Artist!]!
+    randomArtworks(count: Int! = 16): [Artwork!]!
+    randomArtworkId(excludeIds: [Int!]): Int
+}
+\end{lstlisting}
+
+Primer upita moguće je videti u primeru \ref{lst:gql-query}. Klijent ima mogućnost da u jednom pozivu, traži informacije 
+o svim slikama, svim autorima kao i svim žanrovima odjednom. Zbog toga, nema potrebe za većim brojem poziva. Ako bi 
+GraphQL bio definisan nad svim mikroservisima odjednom, a ne nad svakim ponaosob, bio bi rešen i problem nedovoljnog dohvatanja, 
+pošto bi klijent mogao sve podatke potrebne za rad aplikacije da zataži od jednog poziva serveru. 
+
+\begin{lstlisting}[language=GraphQLSchema,
+  caption={Primer mutacije nad preferencama korisnika},
+  label={lst:gql-mutation}]
+type Mutation {
+    addLikedArtwork(artworkId: Int!): Boolean!
+    removeLikedArtwork(artworkId: Int!): Boolean!
+    addLikedGenre(genreId: ID!): Boolean!
+    removeLikedGenre(genreId: ID!): Boolean!
+    addLikedArtist(artistId: Int!): Boolean!
+    removeLikedArtist(artistId: Int!): Boolean!
+    addDislikedArtwork(artworkId: ID!): Boolean!
+    removeDislikedArtwork(artworkId: ID!): Boolean!
+}
+\end{lstlisting}
+
+Primer koda \ref{lst:gql-mutation} predstavlja mutacije koje se vrše nad prefenrencama korisnika. Omogućava 
+klijentu da uputi zahtev da se desi neka promena, kao što je promena omiljene slike uz pomoć njih.
+
+\subsection{N + 1 problem}
+
+Jedan od većih problematika GraphQL jeste n + 1 problem. On podrazumeva da ako klijent zahteva listu od n umetničkih slika, i 
+onda za svaku od njih informaciju o slikaru,  
+naivna implementacija će izvršaviti jedan upit za tih n slika, i onda još n poziva za autore slika. 
+Standardno rešenje jeste obrazac
+\textit{DataLoader}, koji pozive prikuplja u okviru jednog ciklusa izvršavanja
+i onda ih izvršava kao jedan grupni upit.
+
+Treba naglasiti da ovaj problem ne postoji samo u GraphQL - on se
+podjednako lako javlja i u REST implementaciji - ali ga GraphQL čini
+verovatnijim, budući da je oblik upita odgovornost klijenta.
+
+
+\subsection{Keširanje i cena upita}
+
+Najveća cena koju GraphQL plaća jeste gubitak keširanja na nivou protokola
+HTTP. Pošto se svi upiti šalju metodom \texttt{POST} na istu putanju,
+posrednici u mreži ne mogu razlikovati jedan upit od drugog, niti zaključiti da
+li je odgovor moguće ponovo upotrebiti. Keširanje se stoga pomera u sam
+klijent.
+
+Druga cena jeste potreba za ograničavanjem složenosti upita. Pošto klijent sam bira
+upit koji će uputiti ka serveru, taj upit može biti duboko ugnježden koji server opterećuje. Iz tog razloga, 
+sistemi uvode ograničavanja dubine.
+
+\subsection{Implementacija}
+
+Pre implementiranja protokola komunikacije GraphQL trebalo je odlučiti da li postaviti jedinstven
+ulaz (eng. \textit{gateway}) koji objedinjuje sve mikroservise, ili svakom
+servisu dati sopstvenu GraphQL putanju. Izabrana je druga mogućnost iz razloga što bi 
+jedinstven ulaz predstavljao  novu komponentu koja ne postoji ni u
+REST ni u gRPC postavci, čime bi poređenje postalo neravnopravno, i takođe bi uvelo
+dodatni mrežni skok.
+
+Pored dodavanje scheme kojoj se definiše međusobna komunikacija, kao i mutacije i upite, potrebni 
+su dodaci na serveru i na klijentu za podržavanje dodatog protokola. 
+Na nivou servera, bilo je slično kao i za REST, samo dodati novu anotaciju za svaku od metoda koji 
+predstavljaju upit ili mutaciju. To se može videti u primeru \ref{lst:gql-server}.
+
+\begin{lstlisting}[language=Java,
+  caption={Isečak GraphQL implementacije za dohvatanje slika na serveru},
+  label={lst:gql-server}]
+@Controller
+public class ImageGraphqlController {
+
+    private final ArtworkService artworkService;
+    private final GenreService genreService;
+
+    @QueryMapping
+    public List<IdentityGenreDTO> allGenres() {
+        return genreService.getAllGenres();
+    }
+
+    @QueryMapping
+    public List<ArtworkDTO> artworksFromIds(@Argument List<Long> ids) {
+        return artworkService.getAllArtworksFromIds(ids);
+    }
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=TS,
+  caption={Isečak GraphQL implementacije za dohvatanje slika na klijentu},
+  label={lst:gql-klijent}]
+const ARTWORK_FIELDS =
+    `id title description imageUrl artist { id name } genres { id name }`;
+
+export class GraphqlImageClient implements IImageClient {
+
+    async getArtworksFromIds(command: GetArtworksFromIdsCommand): Promise<ArtworkData[]> {
+        const data = await graphqlRequest<{artworksFromIds: ArtworkDTO[]}>(
+            ENDPOINT,
+            `query($ids: [Int!]!) { artworksFromIds(ids: $ids) { ${ARTWORK_FIELDS} } }`,
+            {ids: command.artworkIds},
+        );
+        return data.artworksFromIds.map(toArtwork);
+    }
+}
+\end{lstlisting}
+
+\section{gRPC}
+
+gRPC predstavlja radni okvir za udaljeni poziv procedure (eng. \textit{Remote Procedure Call}),
+razvijen od strane kompanije Gugl (eng. \textit{Google}) i objavljen kao softver otvorenog koda
+2015. godine \cite{grpc-docs}. Za razliku od stila REST, koji je zasnovan na resursima i
+operacijama nad njima, gRPC je zasnovan na \emph{metodama}. Klijent ne dohvata resurs sa neke
+adrese, već poziva metodu koju server nudi, prosleđuje joj argumente i dobija povratnu vrednost.
+Zamisao jeste da poziv preko mreže izgleda što je moguće sličnije pozivu obične metode unutar
+same aplikacije.
+
+Dve odluke čine osnovu ovog radnog okvira. Poruke se opisuju i kodiraju jezikom Protocol Buffers,
+a prenose se protokolom HTTP/2. Prva odluka utiče na veličinu poruke i na vreme njenog
+pretvaranja u objekte, dok druga utiče na način na koji zahtevi putuju kroz mrežnu vezu.
+
+\subsection{Protocol Buffers}
+
+Protocol Buffers (skraćeno \textit{protobuf}) predstavlja jezik za opis strukture poruka, kao i
+binarni format u koji se te poruke kodiraju \cite{protobuf}. Opis se piše u datoteci sa nastavkom
+\texttt{.proto} i predstavlja ugovor kojeg su i klijent i server dužni da se pridržavaju. Iz tog 
+dogovora se generiše kod na oba jezika, Java na serveru, i TypeScript na klijentu, pri čemu je onda moguća implementacija 
+protokola. Deo opisa mikroservisa za slike moguće je videti u primeru
+\ref{lst:grpc-proto}.
+
+\begin{lstlisting}[language=Protobuf,
+  caption={Deo opisa mikroservisa za slike u jeziku Protocol Buffers},
+  label={lst:grpc-proto}]
+syntax = "proto3";
+
+package image;
+
+service ImageGrpcService {
+  rpc GetAllGenres (Empty) returns (GenreList);
+  rpc GetArtworksFromIds (IdsInt64) returns (ArtworkList);
+  rpc GetRandomArtworks (CountRequest) returns (ArtworkList);
+}
+
+message Artwork {
+  int64 id = 1;
+  string title = 2;
+  string description = 3;
+  string image_url = 4;
+  Artist artist = 5;
+  repeated Genre genres = 6;
+}
+
+message ArtworkList { repeated Artwork artworks = 1; }
+\end{lstlisting}
+
+Ovime gRPC rešava problem koji je kod protokola REST ostao otvoren. Kod REST-a ne postoji formalni
+opis oblika poruke, pa se neslaganje između onoga što klijent očekuje i onoga što server šalje
+otkriva tek u vreme izvršavanja. Kod gRPC-a to neslaganje prijavljuje prevodilac, pošto su obe
+strane građene iz istog opisa.
+
+Značajan pojam jeste \textbf{redni broj polja}. Svako polje unutar poruke nosi svoj broj, i
+upravo se taj broj, a ne ime polja, upisuje u binarni zapis. On omogućava i razvoj šeme kroz
+vreme: nova polja se dodaju pod novim brojem, a stariji klijenti koja ta polja ne poznaju
+jednostavno ih preskaču. Iz istog razloga se jednom dodeljen broj ne sme ni promeniti ni ponovo
+upotrebiti za neko drugo polje.
+
+Binarno kodiranje predstavlja glavni razlog manjih poruka. Zapis u formatu JSON za svako polje
+ponavlja njegovo ime, navodnike i zagrade, dok protobuf upisuje samo redni broj polja, oznaku
+tipa i samu vrednost. Celi brojevi se dodatno zapisuju promenljivim brojem bajtova, pa male
+vrednosti zauzimaju svega jedan bajt. Poređenje ova dva zapisa nad istom porukom prikazano je na
+slici \ref{fig:kodiranje}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{slika-kodiranje}
+  \caption{Poređenje zapisa iste poruke u formatu JSON i u formatu Protocol Buffers}
+  \label{fig:kodiranje}
+\end{figure}
+
+\subsection{HTTP/2 i vrste poziva}
+
+gRPC za prenos koristi protokol HTTP/2 \cite{rfc9113}, koji donosi nekoliko osobina značajnih za
+komunikaciju klijenta i servera:
+
+\begin{itemize}
+  \item \textbf{Multipleksiranje} (eng. \textit{Multiplexing}) - veći broj zahteva deli jednu
+  vezu i putuje istovremeno, bez čekanja da se prethodni zahtev završi.
+  \item \textbf{Binarno uokvirivanje} (eng. \textit{Binary framing}) - poruke se prenose u
+  binarnim okvirima umesto u tekstualnom obliku.
+  \item \textbf{Sažimanje zaglavlja} (eng. \textit{Header compression}) - zaglavlja se ne
+  prenose u celosti uz svaki zahtev, već se ponovljene vrednosti pamte.
+  \item \textbf{Trajna veza} - ista veza koristi se za veći broj poziva, čime se izbegava
+  ponovno uspostavljanje veze pri svakom zahtevu.
+\end{itemize}
+
+Nad tim protokolom gRPC definiše četiri vrste poziva \cite{indrasiri2020}:
+
+\begin{itemize}
+  \item \textbf{Jednostavan poziv} (eng. \textit{Unary}) - klijent šalje jedan zahtev i dobija
+  jedan odgovor, što odgovara klasičnom pozivu metode.
+  \item \textbf{Tok sa strane servera} (eng. \textit{Server streaming}) - na jedan zahtev
+  klijenta server odgovara nizom poruka.
+  \item \textbf{Tok sa strane klijenta} (eng. \textit{Client streaming}) - klijent šalje niz
+  poruka, a server odgovara tek nakon što taj niz bude završen.
+  \item \textbf{Dvosmerni tok} (eng. \textit{Bidirectional streaming}) - obe strane šalju poruke
+  nezavisno jedna od druge, kroz istu vezu.
+\end{itemize}
+
+U okviru aplikacije korišćen je isključivo jednostavan poziv, pošto nijedan slučaj upotrebe ne
+zahteva neprekidan tok podataka. Time se gRPC ovde koristi na isti način kao i preostala dva
+protokola.
+
+\subsection{Nedostaci}
+
+Strogost ugovora, koja predstavlja glavnu prednost ovog radnog okvira, ujedno je i izvor njegovih
+nedostataka:
+
+\begin{itemize}
+  \item \textbf{Nečitljivost poruka} - pošto je zapis binaran, tok komunikacije nije moguće
+  pratiti bez posebnih alata, niti je zahtev moguće sastaviti ručno.
+  \item \textbf{Korak generisanja koda} - svaka izmena opisa zahteva ponovno generisanje koda i
+  na serveru i na klijentu. Za razliku od REST-a, gde je dodavanje polja izmena na jednom mestu,
+  ovde je reč o izmeni koja obavezno dodiruje obe strane i sam postupak izgradnje projekta.
+  \item \textbf{Gubitak keširanja na nivou protokola HTTP} - kao i kod GraphQL-a, posrednici u
+  mreži ne mogu zaključiti da li je odgovor moguće ponovo upotrebiti.
+  \item \textbf{Nedostatak podrške u okruženju veb pregledača} - pregledač ne dozvoljava
+  neposredan pristup okvirima protokola HTTP/2, pa gRPC u tom okruženju nije moguće koristiti bez
+  posrednika.
+\end{itemize}
+
+\subsection{Implementacija}
+
+Iz datoteke \texttt{.proto} generiše se apstraktna klasa. Nad njom se nasleđivanjem dopisuje
+ponašanje. Kao i kod preostala dva protokola, kontroler nema poslovnu logiku, već poziva postojeći
+servis. Jedina razlika jeste u tome što se odgovor ne vraća naredbom \texttt{return}, nego se
+predaje objektu tipa \texttt{StreamObserver}. Isti oblik metode koristi se i za pozive sa tokom
+podataka, pa takav ostaje i kod jednostavnog poziva. Primer se može videti u isečku koda
+\ref{lst:grpc-server}.
+
+\begin{lstlisting}[language=Java,
+  caption={Isečak gRPC implementacije za dohvatanje slika na serveru},
+  label={lst:grpc-server}]
+@GrpcService
+@AllArgsConstructor
+public class ImageGrpcController extends ImageGrpcServiceGrpc.ImageGrpcServiceImplBase {
+
+    private final ArtworkService artworkService;
+    private final GenreService genreService;
+
+    @Override
+    public void getAllGenres(Empty request, StreamObserver<GenreList> obs) {
+        respondGenres(genreService.getAllGenres(), obs);
+    }
+
+    @Override
+    public void getArtworksFromIds(IdsInt64 request, StreamObserver<ArtworkList> obs) {
+        respondArtworks(artworkService.getAllArtworksFromIds(request.getIdsList()), obs);
+    }
+}
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=TS,
+  caption={Isečak gRPC implementacije za dohvatanje slika na klijentu},
+  label={lst:grpc-klijent}]
+export class GrpcImageClient implements IImageClient {
+    private readonly client = createClient(ImageGrpcService, grpcTransport);
+
+    async getAllGenres(): Promise<GenreData[]> {
+        const res = await this.client.getAllGenres({});
+        return res.genres.map(g => new GenreData(g.id, g.name));
+    }
+
+    async getArtworksFromIds(command: GetArtworksFromIdsCommand): Promise<ArtworkData[]> {
+        const res = await this.client.getArtworksFromIds({ids: command.artworkIds.map(BigInt)});
+        return res.artworks.map(toArtwork);
+    }
+}
+\end{lstlisting}
 
 \label{ch:protokoli}
 
+\chapter{Zaključak}
+\label{ch:zakljucak}
+
+Izbor protokola komunikacije između klijenta i servera predstavlja odluku koja se u razvoju
+mobilnih aplikacija donosi rano, i retko se menja kasnije. U ovom radu ta odluka razmotrena je na primeru
+aplikacije za svakodnevni prikaz umetničkih dela, izgrađene u celosti u tu svrhu. Prikazan je
+postupak prikupljanja i obrade podataka iz javno dostupne arhive Instituta za umetnost u Čikagu,
+serverska strana podeljena na mikroservise od kojih svaki iznutra prati onion arhitekturu, kao i
+klijentska aplikacija zasnovana na obrascu model-prikaz-kontroler. Nad tako izgrađenim sistemom
+implementirana su sva tri protokola - REST, GraphQL i gRPC - pri čemu su svi ostali slojevi
+aplikacije ostali nepromenjeni. Svaki protokol predstavljen je osnovnom zamisli na kojoj počiva,
+opisom svojih ograničenja i nedostataka, kao i prikazom implementacije na serveru i na klijentu.
+
+Time što su sva tri protokola postavljena nad istom aplikacijom, njihove prednosti i mane bilo je
+moguće uporediti neposredno. REST se pokazao kao najjednostavniji za uvođenje - dovoljna je
+anotacija nad metodom, a sve ostalo obavlja radni okvir - i kao jedini kod kojeg keširanje na
+nivou protokola HTTP ostaje upotrebljivo. Njegov nedostatak jeste odsustvo formalnog opisa
+poruke, zbog čega se neslaganje između klijenta i servera otkriva tek u vreme izvršavanja, kao i
+činjenica da oblik odgovora unapred određuje server, što vodi ka prekomernom i nedovoljnom
+dohvatanju. GraphQL taj nedostatak uklanja time što oblik odgovora prepušta klijentu i time što
+dozvoljava da se više logičkih upita objedini u jedan zahtev, ali to plaća gubitkom keširanja i
+pomeranjem složenosti na serversku stranu, gde se javljaju problem N+1 i potreba za
+ograničavanjem dubine upita. gRPC daje najstroži ugovor između dve strane, pošto se obe grade iz
+istog opisa, pa greška u imenu metode ili u tipu argumenta ne može ni da se prevede, uz najmanje
+poruke zahvaljujući binarnom zapisu. Zauzvrat traži korak generisanja koda pri svakoj izmeni
+opisa, poruke čini nečitljivim.
+
+Iz iskustva stečenog pri izradi ove aplikacije, nijedan od tri protokola ne nameće se kao najbolji
+izbor u svim prilikama. REST ostaje razuman podrazumevani izbor, naročito kada interfejs koriste
+klijenti nad kojima autor nema kontrolu, kada je čitljivost poruka bitna i kada se od keširanja
+očekuje korist. GraphQL najviše donosi upravo u slučaju kakav je ovaj - jedan klijent sa
+raznovrsnim ekranima, od kojih svakom treba drugačiji podskup istih podataka, i to iz više izvora
+odjednom. gRPC se pokazao kao najprirodniji za komunikaciju između servisa unutar samog sistema,
+gde su obe strane pod kontrolom istog autora i gde se od poruka ne očekuje da budu čitljive.
+U izradi ovog rada, ulogu kominikacije između mikroservisa igrao je red poruka.
+
+Neke od ideja za nastavak rada na ovoj temi bile bi merenje vremena odziva sva tri protokola pod
+uslovima stvarne mobilne mreže, gde je vreme kružnog putovanja znatno veće nego u lokalnom
+okruženju, pa se razlike među njima najjasnije ispoljavaju. Takođe, u GraphQL implementaciji bilo
+bi moguće uvesti razrešavanje pojedinačnih polja uz grupisanje poziva obrascem \textit{DataLoader},
+čime bi selekcija polja koju klijent vrši uticala i na obim posla nad bazom, a ne samo na veličinu
+odgovora, kao i jedinstven ulaz koji objedinjuje šeme svih mikroservisa, čime bi bio rešen i
+problem nedovoljnog dohvatanja.
 
 % \chapter{Pasus}
 % \section{Примери коришћења класичних \LaTeX{} елемената}

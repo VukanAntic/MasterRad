@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex rad"] 1786129346.66866 "rad.aux" "rad.bbl" "rad" 1786129393.4509 0
+["bibtex rad"] 1786208834.47626 "rad.aux" "rad.bbl" "rad" 1786208924.27252 0
   "./literatura.bib" 1786039344.88638 9513 797f63e22e11c44bee433022bb664e83 ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "rad.aux" 1786129393.15315 12577 7a58e077c6bc75183559312bfc380a7e "pdflatex"
+  "rad.aux" 1786208923.95789 17026 103fd7561023a1b3ed1b25726b03c819 "pdflatex"
   (generated)
   "rad.bbl"
   "rad.blg"
   (rewritten before read)
-["pdflatex"] 1786129392.24613 "/Users/vukanantic/MasterRad/documentation/teze/matfmaster/rad.tex" "rad.pdf" "rad" 1786129393.45106 0
-  "/Users/vukanantic/MasterRad/documentation/teze/matfmaster/rad.tex" 1786129392.15276 57488 cfd455ae2d7a18e8f1345fd601638656 ""
+["pdflatex"] 1786208923.01602 "/Users/vukanantic/MasterRad/documentation/teze/matfmaster/rad.tex" "rad.pdf" "rad" 1786208924.27265 0
+  "/Users/vukanantic/MasterRad/documentation/teze/matfmaster/rad.tex" 1786208922.91493 79073 bdc127ce5895458dec7ad570fbb5e390 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cmsrb/cmsrbt1.enc" 1586730458 2157 57b150f99c9d61d6c444b4cace336027 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cmsrb/cmsrbts1.enc" 1586730458 2739 09dbe67a27d855e4d39579aa6d913f4e ""
@@ -57,6 +57,7 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb" 1215737283 144215 c89c56d5c5b828c5c1657b4326c29df7 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb" 1215737283 143961 201304b65f97bc643fbd0bcf0685d1fe ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb" 1215737283 145408 43d44302ca7d82d487f511f83e309505 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0900.pfb" 1215737283 158366 01d97129a4bd5d2ecf7b6bfbd124c543 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb" 1215737283 180418 5fa231fda2d05a9c0eca9fd483cc7254 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb" 1215737283 154599 ded6d7c21788a8930eadc7fef7518942 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb" 1215737283 149037 995a6f1e12c1d647b99b1cf55db78699 ""
@@ -185,12 +186,14 @@
   "matf.png" 1785432297.26795 14187 d8d28db9d68fb2035923f357a7321cea ""
   "matfmaster.sty" 1785432297.26911 18709 59e2571040fd696fa1519027eab40aa6 ""
   "pangrami.sty" 1785432297.26919 7917 226f168b938502b0f657e03cd5648468 ""
-  "rad.aux" 1786129393.15315 12577 7a58e077c6bc75183559312bfc380a7e "pdflatex"
-  "rad.bbl" 1786129346.74475 3927 c4613fe017a9c9e5533c8591e0bb6bb9 "bibtex rad"
-  "rad.out" 1786129393.1542 4875 e429365fabefc5998a735279ef90fbed "pdflatex"
-  "rad.tex" 1786129392.15276 57488 cfd455ae2d7a18e8f1345fd601638656 ""
-  "rad.toc" 1786129393.15446 2721 53d4088c578d3b1a8e2c7c6a67501670 "pdflatex"
+  "rad.aux" 1786208923.95789 17026 103fd7561023a1b3ed1b25726b03c819 "pdflatex"
+  "rad.bbl" 1786208834.54381 4408 9c330f0cc5374717cd0cd4959f0152cb "bibtex rad"
+  "rad.out" 1786208923.95971 6442 2696232395ce71e613906d795f3c8ce1 "pdflatex"
+  "rad.tex" 1786208922.91493 79073 bdc127ce5895458dec7ad570fbb5e390 ""
+  "rad.toc" 1786208923.95992 3710 b50f80eb1af4712fd06cfed3048d7deb "pdflatex"
   "serbianc.ldf" 1785432297.26939 5627 18f3f4a01f45633a2320510814a200ac ""
+  "slika-kodiranje.pdf" 1786040214.75186 109174 0c0309cf468c7b5e7f559a441cc70599 ""
+  "slika-kodiranje.tex" 1786040214.30559 1919 960983055cadefd3b03d39cb9716acfa ""
   "slika-mvc.pdf" 1785865278.07638 18925 c5081bc03b1ede0d9e124472d9147357 ""
   "slika-mvc.tex" 1785865263.59813 1019 228462fbb16672ec19b1cf73cc8b4de6 ""
   "slika-onion.pdf" 1785672274.31221 119906 261ce03776e0e063fc4a69a67286dbd2 ""

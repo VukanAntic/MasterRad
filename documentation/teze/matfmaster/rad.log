@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.25)  7 AUG 2026 21:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.25)  8 AUG 2026 19:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -877,36 +877,36 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'serbian'.
-LaTeX Font Info:    Trying to load font information for T1+cmsrbr on input line 143.
+LaTeX Font Info:    Trying to load font information for T1+cmsrbr on input line 195.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/cmsrb/t1cmsrbr.fd
 File: t1cmsrbr.fd 
 ) (./rad.aux)
 \openout1 = `rad.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 143.
-LaTeX Font Info:    ... okay on input line 143.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 143.
-LaTeX Font Info:    ... okay on input line 143.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 143.
-LaTeX Font Info:    ... okay on input line 143.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 143.
-LaTeX Font Info:    ... okay on input line 143.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 143.
-LaTeX Font Info:    ... okay on input line 143.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 143.
-LaTeX Font Info:    ... okay on input line 143.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 143.
-LaTeX Font Info:    ... okay on input line 143.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 143.
-LaTeX Font Info:    Trying to load font information for T2A+cmr on input line 143.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 195.
+LaTeX Font Info:    Trying to load font information for T2A+cmr on input line 195.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/cyrillic/t2acmr.fd
 File: t2acmr.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 )
-LaTeX Font Info:    ... okay on input line 143.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 143.
-LaTeX Font Info:    ... okay on input line 143.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 143.
-LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
  (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count357
@@ -934,36 +934,36 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-Package csquotes Info: Redefining character " on input line 143.
-Package hyperref Info: Link coloring OFF on input line 143.
+Package csquotes Info: Redefining character " on input line 195.
+Package hyperref Info: Link coloring OFF on input line 195.
  (./rad.out) (./rad.out)
 \@outlinefile=\write4
 \openout4 = `rad.out'.
 
 \c@lstlisting=\count363
-LaTeX Font Info:    Trying to load font information for T1+fos on input line 149.
-LaTeX Font Info:    No file T1fos.fd. on input line 149.
+LaTeX Font Info:    Trying to load font information for T1+fos on input line 201.
+LaTeX Font Info:    No file T1fos.fd. on input line 201.
 
 
 LaTeX Font Warning: Font shape `T1/fos/m/n' undefined
-(Font)              using `T1/cmr/m/n' instead on input line 149.
+(Font)              using `T1/cmr/m/n' instead on input line 201.
 
 
 LaTeX Font Warning: Font shape `T1/fos/m/n' in size <16> not available
-(Font)              size <17.28> substituted on input line 149.
+(Font)              size <17.28> substituted on input line 201.
 
-<matf.png, id=132, 346.29375pt x 409.53pt>
+<matf.png, id=180, 346.29375pt x 409.53pt>
 File: matf.png Graphic file (type png)
 <use matf.png>
-Package pdftex.def Info: matf.png  used on input line 149.
+Package pdftex.def Info: matf.png  used on input line 201.
 (pdftex.def)             Requested size: 85.35826pt x 100.94499pt.
 
 LaTeX Font Warning: Font shape `T1/fos/m/n' in size <22> not available
-(Font)              size <20.74> substituted on input line 149.
+(Font)              size <20.74> substituted on input line 201.
 
 
 LaTeX Font Warning: Font shape `T1/fos/b/n' undefined
-(Font)              using `T1/fos/m/n' instead on input line 149.
+(Font)              using `T1/fos/m/n' instead on input line 201.
 
 
 
@@ -982,12 +982,12 @@ LaTeX Font Warning: Font shape `T1/fos/b/n' undefined
 
 
 ]
-Overfull \hbox (0.17986pt too wide) in paragraph at lines 155--155
+Overfull \hbox (0.17986pt too wide) in paragraph at lines 207--207
 \T1/cmsrbr/b/n/12 Naslov ma-ster ra-da\T1/cmsrbr/m/n/12 : Upo-re-dji-va-nje pro-to-ko-la za ko-mu-ni-ka-ci-ju Grap-hQL, GRPC
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 155--155
+Underfull \hbox (badness 10000) in paragraph at lines 207--207
 
  []
 
@@ -1011,14 +1011,14 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 [6]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 176.
+(Font)              <7> on input line 228.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 176.
-LaTeX Font Info:    Trying to load font information for T1+cmsrbt on input line 176.
+(Font)              <5> on input line 228.
+LaTeX Font Info:    Trying to load font information for T1+cmsrbt on input line 228.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/cmsrb/t1cmsrbt.fd
 File: t1cmsrbt.fd 
 )
-LaTeX Font Info:    Trying to load font information for TS1+cmsrbr on input line 188.
+LaTeX Font Info:    Trying to load font information for TS1+cmsrbr on input line 240.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/cmsrb/ts1cmsrbr.fd
 File: ts1cmsrbr.fd 
 )
@@ -1031,11 +1031,11 @@ File: ts1cmsrbr.fd
 [2] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 221.
-<slika-prikupljanje.pdf, id=238, 307.25389pt x 333.01614pt>
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 273.
+<slika-prikupljanje.pdf, id=298, 307.25389pt x 333.01614pt>
 File: slika-prikupljanje.pdf Graphic file (type pdf)
 <use slika-prikupljanje.pdf>
-Package pdftex.def Info: slika-prikupljanje.pdf  used on input line 238.
+Package pdftex.def Info: slika-prikupljanje.pdf  used on input line 290.
 (pdftex.def)             Requested size: 404.6987pt x 438.63245pt.
 
 
@@ -1046,7 +1046,7 @@ Package pdftex.def Info: slika-prikupljanje.pdf  used on input line 238.
 [4 <./slika-prikupljanje.pdf>]
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 293--296
+Underfull \hbox (badness 10000) in paragraph at lines 345--348
 
  []
 
@@ -1063,20 +1063,20 @@ Underfull \hbox (badness 10000) in paragraph at lines 293--296
 [10
 
 ]
-<slika-server.pdf, id=413, 412.15782pt x 377.77538pt>
+<slika-server.pdf, id=474, 412.15782pt x 377.77538pt>
 File: slika-server.pdf Graphic file (type pdf)
 <use slika-server.pdf>
-Package pdftex.def Info: slika-server.pdf  used on input line 443.
+Package pdftex.def Info: slika-server.pdf  used on input line 495.
 (pdftex.def)             Requested size: 426.0pt x 390.46184pt.
 
 
 [11 <./slika-server.pdf>]
 
 [12]
-<slika-onion.pdf, id=474, 432.59116pt x 438.12885pt>
+<slika-onion.pdf, id=534, 432.59116pt x 438.12885pt>
 File: slika-onion.pdf Graphic file (type pdf)
 <use slika-onion.pdf>
-Package pdftex.def Info: slika-onion.pdf  used on input line 477.
+Package pdftex.def Info: slika-onion.pdf  used on input line 529.
 (pdftex.def)             Requested size: 404.6987pt x 409.90244pt.
 
 
@@ -1099,10 +1099,10 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 [20
 
 ]
-<slika-mvc.pdf, id=683, 327.17131pt x 133.69147pt>
+<slika-mvc.pdf, id=743, 327.17131pt x 133.69147pt>
 File: slika-mvc.pdf Graphic file (type pdf)
 <use slika-mvc.pdf>
-Package pdftex.def Info: slika-mvc.pdf  used on input line 735.
+Package pdftex.def Info: slika-mvc.pdf  used on input line 787.
 (pdftex.def)             Requested size: 404.6987pt x 165.3779pt.
 
 
@@ -1119,15 +1119,15 @@ Package pdftex.def Info: slika-mvc.pdf  used on input line 735.
 [26]
 
 [27]
-<widget-prazan.png, id=859, 495.8525pt x 490.83376pt>
+<widget-prazan.png, id=920, 495.8525pt x 490.83376pt>
 File: widget-prazan.png Graphic file (type png)
 <use widget-prazan.png>
-Package pdftex.def Info: widget-prazan.png  used on input line 1006.
+Package pdftex.def Info: widget-prazan.png  used on input line 1058.
 (pdftex.def)             Requested size: 178.91922pt x 177.10445pt.
-<widget-pun.png, id=861, 495.8525pt x 490.83376pt>
+<widget-pun.png, id=922, 495.8525pt x 490.83376pt>
 File: widget-pun.png Graphic file (type png)
 <use widget-pun.png>
-Package pdftex.def Info: widget-pun.png  used on input line 1012.
+Package pdftex.def Info: widget-pun.png  used on input line 1064.
 (pdftex.def)             Requested size: 178.91922pt x 177.10445pt.
 
 
@@ -1139,17 +1139,49 @@ Package pdftex.def Info: widget-pun.png  used on input line 1012.
 
 [30]
 
-[31] (./rad.bbl
+[31]
 
 [32]
+
+[33]
+
+[34]
+
+[35]
+
+[36]
+
+[37]
+<slika-kodiranje.pdf, id=1112, 401.62146pt x 179.55782pt>
+File: slika-kodiranje.pdf Graphic file (type pdf)
+<use slika-kodiranje.pdf>
+Package pdftex.def Info: slika-kodiranje.pdf  used on input line 1456.
+(pdftex.def)             Requested size: 426.0pt x 190.46736pt.
+
+
+[38]
+
+[39 <./slika-kodiranje.pdf>]
+
+[40]
+
+[41]
+
+[42
+
+] (./rad.bbl
+
+[43]
 bibitemlist
 
 
-[33
+[44
 
-])
+]
 
-[34]
+[45])
+
+[46]
 \tf@toc=\write5
 \openout5 = `rad.toc'.
 
@@ -1167,21 +1199,21 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `rad.out' has not changed.
-(rerunfilecheck)             Checksum: E429365FABEFC5998A735279EF90FBED;4875.
+(rerunfilecheck)             Checksum: 2696232395CE71E613906D795F3C8CE1;6442.
  ) 
 Here is how much of TeX's memory you used:
- 19594 strings out of 473190
- 305818 string characters out of 5715800
- 1169529 words of memory out of 5000000
- 42080 multiletter control sequences out of 15000+600000
+ 19882 strings out of 473190
+ 310326 string characters out of 5715800
+ 1172690 words of memory out of 5000000
+ 42208 multiletter control sequences out of 15000+600000
  618605 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,12n,93p,882b,1347s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbri.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrx.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbti.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbtr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti0500.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on rad.pdf (40 pages, 1365804 bytes).
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbri.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrx.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbti.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbtr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti0500.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on rad.pdf (52 pages, 1435011 bytes).
 PDF statistics:
- 1166 PDF objects out of 1200 (max. 8388607)
- 1035 compressed objects within 11 object streams
- 485 named destinations out of 1000 (max. 500000)
- 292 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1486 PDF objects out of 1728 (max. 8388607)
+ 1333 compressed objects within 14 object streams
+ 645 named destinations out of 1000 (max. 500000)
+ 393 words of extra memory for PDF output out of 10000 (max. 10000000)
 

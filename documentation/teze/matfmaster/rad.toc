@@ -31,4 +31,16 @@
 \contentsline {subsection}{\numberline {5.2.1}Arhitektonska ograničenja}{30}{subsection.5.2.1}%
 \contentsline {subsection}{\numberline {5.2.2}Nedostaci}{31}{subsection.5.2.2}%
 \contentsline {subsection}{\numberline {5.2.3}Implementacija}{31}{subsection.5.2.3}%
-\contentsline {chapter}{Bibliografija}{33}{chapter*.2}%
+\contentsline {section}{\numberline {5.3}GraphQL}{32}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Schema}{33}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Upiti, mutacije i pretplate}{34}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}N + 1 problem}{35}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Keširanje i cena upita}{35}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Implementacija}{35}{subsection.5.3.5}%
+\contentsline {section}{\numberline {5.4}gRPC}{37}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Protocol Buffers}{37}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}HTTP/2 i vrste poziva}{38}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Nedostaci}{40}{subsection.5.4.3}%
+\contentsline {subsection}{\numberline {5.4.4}Implementacija}{40}{subsection.5.4.4}%
+\contentsline {chapter}{\chapternumberline {6}Zaključak}{42}{chapter.6}%
+\contentsline {chapter}{Bibliografija}{44}{chapter*.2}%

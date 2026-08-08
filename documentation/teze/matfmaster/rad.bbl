@@ -121,4 +121,20 @@ Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides.
 \newblock \url{https://docs.swift.org/swift-book/}, 2025.
 \newblock Pristupljeno: 6. avgusta 2026.
 
+\bibitem{protobuf}
+{Google}.
+\newblock {Protocol Buffers Documentation: Encoding}.
+\newblock \url{https://protobuf.dev/programming-guides/encoding/}, 2024.
+\newblock Pristupljeno: 1. avgusta 2026.
+
+\bibitem{rfc9113}
+Martin Thomson and Cory Benfield.
+\newblock {RFC 9113: HTTP/2}.
+\newblock \url{https://www.rfc-editor.org/rfc/rfc9113.html}, 2022.
+
+\bibitem{indrasiri2020}
+Kasun Indrasiri and Danesh Kuruppu.
+\newblock {\em {gRPC: Up and Running}}.
+\newblock O'Reilly Media, 2020.
+
 \end{thebibliography}
