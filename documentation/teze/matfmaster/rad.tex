@@ -95,7 +95,7 @@
 % Ime kandidata na srpskom jeziku (u odabranom pismu)
 \autor{Vukan Antić}
 % Naslov teze na srpskom jeziku (u odabranom pismu)
-\naslov{Upoređivanje protokola za komunikaciju GraphQL, GRPC i Rest, razvojom mobilne aplikacije upotrebom tehnologija Spring Boot i React Native}
+\naslov{Upoređivanje protokola za komunikaciju GraphQL, gRPC i Rest, razvojom mobilne aplikacije upotrebom tehnologija Spring Boot i React Native}
 % Godina u kojoj je teza predana komisiji
 \godina{2026}
 % Ime i afilijacija mentora (u odabranom pismu)
@@ -158,7 +158,7 @@
 % Apstrakt na srpskom jeziku (u odabranom pismu)
 \apstr{%
 Sa porastom broja mobilnih aplikacija, komunikacija između klijenta i servera najčešće se svodi
-na upotrebu arhitektonskog stila REST. Pored njega postoje i jezik GraphQL i radni okvir gRPC,
+na upotrebu arhitektonskog stila REST. Pored njega postoje protokoli GraphQL i gRPC,
 koji donose drugačije ustupke po pitanju fleksibilnosti, veličine poruka i dogovora
 između dve strane. 
 
@@ -229,7 +229,7 @@ fleksibilniji kao i skalabilniji. Zato su u toku izrade naredne aplikacije sva 3
  korisniku umetničku sliku, sa detaljnim opisom, i mogućnost
   da sačuva omiljenu, radi daljeg preporučivanja novog sadržaja. 
   Pored toga, postoje i funkcionalnosti čuvanja omiljenih slika 
-  u memoriji sopstvenog telefona, kao i da deljenje slika sa drugim 
+  u memoriji sopstvenog telefona, kao i deljenje slika sa drugim 
   korisnicima. Takođe, pri izlasku nove slike, korisnik dobija obaveštenje 
   o novom sadržaju koji je dodat za njega.
 
@@ -237,9 +237,9 @@ fleksibilniji kao i skalabilniji. Zato su u toku izrade naredne aplikacije sva 3
  Izradu projekta čine sledeći delovi: 
  \begin{itemize}
 \item Prikupljanje podataka - U glavi \ref{ch:podaci} predstavljen je detaljan opis odakle je aplikacija dobila podatke za prikaz u okviru same aplikacije.
-\item Izrada servera zasnovanog na mikroservisnoj arhitekturi \cite{newman2021} - U glavi \ref{ch:server} predstavljena je implementacija servera, koja je zasnovana na mikroservisnoj arhitekturi, dok je svaki od mikroservisa pratio (eng. \textit{Onion}) arhitekturu \cite{palermo2008, martin2017}, koja je pomogla da se lako dodaje podrška za sve protokole komunikacije. 
-\item Izrada klijenta zasnovanog na MVC arhitekturi \cite{fowler-mvc} - U glavi \ref{ch:klijent} prikazano je kako je implementiran klijentski deo koda koji prati MVC arhitekturu i dodatne funkcionalnosti koje klijent podržava kao što je viđeta (eng. \textit{widget}).
-\item Dodavanje gRPC i GraphQL - Glava \ref{ch:protokoli} predstavlja prikaz svih gore navedenih protokola komunikacije, kao i poređenja.
+\item Izrada servera zasnovanog na mikroservisnoj arhitekturi \cite{newman2021} - U glavi 3 predstavljena je implementacija servera, koja je zasnovana na mikroservisnoj arhitekturi, dok je svaki od mikroservisa pratio (eng. \textit{Onion}) arhitekturu \cite{palermo2008, martin2017}, koja je pomogla da se lako dodaje podrška za sve protokole komunikacije. 
+\item Izrada klijenta zasnovanog na MVC arhitekturi \cite{fowler-mvc} - U glavi 4 prikazano je kako je implementiran klijentski deo koda koji prati MVC arhitekturu i dodatne funkcionalnosti koje klijent podržava kao što je viđet (eng. \textit{widget}).
+\item Dodavanje gRPC i GraphQL - Glava 5 predstavlja prikaz svih gore navedenih protokola komunikacije, kao i poređenja.
 \end{itemize}
 
   
@@ -368,7 +368,7 @@ def check_if_path_is_invalid(path) :
 \end{lstlisting}
 
 
-Bitno je napomenuti da programski interfejs koji je dostupan od instituta vraća grešku \textbf{429}, ako je 
+Bitno je napomenuti da programski interfejs koji je dostupan od instituta vraća grešku \textbf{429}, ukoliko je 
 previše zahteva stiglo sa iste \textit{IP adrese} u kratkom vremenskom periodu. Zbog toga se u toku izvršavanja 
 skripte program zaustavi na 60 sekundi, da bi moglo dalje da se pristupi serveru instituta. 
 
@@ -377,7 +377,7 @@ skripte program zaustavi na 60 sekundi, da bi moglo dalje da se pristupi serveru
 
 Izdvojeni podaci upisuju se u bazu (eng. \textit{PostgreSQL}) preko biblioteke (eng. \textit{SQLAlchemy}).
 Potrebni podaci se čuvaju u tri različite tabele - Umetnička slika (eng. \textit{Artwork}), Žanr (eng. \textit{Genre})
-kao i Umetnik (eng. \textit{Artist}). Kod \ref{lst:model} koji generiše takav model možemo videti:
+kao i Umetnik (eng. \textit{Artist}). To se može videti primerom koda \ref{lst:model}, koji takav model generiše:
 
 \lstset{
   language=Python,
@@ -510,7 +510,7 @@ Svaki servis koristi alat (eng. \textit{Maven}) koji služi za izgradnju, nad ra
 \section{Onion arhitektura unutar servisa}
 
 Kod unutar svakog od mikroservisa je organizovan prema (eng. \textit{Onion}) arhitekturi. Osnovni koncept te arhitekture 
-je da \textbf{zavisnosti pokazuju samo ka unutra}. Svaki spoljašnji sloj zna, i može da koristi unutrašnje slojeve,
+je da se \textbf{zavisnosti pokazuju samo ka unutra}. Svaki spoljašnji sloj zna, i može da koristi unutrašnje slojeve,
 dok unutrašnji slojevi ne mogu pristupiti spoljašnjim slojevima.   
 
 Na slici \ref{fig:onion} se može videti kako izgleda arhitektura svakog mikroservisa. Svaki od slojeva gleda ka unutra, i upravo
@@ -710,7 +710,7 @@ Kontroler definiše REST putanju koju podržava, i kada klijent pokuša da prist
 Ovo je primer jednog protokola komunikacije koji je podržan, ali u Glavi 5, biće prikazana podrška i za ostale. 
 
 \section{Asihrona komunikacija}
-Do sada sva komunikacija koja je do sada pomenuta bila je \emph{sinhrone prirode}, tj. pozivalac šalje zahtev i čeka odgovor. 
+Do sada sva komunikacija koja je pomenuta bila je \emph{sinhrone prirode}, tj. pozivalac šalje zahtev i čeka odgovor. 
 Tek kada mu stigne odgovor on nastavi dalje sa izvršavanjem, ali, ako bismo hteli komunikaciju između više mikroservisa, 
 a da jedan mikroservis ne zna na koga sve utiče, potrebna nam je \emph{asinhrona komunikacija}. Pošiljalac ne šalje 
 poruku primaocu, već je šalje posredniku, i odmah nastavlja dalje sa svojim poslom. Posrednik čuva poruku, sve dok 
@@ -1006,8 +1006,8 @@ metode napisane u TypeScript jeziku. Komunikacija između glavne aplikacije i vi
 (engl. \textit{App Group}).
 
 
-Aplikacija preuzme sliku koju treba prikazati korisniku tog dana, sačuvaje u zajednički prostor, zajedno 
-sa informacijama ko je bio slikar, ime slike, i za koji datum je slika namenjena, i onda viđet može 
+Aplikacija preuzme sliku koju treba prikazati korisniku tog dana, sačuva je u zajednički prostor, zajedno 
+sa informacijama ko je bio autor, naziv slike, i za koji datum je slika namenjena, i onda viđet može 
 da prikaže najnoviju sliku korisniku.
 
 
@@ -1081,7 +1081,7 @@ su bili implementirani u okviru aplikacije, kao i poređenje njihovih osobina.
 \section{Računanje vremena utrošenog na čekanje}
 
 Za tumačenje rezultata merenja korisno je razložiti vreme koje korisnik čeka na
-sastavne delove. Uz izvesno pojednostavljenje, ono se može izraziti kao
+sastavne delove. Ono se može izraziti kao
 
 \begin{equation}
 T = n \cdot \mathit{RTT} + \sum_{i=1}^{n}
@@ -1098,8 +1098,7 @@ deluje na član $n$, smanjujući broj kružnih putovanja time što više logičk
 upita objedinjuje u jedan zahtev. gRPC deluje na članove $S_i$ i
 $t^{\mathit{ser}}_i$, smanjujući veličinu poruke binarnim kodiranjem i
 ubrzavajući njeno pretvaranje u objekte. Nijedan od njih ne utiče na član
-$t^{\mathit{obr}}_i$, odnosno na vreme obrade na serveru - što će se u analizi
-rezultata pokazati kao značajno.
+$t^{\mathit{obr}}_i$, odnosno na vreme obrade na serveru.
 
 Vredi naglasiti i da odnos ovih članova zavisi od okruženja. Na mobilnim
 mrežama vrednost $\mathit{RTT}$ tipično iznosi od 30 do 100 milisekundi, pa
@@ -1109,7 +1108,7 @@ gotovo da nema efekta.
 
 \section{REST}
 Termin REST (eng. \textit{Representational State Transfer}) uveo je Roj Filding
-2000. godine u svojoj doktorskoj disertaciji \cite{fielding2000}. Iako je do sada spomenut kao protokol, 
+2000. godine u svom doktorskom radu \cite{fielding2000}. Iako je do sada spomenut kao protokol, 
 bitna je napomena da REST nije protokol komunikacije, već \emph{arhitektonski stil}. On predstavlja skup pravila, 
 koja dovode do toga da sistem bude skalabilan, labavo spregnut i pogodan za keširanje. 
 
@@ -1120,7 +1119,7 @@ Filding navodi šest pravila (eng. \textit{Constraints}) REST-a:
 \begin{itemize}
   \item \textbf{Klijent-Server} (eng. \textit{Client-Server}) - razdvajanje odgovornosti između
   korisničkog interfejsa i skladištenja podataka.
-  \item \textbf{Bezstanjnost} (eng. \textit{Statelessness}) - svaki zahtev sadrži sve podatke potrebne za
+  \item \textbf{Odsustvo stanja} (eng. \textit{Statelessness}) - svaki zahtev sadrži sve podatke potrebne za
   njegovu obradu, a server ne čuva stanje sesije između zahteva.
   \item \textbf{Keširanje} (eng. \textit{Cacheability}) - odgovori moraju biti označeni kao keširani ili
   nekeširani.
@@ -1205,9 +1204,9 @@ export class RestImageClient implements IImageClient {
 
 \section{GraphQL}
 
-GraphQL predstavlja jezik upita koji unapred definiše koje sve podatke koje klijent može da zahteva od servera. Kreiran 
+GraphQL predstavlja jezik upita koji unapred definiše koje sve podatke klijent može da zahteva od servera. Kreiran 
 je od strane kompanije Fejsbuk (eng. \textit{Facebook}) 2012. godine za internu upotrebu, ali je postao 
-otvorenog koda 2015. godine da može bilo ko da ga koristi. Osnovna zamisao protokola jeste da klijent opisuje oblik 
+otvorenog koda 2015 godine. Osnovna zamisao protokola jeste da klijent opisuje oblik 
 odgovora koji mu treba od servera. Umesto velike količine krajnjih tačaka, server definiše samo jednu putanju, 
 na kojoj se može zahtevati šema (eng. \textit{schema}), koja predstavlja strukturu koju klijent može zatražiti. 
 
@@ -1219,7 +1218,7 @@ Ovime, GraphQL izbegava problem prekomernog dohvatanja. Primer scheme za sliku m
 
 
 \begin{lstlisting}[language=GraphQLSchema,
-  caption={Deo sheme mikroservisa za slike},
+  caption={Deo scheme mikroservisa za slike},
   label={lst:gql-shema}]
 type Artwork {
     id: Int!
@@ -1236,7 +1235,7 @@ type Genre  { id: ID!   name: String! }
 
 Unutar scheme, definisana su sva polja koja server pruža za sliku. Klijent ima mogućnost da dohvati celokupnu schemu, 
 ili samo podskup tih polja. Unutar scheme, definišu se atributi, tj. ime atributa, njegov tip i da li je striktno 
-populisan ili ne (dkada atribut ne sme biti jednak eng. \textit{null}, definiše se sa uzvičnikom).
+populisan ili ne (kada atribut ne sme biti jednak eng. \textit{null}, definiše se sa uzvičnikom).
 
 \begin{lstlisting}[language=GraphQLSchema,
   caption={Jedan upit koji zamenjuje tri REST poziva},
@@ -1260,7 +1259,7 @@ GraphQL omogućava tri vrste operacija.
 \begin{itemize}
   \item Upiti (eng. \textbf{Query}) - operacija dohvatanja i može se izvršavati paralelno.
   \item Mutacije (eng. \textbf{Mutation}) - operacija koja podrazumeva promenu stanja koja će biti izvršena nad podacima.
-  \item Pretplate (eng. \textbf{Subscription}) - dugotrajna komunikacija servera sa klijentom, gde server u bilo kom trenutku može da se obrati klijentu dako postoji neki nov sadržaj.
+  \item Pretplate (eng. \textbf{Subscription}) - dugotrajna komunikacija servera sa klijentom, gde server u bilo kom trenutku može da se obrati klijentu ako postoji neki nov sadržaj.
 \end{itemize}
 
 \begin{lstlisting}[language=GraphQLSchema,
@@ -1312,8 +1311,8 @@ Standardno rešenje jeste obrazac
 \textit{DataLoader}, koji pozive prikuplja u okviru jednog ciklusa izvršavanja
 i  njih izvršava kao jedan grupni upit.
 
-Treba naglasiti da ovaj problem ne postoji samo u GraphQL - on se
-podjednako lako javlja i u REST implementaciji - ali ga GraphQL čini
+Treba naglasiti da ovaj problem ne postoji samo u GraphQL, on se
+podjednako lako javlja i u REST implementaciji, ali ga GraphQL čini
 verovatnijim, budući da je oblik upita odgovornost klijenta.
 
 
@@ -1325,7 +1324,7 @@ posrednici u mreži ne mogu razlikovati jedan upit od drugog, niti zaključiti d
 li je odgovor moguće ponovo upotrebiti. Keširanje se stoga pomera u sam
 klijent.
 
-Druga cena jeste potreba za ograničavanjem složenosti upita. Pošto klijent sam bira
+Druga cena jeste potreba za ograničenjem složenosti upita. Pošto klijent sam bira
 upit koji će uputiti ka serveru, taj upit može biti duboko komplikovan i da samo optereti server.
 Iz tog razloga, sistemi uvode ograničenje dubine.
 
@@ -1401,10 +1400,10 @@ pretvaranja u objekte, dok druga utiče na način na koji zahtevi putuju kroz mr
 \subsection{Protocol Buffers}
 
 Protocol Buffers (skraćeno \textit{protobuf}) predstavlja jezik za opis strukture poruka, kao i
-binarni format u koji se te poruke kodiraju \cite{protobuf}. Opis se piše u datoteci sa nastavkom
+binarni format u kom se te poruke kodiraju \cite{protobuf}. Opis se piše u datoteci sa nastavkom
 \texttt{.proto} i predstavlja dogovor kog su i klijent i server dužni da se pridržavaju. Iz tog 
 dogovora se generiše kod na oba jezika, Java na serveru, i TypeScript na klijentu, pri čemu je onda moguća implementacija 
-protokola. Deo opisa mikroservisa za slike moguće je videti u primeru
+protokola. Deo opisa mikroservisa za slike moguće je videti na primeru
 \ref{lst:grpc-proto}.
 
 \begin{lstlisting}[language=Protobuf,
@@ -1490,7 +1489,7 @@ protokola.
 
 \subsection{Nedostaci}
 
-Ugovor koji postoji između klijenta i servera iako donosi prednosti, donosi sa sobom i par mana:
+Dogovor koji postoji između klijenta i servera iako donosi prednosti, donosi sa sobom i par mana:
 
 
 \begin{itemize}
@@ -1576,11 +1575,11 @@ dohvatanja.
 GraphQL uklanja tu problematiku, tako što dozvoljava klijentu da definiše koje informacije o schemi su mu potrebne,
 i to što dozvoljava da se više zahteva spoji u jedan. Njegov nedostatak jeste keširanje zahteva, 
 kao i problem N + 1.
-Kod gRPC-a postoji stroži oblik ugovora, jer se iz ugovora gradi komunikacija između klijenta i servera.
+Kod gRPC-a postoji stroži oblik dogovora, jer se iz njega gradi komunikacija između klijenta i servera.
 Postoji dodatna brzina komunikacije, jer su poruke u binarnom zapisu. Nedostatak gRPC-a jeste upravo 
 novo generisanje koda svaki put kad se dogovor promeni, kao i nečitljivost binarnog zapisa. 
 
-Kao posledica iskustva dobijenog izrade ove aplikacije, nijedan od protokola komunikacije se nije pokazao 
+Kao posledica iskustva dobijenog izradom ove aplikacije, nijedan od protokola komunikacije se nije pokazao 
 kao najbolja opcija u svim slučajevima. REST kao najjednostavnija opcija kad je čitljivost odgovora 
 servera bitna, kao i keširanje zahteva. 
 GraphQL bi možda bio najbolja opcija za aplikaciju kao što je ova, velika količina podataka od servera u istom trenutku, 

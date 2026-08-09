@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.25)  9 AUG 2026 15:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.25)  9 AUG 2026 18:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1027,7 +1027,7 @@ File: ts1cmsrbr.fd
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 272.
-<slika-prikupljanje.pdf, id=298, 307.25389pt x 333.01614pt>
+<slika-prikupljanje.pdf, id=292, 307.25389pt x 333.01614pt>
 File: slika-prikupljanje.pdf Graphic file (type pdf)
 <use slika-prikupljanje.pdf>
 Package pdftex.def Info: slika-prikupljanje.pdf  used on input line 289.
@@ -1058,7 +1058,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 344--347
 [10
 
 ]
-<slika-server.pdf, id=474, 412.15782pt x 377.77538pt>
+<slika-server.pdf, id=468, 412.15782pt x 377.77538pt>
 File: slika-server.pdf Graphic file (type pdf)
 <use slika-server.pdf>
 Package pdftex.def Info: slika-server.pdf  used on input line 494.
@@ -1068,7 +1068,7 @@ Package pdftex.def Info: slika-server.pdf  used on input line 494.
 [11 <./slika-server.pdf>]
 
 [12]
-<slika-onion.pdf, id=534, 432.59116pt x 438.12885pt>
+<slika-onion.pdf, id=528, 432.59116pt x 438.12885pt>
 File: slika-onion.pdf Graphic file (type pdf)
 <use slika-onion.pdf>
 Package pdftex.def Info: slika-onion.pdf  used on input line 528.
@@ -1094,7 +1094,7 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 [20
 
 ]
-<slika-mvc.pdf, id=743, 327.17131pt x 133.69147pt>
+<slika-mvc.pdf, id=738, 327.17131pt x 133.69147pt>
 File: slika-mvc.pdf Graphic file (type pdf)
 <use slika-mvc.pdf>
 Package pdftex.def Info: slika-mvc.pdf  used on input line 786.
@@ -1114,12 +1114,12 @@ Package pdftex.def Info: slika-mvc.pdf  used on input line 786.
 [26]
 
 [27]
-<widget-prazan.png, id=917, 495.8525pt x 490.83376pt>
+<widget-prazan.png, id=913, 495.8525pt x 490.83376pt>
 File: widget-prazan.png Graphic file (type png)
 <use widget-prazan.png>
 Package pdftex.def Info: widget-prazan.png  used on input line 1057.
 (pdftex.def)             Requested size: 178.91922pt x 177.10445pt.
-<widget-pun.png, id=919, 495.8525pt x 490.83376pt>
+<widget-pun.png, id=915, 495.8525pt x 490.83376pt>
 File: widget-pun.png Graphic file (type png)
 <use widget-pun.png>
 Package pdftex.def Info: widget-pun.png  used on input line 1063.
@@ -1147,17 +1147,17 @@ Package pdftex.def Info: widget-pun.png  used on input line 1063.
 [36]
 
 [37]
-<slika-kodiranje.pdf, id=1113, 401.62146pt x 179.55782pt>
+<slika-kodiranje.pdf, id=1109, 401.62146pt x 179.55782pt>
 File: slika-kodiranje.pdf Graphic file (type pdf)
 <use slika-kodiranje.pdf>
-Package pdftex.def Info: slika-kodiranje.pdf  used on input line 1454.
+Package pdftex.def Info: slika-kodiranje.pdf  used on input line 1453.
 (pdftex.def)             Requested size: 426.0pt x 190.46736pt.
 
 
 [38]
 
 [39 <./slika-kodiranje.pdf>]
-Overfull \hbox (0.14131pt too wide) in paragraph at lines 1501--1503
+Overfull \hbox (0.14131pt too wide) in paragraph at lines 1500--1502
 []\T1/cmsrbr/b/n/12 Gubitak ke-²i-ra-nja na ni-vou pro-to-ko-la HTTP \T1/cmsrbr/m/n/12 - is-to kao i kod GraphQL-
  []
 
@@ -1207,16 +1207,16 @@ Package rerunfilecheck Info: File `rad.out' has not changed.
 Here is how much of TeX's memory you used:
  19881 strings out of 473190
  310319 string characters out of 5715800
- 1172644 words of memory out of 5000000
+ 1172635 words of memory out of 5000000
  42208 multiletter control sequences out of 15000+600000
  618605 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,12n,93p,881b,1347s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbri.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrx.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbti.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbtr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti0500.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on rad.pdf (51 pages, 1434498 bytes).
+Output written on rad.pdf (51 pages, 1434208 bytes).
 PDF statistics:
- 1483 PDF objects out of 1728 (max. 8388607)
- 1331 compressed objects within 14 object streams
+ 1480 PDF objects out of 1728 (max. 8388607)
+ 1328 compressed objects within 14 object streams
  644 named destinations out of 1000 (max. 500000)
  393 words of extra memory for PDF output out of 10000 (max. 10000000)
 

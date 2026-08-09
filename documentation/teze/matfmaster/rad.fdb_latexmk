@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex rad"] 1786277052.72582 "rad.aux" "rad.bbl" "rad" 1786281358.30184 0
+["bibtex rad"] 1786293901.19211 "rad.aux" "rad.bbl" "rad" 1786294493.18702 0
   "./literatura.bib" 1786276284.68267 7990 c382cc8b56536437253a24e25d1ff36b ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "rad.aux" 1786281357.98229 16971 a3b5f8db8e15696893bfd9aaf530d95e "pdflatex"
+  "rad.aux" 1786294492.91543 16973 6fd41a67d1a87832afcee2711214a9b9 "pdflatex"
   (generated)
   "rad.bbl"
   "rad.blg"
   (rewritten before read)
-["pdflatex"] 1786281356.926 "/Users/vukanantic/MasterRad/documentation/teze/matfmaster/rad.tex" "rad.pdf" "rad" 1786281358.30198 0
-  "/Users/vukanantic/MasterRad/documentation/teze/matfmaster/rad.tex" 1786281356.80987 77592 a5ebc74b10ca2fc6db53c6e762f6629e ""
+["pdflatex"] 1786294491.94018 "/Users/vukanantic/MasterRad/documentation/teze/matfmaster/rad.tex" "rad.pdf" "rad" 1786294493.18714 0
+  "/Users/vukanantic/MasterRad/documentation/teze/matfmaster/rad.tex" 1786294491.82915 77414 09ab15cd4cc0fe1a5009c727b6f6fb69 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cmsrb/cmsrbt1.enc" 1586730458 2157 57b150f99c9d61d6c444b4cace336027 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cmsrb/cmsrbts1.enc" 1586730458 2739 09dbe67a27d855e4d39579aa6d913f4e ""
@@ -186,11 +186,11 @@
   "matf.png" 1785432297.26795 14187 d8d28db9d68fb2035923f357a7321cea ""
   "matfmaster.sty" 1785432297.26911 18709 59e2571040fd696fa1519027eab40aa6 ""
   "pangrami.sty" 1785432297.26919 7917 226f168b938502b0f657e03cd5648468 ""
-  "rad.aux" 1786281357.98229 16971 a3b5f8db8e15696893bfd9aaf530d95e "pdflatex"
-  "rad.bbl" 1786277052.80545 3957 4e60331f8e46e1770273d35922de1ed9 "bibtex rad"
-  "rad.out" 1786281357.98384 6277 8e4d5b927d911fbfe5d689e65b1f4738 "pdflatex"
-  "rad.tex" 1786281356.80987 77592 a5ebc74b10ca2fc6db53c6e762f6629e ""
-  "rad.toc" 1786281357.98415 3679 2b7bff94ef741dad64f6e64b760ba7d1 "pdflatex"
+  "rad.aux" 1786294492.91543 16973 6fd41a67d1a87832afcee2711214a9b9 "pdflatex"
+  "rad.bbl" 1786293901.26568 3957 4e60331f8e46e1770273d35922de1ed9 "bibtex rad"
+  "rad.out" 1786294492.91686 6277 8e4d5b927d911fbfe5d689e65b1f4738 "pdflatex"
+  "rad.tex" 1786294491.82915 77414 09ab15cd4cc0fe1a5009c727b6f6fb69 ""
+  "rad.toc" 1786294492.9171 3679 2b7bff94ef741dad64f6e64b760ba7d1 "pdflatex"
   "serbianc.ldf" 1785432297.26939 5627 18f3f4a01f45633a2320510814a200ac ""
   "slika-kodiranje.pdf" 1786040214.75186 109174 0c0309cf468c7b5e7f559a441cc70599 ""
   "slika-kodiranje.tex" 1786040214.30559 1919 960983055cadefd3b03d39cb9716acfa ""
