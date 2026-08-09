@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.25)  9 AUG 2026 13:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.2.25)  9 AUG 2026 15:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -982,7 +982,7 @@ LaTeX Font Warning: Font shape `T1/fos/b/n' undefined
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 207--207
+Underfull \hbox (badness 10000) in paragraph at lines 209--209
 
  []
 
@@ -1114,12 +1114,12 @@ Package pdftex.def Info: slika-mvc.pdf  used on input line 786.
 [26]
 
 [27]
-<widget-prazan.png, id=918, 495.8525pt x 490.83376pt>
+<widget-prazan.png, id=917, 495.8525pt x 490.83376pt>
 File: widget-prazan.png Graphic file (type png)
 <use widget-prazan.png>
 Package pdftex.def Info: widget-prazan.png  used on input line 1057.
 (pdftex.def)             Requested size: 178.91922pt x 177.10445pt.
-<widget-pun.png, id=920, 495.8525pt x 490.83376pt>
+<widget-pun.png, id=919, 495.8525pt x 490.83376pt>
 File: widget-pun.png Graphic file (type png)
 <use widget-pun.png>
 Package pdftex.def Info: widget-pun.png  used on input line 1063.
@@ -1157,6 +1157,11 @@ Package pdftex.def Info: slika-kodiranje.pdf  used on input line 1454.
 [38]
 
 [39 <./slika-kodiranje.pdf>]
+Overfull \hbox (0.14131pt too wide) in paragraph at lines 1501--1503
+[]\T1/cmsrbr/b/n/12 Gubitak ke-²i-ra-nja na ni-vou pro-to-ko-la HTTP \T1/cmsrbr/m/n/12 - is-to kao i kod GraphQL-
+ []
+
+
 
 [40]
 
@@ -1169,14 +1174,17 @@ Package pdftex.def Info: slika-kodiranje.pdf  used on input line 1454.
 [43]
 bibitemlist
 
+Underfull \hbox (badness 1210) in paragraph at lines 10--13
+[]\T1/cmsrbr/m/n/12 gRPC Aut-hors.  gRPC Do-cu-men-ta-ti-on: Co-re Con-cepts, Arc-hi-tec-tu-re
+ []
+
+
 
 [44
 
-]
+])
 
-[45])
-
-[46]
+[45]
 \tf@toc=\write5
 \openout5 = `rad.toc'.
 
@@ -1194,21 +1202,21 @@ LaTeX Font Warning: Size substitutions with differences
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `rad.out' has not changed.
-(rerunfilecheck)             Checksum: 2AA5C08895A00BD658C7F6869DBB7AFB;6432.
+(rerunfilecheck)             Checksum: 8E4D5B927D911FBFE5D689E65B1F4738;6277.
  ) 
 Here is how much of TeX's memory you used:
- 19882 strings out of 473190
- 310326 string characters out of 5715800
- 1172694 words of memory out of 5000000
+ 19881 strings out of 473190
+ 310319 string characters out of 5715800
+ 1172644 words of memory out of 5000000
  42208 multiletter control sequences out of 15000+600000
  618605 words of font info for 94 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,12n,93p,881b,1347s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbri.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbrx.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbti.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cmsrb/cmsrbtr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti0500.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on rad.pdf (52 pages, 1435608 bytes).
+Output written on rad.pdf (51 pages, 1434498 bytes).
 PDF statistics:
- 1486 PDF objects out of 1728 (max. 8388607)
- 1333 compressed objects within 14 object streams
- 645 named destinations out of 1000 (max. 500000)
+ 1483 PDF objects out of 1728 (max. 8388607)
+ 1331 compressed objects within 14 object streams
+ 644 named destinations out of 1000 (max. 500000)
  393 words of extra memory for PDF output out of 10000 (max. 10000000)
 

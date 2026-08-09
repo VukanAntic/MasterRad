@@ -24,7 +24,7 @@
 \contentsline {section}{\numberline {4.3}Namera}{23}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Repozitorijum}{24}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Rukovalac komandama}{25}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Pomoćni prikaz na početnom ekranu}{27}{section.4.6}%
+\contentsline {section}{\numberline {4.6}Viđet}{27}{section.4.6}%
 \contentsline {chapter}{\chapternumberline {5}Protokoli komunikacije}{29}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Računanje vremena utrošenog na čekanje}{29}{section.5.1}%
 \contentsline {section}{\numberline {5.2}REST}{30}{section.5.2}%

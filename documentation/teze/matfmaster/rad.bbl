@@ -8,15 +8,13 @@ Roy~Thomas Fielding.
 
 \bibitem{grpc-docs}
 {gRPC Authors}.
-\newblock {gRPC Documentation: Core Concepts, Architecture and Lifecycle}.
-\newblock \url{https://grpc.io/docs/what-is-grpc/core-concepts/}, 2024.
-\newblock Pristupljeno: 1. avgusta 2026.
+\newblock {gRPC Documentation: Core Concepts, Architecture and Lifecycle}, 2024.
+\newblock on-line at: \url{https://grpc.io/docs/what-is-grpc/core-concepts/}.
 
 \bibitem{graphql-spec}
 {GraphQL Foundation}.
-\newblock {GraphQL Specification}.
-\newblock \url{https://spec.graphql.org/}, 2021.
-\newblock Pristupljeno: 1. avgusta 2026.
+\newblock {GraphQL Specification}, 2021.
+\newblock on-line at: \url{https://spec.graphql.org/}.
 
 \bibitem{newman2021}
 Sam Newman.
@@ -25,9 +23,8 @@ Sam Newman.
 
 \bibitem{palermo2008}
 Jeffrey Palermo.
-\newblock {The Onion Architecture: Part 1}.
-\newblock \url{https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/}, 2008.
-\newblock Pristupljeno: 1. avgusta 2026.
+\newblock {The Onion Architecture: Part 1}, 2008.
+\newblock on-line at: \url{https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/}.
 
 \bibitem{martin2017}
 Robert~C. Martin.
@@ -36,27 +33,23 @@ Robert~C. Martin.
 
 \bibitem{fowler-mvc}
 Martin Fowler.
-\newblock {Model View Controller}.
-\newblock \url{https://martinfowler.com/eaaCatalog/modelViewController.html}, 2002.
-\newblock Pristupljeno: 1. avgusta 2026.
+\newblock {Model View Controller}, 2002.
+\newblock on-line at: \url{https://martinfowler.com/eaaCatalog/modelViewController.html}.
 
 \bibitem{artic-api}
 {The Art Institute of Chicago}.
-\newblock {Art Institute of Chicago API}.
-\newblock \url{https://api.artic.edu/docs/}, 2025.
-\newblock Pristupljeno: 15. marta 2025.
+\newblock {Art Institute of Chicago API}, 2025.
+\newblock on-line at: \url{https://api.artic.edu/docs/}.
 
 \bibitem{spring-boot}
 {VMware Tanzu}.
-\newblock {Spring Boot Reference Documentation}.
-\newblock \url{https://docs.spring.io/spring-boot/index.html}, 2025.
-\newblock Pristupljeno: 2. avgusta 2026.
+\newblock {Spring Boot Reference Documentation}, 2025.
+\newblock on-line at: \url{https://docs.spring.io/spring-boot/index.html}.
 
 \bibitem{hibernate}
 {Red Hat}.
-\newblock {Hibernate ORM User Guide}.
-\newblock \url{https://hibernate.org/orm/documentation/}, 2025.
-\newblock Pristupljeno: 2. avgusta 2026.
+\newblock {Hibernate ORM User Guide}, 2025.
+\newblock on-line at: \url{https://hibernate.org/orm/documentation/}.
 
 \bibitem{bauer2015}
 Christian Bauer, Gavin King, and Gary Gregory.
@@ -65,39 +58,33 @@ Christian Bauer, Gavin King, and Gary Gregory.
 
 \bibitem{rabbitmq}
 {Broadcom}.
-\newblock {RabbitMQ Documentation}.
-\newblock \url{https://www.rabbitmq.com/docs}, 2025.
-\newblock Pristupljeno: 2. avgusta 2026.
+\newblock {RabbitMQ Documentation}, 2025.
+\newblock on-line at: \url{https://www.rabbitmq.com/docs}.
 
 \bibitem{amqp}
 {OASIS}.
-\newblock {AMQP: Advanced Message Queuing Protocol Specification, Version 0-9-1}.
-\newblock \url{https://www.amqp.org/specification/0-9-1/amqp-org-download}, 2008.
-\newblock Pristupljeno: 2. avgusta 2026.
+\newblock {AMQP: Advanced Message Queuing Protocol Specification, Version 0-9-1}, 2008.
+\newblock on-line at: \url{https://www.amqp.org/specification/0-9-1/amqp-org-download}.
 
 \bibitem{reactnative}
 {Meta Platforms}.
-\newblock {React Native Documentation}.
-\newblock \url{https://reactnative.dev/docs/getting-started}, 2025.
-\newblock Pristupljeno: 2. avgusta 2026.
+\newblock {React Native Documentation}, 2025.
+\newblock on-line at: \url{https://reactnative.dev/docs/getting-started}.
 
 \bibitem{expo}
 {Expo}.
-\newblock {Expo Documentation}.
-\newblock \url{https://docs.expo.dev/}, 2025.
-\newblock Pristupljeno: 2. avgusta 2026.
+\newblock {Expo Documentation}, 2025.
+\newblock on-line at: \url{https://docs.expo.dev/}.
 
 \bibitem{typescript}
 {Microsoft}.
-\newblock {TypeScript Documentation}.
-\newblock \url{https://www.typescriptlang.org/docs/}, 2025.
-\newblock Pristupljeno: 2. avgusta 2026.
+\newblock {TypeScript Documentation}, 2025.
+\newblock on-line at: \url{https://www.typescriptlang.org/docs/}.
 
 \bibitem{react}
 {Meta Platforms}.
-\newblock {React Documentation}.
-\newblock \url{https://react.dev/}, 2025.
-\newblock Pristupljeno: 2. avgusta 2026.
+\newblock {React Documentation}, 2025.
+\newblock on-line at: \url{https://react.dev/}.
 
 \bibitem{fowler2002}
 Martin Fowler.
@@ -111,26 +98,23 @@ Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides.
 
 \bibitem{widgetkit}
 {Apple Inc.}
-\newblock {WidgetKit Documentation}.
-\newblock \url{https://developer.apple.com/documentation/widgetkit}, 2025.
-\newblock Pristupljeno: 6. avgusta 2026.
+\newblock {WidgetKit Documentation}, 2025.
+\newblock on-line at: \url{https://developer.apple.com/documentation/widgetkit}.
 
 \bibitem{swift}
 {Apple Inc.}
-\newblock {The Swift Programming Language}.
-\newblock \url{https://docs.swift.org/swift-book/}, 2025.
-\newblock Pristupljeno: 6. avgusta 2026.
+\newblock {The Swift Programming Language}, 2025.
+\newblock on-line at: \url{https://docs.swift.org/swift-book/}.
 
 \bibitem{protobuf}
 {Google}.
-\newblock {Protocol Buffers Documentation: Encoding}.
-\newblock \url{https://protobuf.dev/programming-guides/encoding/}, 2024.
-\newblock Pristupljeno: 1. avgusta 2026.
+\newblock {Protocol Buffers Documentation: Encoding}, 2024.
+\newblock on-line at: \url{https://protobuf.dev/programming-guides/encoding/}.
 
 \bibitem{rfc9113}
 Martin Thomson and Cory Benfield.
-\newblock {RFC 9113: HTTP/2}.
-\newblock \url{https://www.rfc-editor.org/rfc/rfc9113.html}, 2022.
+\newblock {RFC 9113: HTTP/2}, 2022.
+\newblock on-line at: \url{https://www.rfc-editor.org/rfc/rfc9113.html}.
 
 \bibitem{indrasiri2020}
 Kasun Indrasiri and Danesh Kuruppu.
