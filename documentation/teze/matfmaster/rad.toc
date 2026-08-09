@@ -1,7 +1,7 @@
 \changetocdepth {2}
 \babel@toc {serbian}{}\relax 
 \contentsline {chapter}{\chapternumberline {1}Uvod}{1}{chapter.1}%
-\contentsline {chapter}{\chapternumberline {2}Prikupljivanje podataka}{3}{chapter.2}%
+\contentsline {chapter}{\chapternumberline {2}Prikupljanje podataka}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Obrada podataka}{4}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Filtriranje}{5}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}Provera ispravnosti slike}{6}{subsection.2.1.2}%
@@ -23,7 +23,7 @@
 \contentsline {subsection}{\numberline {4.2.3}Kontroler}{22}{subsection.4.2.3}%
 \contentsline {section}{\numberline {4.3}Namera}{23}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Repozitorijum}{24}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Rukovaoci komandama}{25}{section.4.5}%
+\contentsline {section}{\numberline {4.5}Rukovalac komandama}{25}{section.4.5}%
 \contentsline {section}{\numberline {4.6}Pomoćni prikaz na početnom ekranu}{27}{section.4.6}%
 \contentsline {chapter}{\chapternumberline {5}Protokoli komunikacije}{29}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Računanje vremena utrošenog na čekanje}{29}{section.5.1}%
