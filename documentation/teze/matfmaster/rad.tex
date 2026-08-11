@@ -202,7 +202,7 @@ je kao softver otvorenog koda.
 % Strana sa podacima o mentoru i članovima komisije
 \komisija
 % Strana sa posvetom (u odabranom pismu)
-\posveta{Овај рад посвећујем свом оцу, мајци, брату, пријатељима и колегама. др. Владимиру Филиповићу се захваљујем
+\posveta{Овај рад посвећујем свом оцу, мајци, брату, пријатељима и колегама. Ментору и члановима комисије се захваљујем
  на стрпљењу као и саветима у току израдe овог рада. Посебну захвалност дугујем партнеру Душици, на свој љубави пруженој
   у току студија.}
 % Strana sa podacima o disertaciji na srpskom jeziku
@@ -238,7 +238,7 @@ fleksibilniji kao i skalabilniji. Zato su u toku izrade naredne aplikacije sva 3
  \begin{itemize}
 \item Prikupljanje podataka - U glavi \ref{ch:podaci} predstavljen je detaljan opis odakle je aplikacija dobila podatke za prikaz u okviru same aplikacije.
 \item Izrada servera zasnovanog na mikroservisnoj arhitekturi \cite{newman2021} - U glavi 3 predstavljena je implementacija servera, koja je zasnovana na mikroservisnoj arhitekturi, dok je svaki od mikroservisa pratio (eng. \textit{Onion}) arhitekturu \cite{palermo2008, martin2017}, koja je pomogla da se lako dodaje podrška za sve protokole komunikacije. 
-\item Izrada klijenta zasnovanog na MVC arhitekturi \cite{fowler-mvc} - U glavi 4 prikazano je kako je implementiran klijentski deo koda koji prati MVC arhitekturu i dodatne funkcionalnosti koje klijent podržava kao što je viđet (eng. \textit{widget}).
+\item Izrada klijenta zasnovanog na MVC arhitekturi \cite{fowler-mvc} - U glavi 4 prikazano je kako je implementiran klijentski deo koda koji prati MVC arhitekturu i dodatne funkcionalnosti koje klijent podržava kao što je vidžet (eng. \textit{widget}).
 \item Dodavanje gRPC i GraphQL - Glava 5 predstavlja prikaz svih gore navedenih protokola komunikacije, kao i poređenja.
 \end{itemize}
 
@@ -467,8 +467,8 @@ i dodati u liste, u toku jedne izmene (eng. \textit{commit}), podaci su dodati u
 \end{lstlisting}
 
 \chapter{Serverska strana}
-Serverska strana realizovana je u tehnologiji (eng. \textit{Spring Boot}) kao skup od četiri međusobno 
-nezavisna mikroservisa. Svaki od mikroservisa u sebi je implementiran preko (eng. \textit{Onion}) arhitekture.
+Serverska strana realizovana je u tehnologiji Spring But (eng. \textit{Spring Boot}) kao skup od četiri međusobno 
+nezavisna mikroservisa. Svaki od mikroservisa u sebi je implementiran preko arhitekture slojeva luka (eng. \textit{Onion architecture}).
 Mikroservisi su međusobno povezani preko brokera poruka (eng. \textit{broker software})
 po imenu (eng. \textit{RabbitMQ}). U narednoj glavi biće prikazano kako su organizovani svi mikroservisi, 
 kako izgleda svaki pojedinačan mikroservis, kako komuniciraju i kako arhitektura olakšava dodavanje 
@@ -478,8 +478,8 @@ više protokola komunikacije da budu implementirani unutar istog mikroservisa, s
 
 Čitav server razvijen je u programskom jeziku Java, uz radni okvir (eng. \textit{framework}) \textit{Spring Boot} \cite{spring-boot}.
 Spring Boot je nadogradnja nad radnim okvirom \textit{Spring}, uz motivaciju da ubrza razvoj, smanji konfiguraciju i 
-ubrza puštanja u produkciju (eng. \textit{deployment}). Pored toga, Spring Boot podržava svaki od protokola komunikacije 
-koje ovaj rad opisuje. Zbog toga, server je izrađen u njemu. 
+ubrza isporuku (eng. \textit{deployment}). Pored toga, Spring Boot podržava svaki od protokola komunikacije 
+koje ovaj rad opisuje. 
 
 \section{Podela mikroservisa}
 
@@ -507,7 +507,7 @@ Kao što se vidi, serverska strana je podeljena na četiri mikroservisa:
 
 Svaki servis koristi alat (eng. \textit{Maven}) koji služi za izgradnju, nad razvojnim kompletom Java 21. 
 
-\section{Onion arhitektura unutar servisa}
+\section{Arhitektura slojeva luka unutar servisa}
 
 Kod unutar svakog od mikroservisa je organizovan prema (eng. \textit{Onion}) arhitekturi. Osnovni koncept te arhitekture 
 je da se \textbf{zavisnosti pokazuju samo ka unutra}. Svaki spoljašnji sloj zna, i može da koristi unutrašnje slojeve,
@@ -515,7 +515,7 @@ dok unutrašnji slojevi ne mogu pristupiti spoljašnjim slojevima.
 
 Na slici \ref{fig:onion} se može videti kako izgleda arhitektura svakog mikroservisa. Svaki od slojeva gleda ka unutra, i upravo
 iz tih razloga je dodavanje više protokola komunikacije bilo olakšano. Zbog nje, svaki novi dodati protokol komunikacije
-će koristiti slojeve unutra, i tako će REST, gRPC, i GraphQL iako imaju različite načine za predstavljanje programskog interfejsa,
+će koristiti unutrašnje slojeve, i tako će REST, gRPC, i GraphQL iako imaju različite načine za predstavljanje programskog interfejsa,
 imati identičnu logiku koja se odigrava.
 
 U jezgru se nalaze domenski modeli, objekti za prenos podataka i interfejsi
@@ -600,7 +600,7 @@ entiteta iz jezgra kreira objekte za prenos, koji kasniji slojevi mogu da korist
 Na primeru \ref{lst:servisSredjenjegSloja} može se videti logika 
 servisa. Njegova poslovna logika zahteva da dohvata entitete, i transformiše ih u objekte za prenos. 
 Zbog prirode projekta, ovaj servis ne zahteva kompleksniju logiku, dok na primer, servis koji se bavi izborom sledeće 
-slike, čiji isečak vidimo u \ref{lst:izborNoveSlike}, mora da radi kompleksnije algoritme. 
+slike, čiji je isečak dat u \ref{lst:izborNoveSlike}, mora da radi kompleksnije algoritme. 
 \lstset{
   language=Java,
   label={lst:servisSredjenjegSloja},
@@ -671,11 +671,11 @@ public long selectNextArtworkId(String username, Set<Long> seenArtworkIds) {
     }
 \end{lstlisting}
 
-Ovaj sloj nema kontekst oko protokola komunikacije koji se koristi, i upravo iz tog razloga, moguće je pozivati 
+Srednji sloj nema kontekst oko protokola komunikacije koji se koristi, i upravo iz tog razloga, moguće je pozivati 
 servis, i dohvatanje istih podataka, bez obzira na izbor protokola. 
 
 \subsection{Spoljašnji sloj: adapteri protokola}
-Spoljašnji sloj podrazumevaju klase koje rade direktnu komunikaciju sa srednjim slojem. One komuniciraju sa servisom, 
+Spoljašnji sloj obuhvata klase koje realizuju direktnu komunikaciju sa srednjim slojem. One komuniciraju sa servisom, 
 dohvataju podatke na koje je servis već primenio poslovnu logiku, i samo prosleđuju klijentu. U aplikaciji, primer 
 takve klase podrazumevaju kontroleri (eng. \textit{controller}). On definiše koji protokol komunikacije podržava.
 Na primeru \ref{lst:controller} može se videti kontroler koji je zadužen za REST.  
@@ -711,8 +711,8 @@ Ovo je primer jednog protokola komunikacije koji je podržan, ali u Glavi 5, bi�
 
 \section{Asihrona komunikacija}
 Do sada sva komunikacija koja je pomenuta bila je \emph{sinhrone prirode}, tj. pozivalac šalje zahtev i čeka odgovor. 
-Tek kada mu stigne odgovor on nastavi dalje sa izvršavanjem, ali, ako bismo hteli komunikaciju između više mikroservisa, 
-a da jedan mikroservis ne zna na koga sve utiče, potrebna nam je \emph{asinhrona komunikacija}. Pošiljalac ne šalje 
+Tek kada pozivaocu stigne odgovor on nastavi dalje sa izvršavanjem, ali, ako je potrebno obezbediti komunikaciju između više mikroservisa, 
+a da jedan mikroservis ne zna na koga sve utiče, neophodna je \emph{asinhrona komunikacija}. Pošiljalac ne šalje 
 poruku primaocu, već je šalje posredniku, i odmah nastavlja dalje sa svojim poslom. Posrednik čuva poruku, sve dok 
 primalac nije spreman da je preuzme i da reaguje na tu poruku. Pošiljalac nema informaciju o tome ko sluša i reaguje 
 na poruke, pa je ovakav način komunikacije prikladan za obaveštenje o događajima na koje verovatno bi neki drugi 
@@ -755,7 +755,7 @@ entitet za tog korisnika.
 \chapter{Klijentska aplikacija}
 Klijent je realizovan u tehnologiji (eng. \textit{React Native}) \cite{reactnative} uz radni okvir (eng. \textit{Expo}) \cite{expo}. Svaka od komponenti klijenta 
 je implementirana po model-prikaz-kontroler (eng. \textit{Model-View-Controller}) arhitekturi \cite{fowler-mvc}. U narednoj glavi biće prikazano kako su izgrađene komponente kao i 
-dizajn obrazac (eng. \textit{design pattern}) kad je u pitanju komunikacija sa serverom preko 
+obrazac dizajna (eng. \textit{design pattern}) kad je u pitanju komunikacija sa serverom preko 
 različitih protokola komunikacije.
 
 \section{React Native}
@@ -993,26 +993,26 @@ Tako, svaki od podržanih protokola komunikacije definiše interfejs po svom na�
 pozive ka serveru sa strane kontrolera. Ne mora kontroler da bira koji će protokol komunikacije da koristi, već 
 \textit{Command Handler}.
 
-\section{Viđet}
+\section{Vidžet}
 
-Za IOS uređaje takođe je implementiran i viđet (eng. \textit{widget}) \cite{widgetkit} 
+Za IOS uređaje takođe je implementiran i vidžet (eng. \textit{widget}) \cite{widgetkit} 
 koji se može dodati na početnom ekranu uređaja. On pokazuje sliku koju je korisnik dobio tog dana, 
 zajedno sa imenom autora kao i imenom slike u pitanju.
 
-Kad je implementacija viđeta u pitanju, bitna je napomena da on \textit{nije deo aplikacije},
+Kad je implementacija vidžeta u pitanju, bitna je napomena da on \textit{nije deo aplikacije},
 već na neki način, predstavlja zasebnu aplikaciju, sa kojom razvijena aplikacija u okviru ovog rada može da komunicira. 
 Njegova logika je programirana u programskom jeziku Swift \cite{swift}, i nema mogućnost da pozove 
-metode napisane u TypeScript jeziku. Komunikacija između glavne aplikacije i viđeta je preko deljenog prostora 
+metode napisane u TypeScript jeziku. Komunikacija između glavne aplikacije i vidžeta je preko deljenog prostora 
 (engl. \textit{App Group}).
 
 
 Aplikacija preuzme sliku koju treba prikazati korisniku tog dana, sačuva je u zajednički prostor, zajedno 
-sa informacijama ko je bio autor, naziv slike, i za koji datum je slika namenjena, i onda viđet može 
+sa informacijama ko je bio autor, naziv slike, i za koji datum je slika namenjena, i onda vidžet može 
 da prikaže najnoviju sliku korisniku.
 
 
 \begin{lstlisting}[language=JavaScript,
-  caption={Slanje informacije o najnovijoj slici viđetu},
+  caption={Slanje informacije o najnovijoj slici vidžetu},
   label={lst:widget}]
 await this.timed('PublishLatestToWidget', async () => {
     const history = await this.historyRepository.get() ?? [];
@@ -1035,7 +1035,7 @@ await this.timed('PublishLatestToWidget', async () => {
 
 
 
-Sam viđet ima dva stanja. Kada je slika namenjena za trenutni dan, ona je prikazana. Kada nije,
+Sam vidžet ima dva stanja. Kada je slika namenjena za trenutni dan, ona je prikazana. Kada nije,
 prelazi na prikaz koji obaveštava korisnika da postoji nova slika spremna za njega. Odluku
 donosi jedno poređenje datuma:
 
@@ -1063,7 +1063,7 @@ Ta stanja moguće je videti ispod na slici \ref{fig:widget}.
     \includegraphics[width=\textwidth]{widget-pun.png}
     \\[2mm]\small (b) slika za danas je spremna
   \end{minipage}
-  \caption{Dva stanja viđeta na početnom ekranu}
+  \caption{Dva stanja vidžeta na početnom ekranu}
   \label{fig:widget}
 \end{figure}
 

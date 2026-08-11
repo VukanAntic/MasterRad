@@ -10,7 +10,7 @@
 \contentsline {chapter}{\chapternumberline {3}Serverska strana}{10}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Spring Boot}{10}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Podela mikroservisa}{10}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Onion arhitektura unutar servisa}{12}{section.3.3}%
+\contentsline {section}{\numberline {3.3}Arhitektura slojeva luka unutar servisa}{12}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Jezgro: entiteti i objekti za prenos}{14}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Srednji sloj: poslovna logika}{15}{subsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.3.3}Spoljašnji sloj: adapteri protokola}{17}{subsection.3.3.3}%
@@ -24,7 +24,7 @@
 \contentsline {section}{\numberline {4.3}Namera}{23}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Repozitorijum}{24}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Rukovalac komandama}{25}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Viđet}{27}{section.4.6}%
+\contentsline {section}{\numberline {4.6}Vidžet}{27}{section.4.6}%
 \contentsline {chapter}{\chapternumberline {5}Protokoli komunikacije}{29}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Računanje vremena utrošenog na čekanje}{29}{section.5.1}%
 \contentsline {section}{\numberline {5.2}REST}{30}{section.5.2}%
